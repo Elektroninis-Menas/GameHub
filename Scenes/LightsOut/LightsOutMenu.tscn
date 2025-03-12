@@ -47,7 +47,7 @@ offset_left = 900.0
 offset_top = 500.0
 offset_right = 1100.0
 offset_bottom = 600.0
-text = "Rules"
+text = "Rules!"
 
 [node name="MenuPanel" type="PopupPanel" parent="."]
 title = "Rules"
