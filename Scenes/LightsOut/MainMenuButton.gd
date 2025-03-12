@@ -1,9 +1,12 @@
 extends Button
 
 @export_file("*.tscn") var game_scene: String
-@onready var menu_panel = $MenuPanel # MenuPanel is a sibling of the button
-
 var scene: PackedScene
+@onready var rules_menu: PopupPanel = $"../RulesMenu"
+@onready var rules_text: RichTextLabel = $"../RulesMenu/RulesText"
+@onready var label: Label = $"../Label"
+
+var can_toggle: bool = true
 
 func _ready() -> void:
 	if game_scene.is_empty():
@@ -19,10 +22,12 @@ func _on_pressed() -> void:
 		if error != OK:
 			printerr(error)
 
-# Function for toggling the visibility of the MenuPanel PopupPanel
-func _on_rules_button_pressed() -> void:
-	if menu_panel.visible:
-		menu_panel.hide()  # Hide the panel if it's currently visible
-	else:
-		menu_panel.popup_centered()
-	  # Show the panel, centered on the screen
+func _on_rules_button_button_down() -> void:
+	if can_toggle:
+		rules_menu.visible = !rules_menu.visible
+		can_toggle = false
+		get_tree().create_timer(0.5).timeout.connect(func(): can_toggle = true)
+
+func _on_rules_menu_visibility_changed() -> void:
+	rules_text.visible = !rules_text.visible
+	label.visible = !label.visible
