@@ -23,6 +23,28 @@ offset_right = 1150.0
 offset_bottom = 650.0
 color = Color(0.25098, 0.407843, 0.717647, 1)
 
+[node name="Easy" type="Button" parent="ColorRect"]
+offset_left = 165.0
+offset_top = 202.0
+offset_right = 332.0
+offset_bottom = 303.0
+text = "Easy"
+
+[node name="Medium" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 202.0
+offset_right = 651.0
+offset_bottom = 303.0
+text = "Medium"
+
+[node name="Difficult" type="Button" parent="ColorRect"]
+offset_left = 795.0
+offset_top = 201.0
+offset_right = 962.0
+offset_bottom = 302.0
+text = "Hard"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 250.0
