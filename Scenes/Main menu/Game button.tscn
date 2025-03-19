@@ -35,7 +35,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_qnarc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0hof2")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3gl0s")
 theme_override_styles/normal = SubResource("StyleBoxFlat_cu2tm")
-text = "Game 1"
+text = "GO!"
 script = ExtResource("1_qnarc")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
