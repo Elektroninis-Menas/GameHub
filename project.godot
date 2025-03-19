@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Global="*res://AutoLoads/Global.gd"
 MusicManager="*res://AutoLoads/MusicManager.gd"
 
+[dotnet]
+
+project/assembly_name="GameHub"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
