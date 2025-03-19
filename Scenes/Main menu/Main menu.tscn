@@ -44,7 +44,8 @@ game_scene = "uid://v6u12tydg26f"
 
 [node name="Button 3" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_cu2tm")]
 layout_mode = 2
-text = "Game 3"
+text = "Guessing Game"
+game_scene = "uid://c2i0owtx01e8i"
 
 [node name="Button 4" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_cu2tm")]
 layout_mode = 2
