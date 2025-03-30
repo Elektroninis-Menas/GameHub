@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://cipgk5y6or35c"]
+
+[ext_resource type="PackedScene" uid="uid://cqttxi4576f83" path="res://Scenes/Main menu/Game button.tscn" id="1_ex6ii"]
+
+[node name="Menu" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21758, 0.00456799, 0.153078, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Tetris"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Play" parent="VBoxContainer/VBoxContainer" instance=ExtResource("1_ex6ii")]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "Play"
+game_scene = "uid://cfhypddxwshel"
+
+[node name="MainMenu" parent="VBoxContainer/VBoxContainer" instance=ExtResource("1_ex6ii")]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "Main menu
+"
+game_scene = "uid://6vcfcvr2ovo4"
