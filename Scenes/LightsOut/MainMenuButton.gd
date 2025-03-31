@@ -5,6 +5,9 @@ var scene: PackedScene
 @onready var rules_menu: PopupPanel = $"../RulesMenu"
 @onready var rules_text: RichTextLabel = $"../RulesMenu/RulesText"
 @onready var label: Label = $"../Label"
+@onready var easy: Button = $"../ColorRect/Easy"
+@onready var medium: Button = $"../ColorRect/Medium"
+@onready var difficult: Button = $"../ColorRect/Difficult"
 
 var can_toggle: bool = true
 
@@ -31,3 +34,6 @@ func _on_rules_button_button_down() -> void:
 func _on_rules_menu_visibility_changed() -> void:
 	rules_text.visible = !rules_text.visible
 	label.visible = !label.visible
+	easy.visible = !easy.visible
+	medium.visible = !medium.visible
+	difficult.visible = !difficult.visible
