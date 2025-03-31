@@ -1,0 +1,225 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds44gk0pio3tw"]
+
+[ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://GridTheme.tres" id="1_p2gs0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -323.0
+offset_right = 576.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.67451, 0.631373, 0.92549, 1)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -133.0
+offset_right = 258.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="LineEdit" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit2" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit3" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit4" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit5" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit6" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit7" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit8" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit9" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit10" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit11" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit12" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit13" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit14" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit15" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit16" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit17" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit18" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit19" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit20" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit21" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit22" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit23" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit24" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="LineEdit25" type="LineEdit" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_p2gs0")
+alignment = 1
+max_length = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 75.0
+offset_right = 734.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 40
+text = "Guess the word!"
