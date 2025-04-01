@@ -3,9 +3,15 @@ extends Control
 var grid_size = GameDifficulty.difficulty
 @export var cell_size := 64
 @export var cell_spacing := 4
+var rng = RandomNumberGenerator.new()
+
+# Predefined colors
+const COLOR_RED = Color("#ff5555")
+const COLOR_GREEN = Color("#55ff55")
+const COLOR_DARK = Color("#333333")
 
 func _ready():
-	# Configure root Control to fill the screen
+	rng.randomize()
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	create_centered_grid()
 
@@ -26,12 +32,7 @@ func create_centered_grid():
 	# Set grid container size
 	grid.custom_minimum_size = Vector2(total_width, total_height)
 	
-	# Center the grid - METHOD 1 (Recommended)
-	grid.anchors_preset = Control.PRESET_CENTER
-	grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	grid.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	
-	# Alternative METHOD 2 (Manual positioning)
+	# Center the grid (using manual positioning)
 	var viewport_size = get_viewport_rect().size
 	grid.position = (viewport_size - Vector2(total_width, total_height)) * 0.5
 	
@@ -41,19 +42,57 @@ func create_centered_grid():
 	
 	add_child(grid)
 	
-	# Create buttons
+	# Create styled buttons
+	var red_style = create_button_style(COLOR_RED)
+	var green_style = create_button_style(COLOR_GREEN)
+	
+	# Create cells with random colors
 	for i in grid_size * grid_size:
 		var button = Button.new()
 		button.custom_minimum_size = Vector2(cell_size, cell_size)
 		button.toggle_mode = true
-		button.pressed.connect(_on_button_pressed.bind(i))
+		
+		# Set random initial color (50/50 chance)
+		if rng.randf() < 0.5:
+			button.add_theme_stylebox_override("normal", red_style)
+			button.set_meta("is_green", false)
+			button.add_theme_stylebox_override("pressed", create_button_style(COLOR_RED.darkened(0.3)))
+		else:
+			button.add_theme_stylebox_override("normal", green_style)
+			button.set_meta("is_green", true)
+			button.add_theme_stylebox_override("pressed", create_button_style(COLOR_GREEN.darkened(0.3)))
+		
+		button.pressed.connect(_on_button_pressed.bind(button, red_style, green_style))
 		grid.add_child(button)
 	
-	# Force layout update
 	await get_tree().process_frame
-	print("Final grid position: ", grid.position)
-	print("Grid size: ", grid.size)
-	print("Viewport size: ", get_viewport_rect().size)
+	print("Grid created with size: ", grid_size, "x", grid_size)
 
-func _on_button_pressed(index: int):
-	print("Button pressed: ", index)
+func create_button_style(color: Color) -> StyleBoxFlat:
+	var style = StyleBoxFlat.new()
+	style.bg_color = color
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_right = 8
+	style.corner_radius_bottom_left = 8
+	style.border_width_left = 2
+	style.border_width_right = 2
+	style.border_width_top = 2
+	style.border_width_bottom = 2
+	style.border_color = COLOR_DARK
+	return style
+
+func _on_button_pressed(button: Button, red_style: StyleBoxFlat, green_style: StyleBoxFlat):
+	# Toggle the color state
+	var is_green = !button.get_meta("is_green")
+	button.set_meta("is_green", is_green)
+	
+	# Update visual styles
+	if is_green:
+		button.add_theme_stylebox_override("normal", green_style)
+		button.add_theme_stylebox_override("pressed", create_button_style(COLOR_GREEN.darkened(0.3)))
+	else:
+		button.add_theme_stylebox_override("normal", red_style)
+		button.add_theme_stylebox_override("pressed", create_button_style(COLOR_RED.darkened(0.3)))
+	
+	print("Button toggled to: ", "green" if is_green else "red")
