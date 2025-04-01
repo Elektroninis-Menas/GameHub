@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds44gk0pio3tw"]
+[gd_scene load_steps=3 format=3 uid="uid://ds44gk0pio3tw"]
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://GridTheme.tres" id="1_p2gs0"]
+[ext_resource type="Script" uid="uid://7rynankgo1gh" path="res://Scenes/GuessingGame/submit_button_1.gd" id="2_3x14j"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -223,3 +224,14 @@ offset_right = 734.0
 offset_bottom = 130.0
 theme_override_font_sizes/font_size = 40
 text = "Guess the word!"
+
+[node name="SubmitButton1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 849.0
+offset_top = 191.0
+offset_right = 960.0
+offset_bottom = 240.0
+text = "Submit"
+script = ExtResource("2_3x14j")
+
+[connection signal="pressed" from="SubmitButton1" to="SubmitButton1" method="_on_pressed"]
