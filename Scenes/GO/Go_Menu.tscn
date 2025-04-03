@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://c42auk0ldtuiw"]
+[gd_scene load_steps=8 format=3 uid="uid://c42auk0ldtuiw"]
 
 [ext_resource type="Texture2D" uid="uid://cxxrahw5fj6h8" path="res://Scenes/GO/Go_bg.png" id="1_dnk5a"]
 [ext_resource type="Texture2D" uid="uid://ccxo0r6e3qoaw" path="res://Scenes/GO/GO.png" id="2_dnk5a"]
 [ext_resource type="Script" uid="uid://b7udxnoxkwy8e" path="res://Scenes/GO/menu.gd" id="3_2rcna"]
 [ext_resource type="Texture2D" uid="uid://nxo4do8uy4vv" path="res://Scenes/GO/GO_exit.png" id="4_2nvgp"]
 [ext_resource type="Texture2D" uid="uid://bqpralxypfwrn" path="res://Scenes/GO/GO_button.png" id="5_58d7q"]
+[ext_resource type="Script" uid="uid://c6qiur67r20c3" path="res://Scenes/GO/rules_button.gd" id="6_2rcna"]
+[ext_resource type="Script" uid="uid://wxm5ee0m06ub" path="res://Scenes/GO/Rules_Window.gd" id="7_3dp00"]
 
 [node name="GoMenu" type="Node2D"]
 
@@ -53,6 +55,7 @@ texture = ExtResource("5_58d7q")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="MENU"]
+layout_mode = 0
 offset_left = -214.0
 offset_top = -131.0
 offset_right = 136.0
@@ -61,6 +64,7 @@ texture = ExtResource("5_58d7q")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="MENU"]
+layout_mode = 0
 offset_left = -217.0
 offset_top = 34.0
 offset_right = 138.0
@@ -100,8 +104,10 @@ offset_top = -18.0
 offset_right = 128.0
 offset_bottom = 108.0
 theme_override_font_sizes/font_size = 50
+action_mode = 0
 text = "RULES
 "
+script = ExtResource("6_2rcna")
 
 [node name="Exit" type="Button" parent="MENU"]
 layout_mode = 2
@@ -112,6 +118,37 @@ offset_bottom = -189.0
 theme_override_font_sizes/font_size = 50
 text = "X
 "
+
+[node name="Window" type="Window" parent="MENU"]
+title = "RULES"
+position = Vector2i(40, 100)
+size = Vector2i(1075, 515)
+unresizable = true
+script = ExtResource("7_3dp00")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="MENU/Window"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MENU/Window/CanvasLayer"]
+offset_right = 429.135
+offset_bottom = 552.0
+scale = Vector2(1.65798, 1.01832)
+text = "Go Rules (9x9 Board)
+Goal: Control more territory than your opponent.
+
+Players: Black goes first, White second.
+
+Placing Stones: Take turns placing stones on empty intersections.
+
+Capturing: Surround enemy stones on all sides to capture them.
+
+Suicide: You can’t place a stone where it would have no liberties (unless it captures).
+
+Ko Rule: Don’t repeat the previous board position.
+
+End Game: When both players pass, the game ends.
+
+Scoring: Add your controlled territory + captured stones."
+fit_content = true
 
 [connection signal="pressed" from="MENU/Play" to="MENU" method="_on_play_pressed"]
 [connection signal="pressed" from="MENU/Settings" to="MENU" method="_on_settings_pressed"]

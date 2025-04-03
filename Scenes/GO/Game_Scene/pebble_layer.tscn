@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1mgoxadbbf2i"]
+
+[ext_resource type="Texture2D" uid="uid://cd10rpcwvgvgx" path="res://Scenes/GO/Game_Scene/Wpebble.png" id="1_2ggch"]
+
+[node name="PebbleLayer" type="Node2D"]
+
+[node name="Wpebble" type="Sprite2D" parent="."]
+position = Vector2(-130.336, 116.343)
+texture = ExtResource("1_2ggch")
