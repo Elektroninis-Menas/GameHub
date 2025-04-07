@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2i0owtx01e8i"]
+[gd_scene load_steps=5 format=3 uid="uid://c2i0owtx01e8i"]
 
 [ext_resource type="Script" uid="uid://bbk24jskjy1kn" path="res://Scenes/GuessingGame/exit_button.gd" id="1_xdb6a"]
+[ext_resource type="Script" uid="uid://bhhqrrxfxorvv" path="res://Scenes/GuessingGame/start_button.gd" id="2_5e76f"]
 [ext_resource type="Script" uid="uid://byoxb18pbj4su" path="res://Scenes/GuessingGame/rules.gd" id="2_fk7hd"]
 [ext_resource type="Script" uid="uid://dksmd38urvhc6" path="res://Scenes/GuessingGame/exit_menu_button.gd" id="3_5e76f"]
 
@@ -35,13 +36,14 @@ script = ExtResource("1_xdb6a")
 game_scene = "uid://6vcfcvr2ovo4"
 
 [node name="StartButton" type="Button" parent="."]
-visible = false
 offset_left = 512.0
 offset_top = 511.0
 offset_right = 639.0
 offset_bottom = 574.0
 theme_override_font_sizes/font_size = 40
 text = "Start"
+script = ExtResource("2_5e76f")
+game_scene = "uid://ds44gk0pio3tw"
 
 [node name="Rules" type="Button" parent="."]
 offset_left = 896.0
@@ -94,5 +96,6 @@ script = ExtResource("3_5e76f")
 popup_panel = NodePath("..")
 
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="StartButton" to="StartButton" method="_on_pressed"]
 [connection signal="pressed" from="Rules" to="Rules" method="_on_pressed"]
 [connection signal="pressed" from="PopupPanel/ExitMenuButton" to="PopupPanel/ExitMenuButton" method="_on_pressed"]

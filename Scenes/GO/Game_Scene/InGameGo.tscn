@@ -1,0 +1,160 @@
+[gd_scene load_steps=21 format=3 uid="uid://5huviuyjnxf4"]
+
+[ext_resource type="Texture2D" uid="uid://cqnxkic5ec71n" path="res://Scenes/GO/Game_Scene/Tile_White.jpg" id="1_ri8ry"]
+[ext_resource type="Texture2D" uid="uid://dmk48ynslsnjn" path="res://Scenes/GO/Game_Scene/Tile_Selected.png" id="2_dkpr0"]
+[ext_resource type="Texture2D" uid="uid://7xt1g86ipf7" path="res://Scenes/GO/Game_Scene/Tile_selectsmall.png" id="3_mert6"]
+[ext_resource type="Texture2D" uid="uid://b65edopgnjahd" path="res://Scenes/GO/Game_Scene/Tile_White_small.png" id="4_csdj4"]
+[ext_resource type="Texture2D" uid="uid://dnv31dk5ui23o" path="res://Scenes/GO/Game_Scene/Highlight_60.png" id="5_6e483"]
+[ext_resource type="Texture2D" uid="uid://dha778ei8d75m" path="res://Scenes/GO/Game_Scene/White_60.jpg" id="6_2bgwc"]
+[ext_resource type="Texture2D" uid="uid://bi6s6gvjwuyy1" path="res://Scenes/GO/Game_Scene/Black_60.png" id="7_2bgwc"]
+[ext_resource type="PackedScene" uid="uid://c1mgoxadbbf2i" path="res://Scenes/GO/Game_Scene/pebble_layer.tscn" id="8_h1877"]
+[ext_resource type="Texture2D" uid="uid://dhv1q27uoi7cf" path="res://Scenes/GO/Game_Scene/indicator.png" id="8_tk07e"]
+[ext_resource type="Script" uid="uid://5mudtu2qvoof" path="res://Scenes/GO/Game_Scene/leave_game_button.gd" id="10_1pqu1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ri8ry"]
+texture = ExtResource("1_ri8ry")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dkpr0"]
+texture = ExtResource("2_dkpr0")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6e483"]
+texture = ExtResource("3_mert6")
+texture_region_size = Vector2i(20, 20)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2bgwc"]
+texture = ExtResource("4_csdj4")
+texture_region_size = Vector2i(20, 20)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1877"]
+texture = ExtResource("5_6e483")
+texture_region_size = Vector2i(60, 60)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tk07e"]
+texture = ExtResource("6_2bgwc")
+texture_region_size = Vector2i(60, 60)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1pqu1"]
+texture = ExtResource("7_2bgwc")
+texture_region_size = Vector2i(60, 60)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2tp17"]
+texture = ExtResource("8_tk07e")
+texture_region_size = Vector2i(60, 60)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_mert6"]
+tile_size = Vector2i(60, 60)
+sources/0 = SubResource("TileSetAtlasSource_ri8ry")
+sources/1 = SubResource("TileSetAtlasSource_dkpr0")
+sources/2 = SubResource("TileSetAtlasSource_6e483")
+sources/3 = SubResource("TileSetAtlasSource_2bgwc")
+sources/4 = SubResource("TileSetAtlasSource_h1877")
+sources/5 = SubResource("TileSetAtlasSource_tk07e")
+sources/6 = SubResource("TileSetAtlasSource_1pqu1")
+sources/7 = SubResource("TileSetAtlasSource_2tp17")
+
+[sub_resource type="GDScript" id="GDScript_csdj4"]
+script/source = "extends TileMap
+var GridSize = 9
+var Dic = {}
+var previous_hovered_tile = null
+
+
+
+func _ready():
+	for x in range(GridSize):
+		for y in range(GridSize):
+			Dic[str(Vector2(x, y))] = {\"Type\": \"Board\"}
+			
+			# Use a different source ID (6) for every second tile
+			if (x + y) % 2 == 0:
+				set_cell(0, Vector2(x, y), 6, Vector2i(0, 0))
+			else:
+				set_cell(0, Vector2(x, y), 5, Vector2i(0, 0))
+
+
+func place_pebble_at_intersection(grid_pos: Vector2):
+	var pebble_scene = preload(\"res://Scenes/GO/Game_Scene/pebble_layer.tscn\")
+	var pebble_instance = pebble_scene.instantiate()
+
+	var tile_size = Vector2(tile_set.tile_size)
+	var intersection_pos = (grid_pos + Vector2(0.5, 0.5)) * tile_size
+
+	var offset = Vector2(100, -150)  # Adjust as needed
+	pebble_instance.position = intersection_pos + offset
+
+	add_child(pebble_instance)
+	
+	
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var global_mouse_pos = get_global_mouse_position()
+		var local_mouse_pos = to_local(global_mouse_pos)
+
+		var tile_size = Vector2(tile_set.tile_size)
+		
+		# Adjust to get nearest intersection point
+		var grid_pos = (local_mouse_pos / tile_size) - Vector2(0.5, 0.5)
+		grid_pos = Vector2(round(grid_pos.x), round(grid_pos.y))
+
+		# Clamp within board limits
+		if grid_pos.x >= 0 and grid_pos.x <= GridSize and grid_pos.y >= 0 and grid_pos.y <= GridSize:
+			place_pebble_at_intersection(grid_pos)
+			
+func _process(delta):
+	var local_mouse_pos = to_local(get_global_mouse_position())
+	var tile_size = Vector2(tile_set.tile_size)
+	var tile_pos = local_mouse_pos / tile_size
+	tile_pos = Vector2i(floor(tile_pos.x), floor(tile_pos.y))
+
+	if tile_pos.x >= 0 and tile_pos.x < GridSize and tile_pos.y >= 0 and tile_pos.y < GridSize:
+		if previous_hovered_tile != tile_pos:
+			if previous_hovered_tile != null:
+				set_cell(1, previous_hovered_tile, -1)
+
+			set_cell(1, tile_pos, 7, Vector2i(0, 0))
+			previous_hovered_tile = tile_pos
+	else:
+		if previous_hovered_tile != null:
+			set_cell(1, previous_hovered_tile, -1)
+			previous_hovered_tile = null
+
+
+
+	
+	
+func place_all_pebbles():
+	for x in range(GridSize+1):
+		for y in range(GridSize+1):
+			place_pebble_at_intersection(Vector2(x, y))
+"
+
+[node name="InGameGo" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(402, 74)
+tile_set = SubResource("TileSet_mert6")
+rendering_quadrant_size = 128
+format = 2
+layer_1/name = "Layer1"
+layer_1/z_index = 1
+script = SubResource("GDScript_csdj4")
+
+[node name="PebbleLayer" parent="TileMap" instance=ExtResource("8_h1877")]
+position = Vector2(185, -251)
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(5.76785, 3.04748)
+text = "X"
+script = ExtResource("10_1pqu1")
