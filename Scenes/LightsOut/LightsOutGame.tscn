@@ -63,5 +63,15 @@ text = "Back"
 script = ExtResource("3_ua3b5")
 game_scene = "uid://v6u12tydg26f"
 
+[node name="VictoryLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 410.0
+offset_top = 25.0
+offset_right = 700.0
+offset_bottom = 115.0
+theme_override_font_sizes/font_size = 65
+text = "You Won"
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
