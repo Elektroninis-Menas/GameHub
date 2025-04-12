@@ -1,6 +1,7 @@
 extends Control
 
 var word_list = []
+var random_word
 
 func _ready():
 	var file = FileAccess.open("res://Scenes/GuessingGame/a_words.txt", FileAccess.READ)
@@ -10,5 +11,5 @@ func _ready():
 			word_list.append(word)
 	file.close()
 
-	var random_word = word_list[randi() % word_list.size()]
+	random_word = word_list[randi() % word_list.size()]
 	print("Random word:", random_word)
