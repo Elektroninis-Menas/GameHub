@@ -25,6 +25,10 @@ GameDifficulty="*res://Scenes/LightsOut/GameDifficulty.gd"
 
 project/assembly_name="GameHub"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
