@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://Scenes/GuessingGame/GridTheme.tres" id="1_p2gs0"]
 [ext_resource type="Script" uid="uid://c77qn7ksamw0q" path="res://Scenes/GuessingGame/game.gd" id="1_ro40q"]
-[ext_resource type="Script" uid="uid://7rynankgo1gh" path="res://Scenes/GuessingGame/submit_button_1.gd" id="2_3x14j"]
+[ext_resource type="Script" uid="uid://d2ypd3kp2rdi5" path="res://Scenes/GuessingGame/submitButtonScript.gd" id="3_ro40q"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -234,6 +234,56 @@ offset_top = 191.0
 offset_right = 960.0
 offset_bottom = 240.0
 text = "Submit"
-script = ExtResource("2_3x14j")
+script = ExtResource("3_ro40q")
+end_index = 5
 
+[node name="SubmitButton2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 846.0
+offset_top = 250.0
+offset_right = 957.0
+offset_bottom = 299.0
+text = "Submit"
+script = ExtResource("3_ro40q")
+start_index = 5
+end_index = 10
+
+[node name="SubmitButton3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 845.0
+offset_top = 305.0
+offset_right = 956.0
+offset_bottom = 354.0
+text = "Submit"
+script = ExtResource("3_ro40q")
+start_index = 10
+end_index = 15
+
+[node name="SubmitButton4" type="Button" parent="."]
+layout_mode = 0
+offset_left = 846.0
+offset_top = 357.0
+offset_right = 957.0
+offset_bottom = 406.0
+text = "Submit"
+script = ExtResource("3_ro40q")
+start_index = 15
+end_index = 20
+
+[node name="SubmitButton5" type="Button" parent="."]
+layout_mode = 0
+offset_left = 844.0
+offset_top = 410.0
+offset_right = 955.0
+offset_bottom = 459.0
+text = "Submit"
+script = ExtResource("3_ro40q")
+start_index = 20
+end_index = 25
+
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="SubmitButton1" to="SubmitButton1" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton2" to="SubmitButton2" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton3" to="SubmitButton3" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton4" to="SubmitButton4" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton5" to="SubmitButton5" method="_on_pressed"]
