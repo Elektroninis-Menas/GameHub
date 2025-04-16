@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dwylcg230otk3"]
+
+[resource]
+line_spacing = 0.0
+paragraph_spacing = 14.0
+shadow_size = 0

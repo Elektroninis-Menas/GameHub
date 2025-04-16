@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cipgk5y6or35c"]
+[gd_scene load_steps=5 format=3 uid="uid://cipgk5y6or35c"]
 
 [ext_resource type="PackedScene" uid="uid://cqttxi4576f83" path="res://Scenes/Main menu/Game button.tscn" id="1_ex6ii"]
+[ext_resource type="Theme" uid="uid://2brjlwlc5xuk" path="res://Scenes/Tetris/Tetris-UI.tres" id="1_id1di"]
+[ext_resource type="FontFile" uid="uid://cve3skpxf7fjy" path="res://Scenes/Tetris/Fipps-Regular.otf" id="2_x1d11"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4pnan"]
+line_spacing = 0.0
+font = ExtResource("2_x1d11")
+font_size = 60
 
 [node name="Menu" type="ColorRect"]
 anchors_preset = 15
@@ -8,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_id1di")
 color = Color(0.21758, 0.00456799, 0.153078, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -23,6 +31,7 @@ alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Tetris"
+label_settings = SubResource("LabelSettings_4pnan")
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]

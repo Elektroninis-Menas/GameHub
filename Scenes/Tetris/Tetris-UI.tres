@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://2brjlwlc5xuk"]
+
+[ext_resource type="FontFile" uid="uid://pk2pgb5j8xau" path="res://Scenes/Tetris/Mojang-Regular.ttf" id="1_s5wx0"]
+
+[resource]
+default_font = ExtResource("1_s5wx0")
+default_font_size = 16

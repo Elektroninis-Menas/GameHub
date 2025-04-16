@@ -8,15 +8,16 @@ var height := 20
 var figure : Figure
 var next_figure : Figure
 var lines_broken := 0
-var pieces_placed := 0
+var pieces_placed := -1
 
 signal game_over
 signal preview_figure
+signal on_line_broken
 
 func _init(new_height: int, new_width: int) -> void:
 	height = new_height
 	width = new_width
-	next_figure = Figure.new(width / 2 - 1, 0)
+	next_figure = Figure.new(int(float(width) / 2) - 1, 0)
 	for i in range(height):
 		var new_line: Array[int]
 		new_line.resize(width)
@@ -24,7 +25,7 @@ func _init(new_height: int, new_width: int) -> void:
 
 func new_figure() -> void:
 	figure = next_figure
-	next_figure = Figure.new(width / 2 - 1, 0)
+	next_figure = Figure.new(int(float(width) / 2) - 1, 0)
 	pieces_placed += 1
 	preview_figure.emit()
 
@@ -52,6 +53,7 @@ func break_lines() -> void:
 					field[row1][col] = field[row1 - 1][col]
 	score += lines ** 2
 	lines_broken += lines
+	on_line_broken.emit()
 	
 func go_space() -> void:
 	while !intersects():
