@@ -36,7 +36,7 @@ func _on_pressed() -> void:
 		print(target_word)
 	var word := ""
 	var inputs := []
-	for i in range(5):
+	for i in range(10, 15):
 		var line_edit = get_parent().get_node("GridContainer").get_child(i) as LineEdit
 		var letter = line_edit.text.strip_edges().to_upper()
 		word += letter

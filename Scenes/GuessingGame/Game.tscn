@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds44gk0pio3tw"]
+[gd_scene load_steps=8 format=3 uid="uid://ds44gk0pio3tw"]
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://GridTheme.tres" id="1_p2gs0"]
 [ext_resource type="Script" uid="uid://c77qn7ksamw0q" path="res://Scenes/GuessingGame/game.gd" id="1_ro40q"]
 [ext_resource type="Script" uid="uid://7rynankgo1gh" path="res://Scenes/GuessingGame/submit_button_1.gd" id="2_3x14j"]
+[ext_resource type="Script" uid="uid://4jbgg25dgiow" path="res://Scenes/GuessingGame/submit_button_2.gd" id="4_m6yub"]
+[ext_resource type="Script" uid="uid://c2e823vu1wjgg" path="res://Scenes/GuessingGame/submit_button_3.gd" id="5_yisjd"]
+[ext_resource type="Script" uid="uid://nu4o0684bteg" path="res://Scenes/GuessingGame/submit_button_4.gd" id="6_oxgnx"]
+[ext_resource type="Script" uid="uid://l4ihcixopr2p" path="res://Scenes/GuessingGame/submit_button_5.gd" id="7_y186u"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -236,4 +240,40 @@ offset_bottom = 240.0
 text = "Submit"
 script = ExtResource("2_3x14j")
 
+[node name="SubmitButton2" type="Button" parent="."]
+offset_left = 846.0
+offset_top = 250.0
+offset_right = 957.0
+offset_bottom = 299.0
+text = "Submit"
+script = ExtResource("4_m6yub")
+
+[node name="SubmitButton3" type="Button" parent="."]
+offset_left = 845.0
+offset_top = 305.0
+offset_right = 956.0
+offset_bottom = 354.0
+text = "Submit"
+script = ExtResource("5_yisjd")
+
+[node name="SubmitButton4" type="Button" parent="."]
+offset_left = 846.0
+offset_top = 357.0
+offset_right = 957.0
+offset_bottom = 406.0
+text = "Submit"
+script = ExtResource("6_oxgnx")
+
+[node name="SubmitButton5" type="Button" parent="."]
+offset_left = 844.0
+offset_top = 410.0
+offset_right = 955.0
+offset_bottom = 459.0
+text = "Submit"
+script = ExtResource("7_y186u")
+
 [connection signal="pressed" from="SubmitButton1" to="SubmitButton1" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton2" to="SubmitButton2" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton3" to="SubmitButton3" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton4" to="SubmitButton4" method="_on_pressed"]
+[connection signal="pressed" from="SubmitButton5" to="SubmitButton5" method="_on_pressed"]
