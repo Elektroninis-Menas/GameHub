@@ -48,4 +48,4 @@ text = "Game 3"
 
 [node name="Button 4" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_cu2tm")]
 layout_mode = 2
-game_scene = "uid://c42auk0ldtuiw"
+game_scene = "uid://cxjakvtva07db"

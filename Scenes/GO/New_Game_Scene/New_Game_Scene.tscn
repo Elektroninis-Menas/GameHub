@@ -22,15 +22,12 @@ expand_mode = 1
 
 [node name="WhitePebble" parent="Node2D/Intersections" instance=ExtResource("3_7fw1c")]
 position = Vector2(-14.5, -16)
-scale = Vector2(0.585714, 0.542857)
 
 [node name="BlackPebble" parent="Node2D/Intersections" instance=ExtResource("4_shkll")]
 position = Vector2(-16, -17)
-scale = Vector2(0.542857, 0.514286)
 
 [node name="HoverFlower" parent="Node2D/Intersections" instance=ExtResource("5_shkll")]
 position = Vector2(-14, -18)
-scale = Vector2(0.771429, 0.8)
 
 [node name="TurnLabel" type="Label" parent="Node2D/Intersections"]
 offset_left = -281.0
