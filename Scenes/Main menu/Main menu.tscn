@@ -33,7 +33,7 @@ alignment = 1
 [node name="Button 1" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_cu2tm")]
 layout_mode = 2
 text = "Tetris"
-game_scene = "uid://cipgk5y6or35c"
+game_scene = "uid://cfhypddxwshel"
 
 [node name="Button 2" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_cu2tm")]
 layout_mode = 2
