@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8gdg161qhsab"]
+
+[ext_resource type="Texture2D" uid="uid://cucrod8q8bwpj" path="res://Scenes/GO/New_Game_Scene/pebblewhite.png" id="1_85wmj"]
+
+[node name="WhitePebble" type="Sprite2D"]
+scale = Vector2(0.585714, 0.542857)
+texture = ExtResource("1_85wmj")

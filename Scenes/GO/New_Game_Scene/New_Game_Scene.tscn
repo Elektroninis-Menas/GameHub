@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxjakvtva07db"]
+
+[ext_resource type="Script" uid="uid://ddffx40vf77lj" path="res://Scenes/GO/New_Game_Scene/node_2d.gd" id="1_r3ime"]
+[ext_resource type="Texture2D" uid="uid://d0dcbkjn0a6tf" path="res://Scenes/GO/New_Game_Scene/grid.png" id="1_s1b8w"]
+[ext_resource type="PackedScene" uid="uid://c8gdg161qhsab" path="res://Scenes/GO/New_Game_Scene/white_pebble.tscn" id="3_7fw1c"]
+[ext_resource type="PackedScene" uid="uid://d0khur64q0flg" path="res://Scenes/GO/New_Game_Scene/black_pebble.tscn" id="4_shkll"]
+[ext_resource type="PackedScene" uid="uid://crg2ovhdi8j4a" path="res://Scenes/GO/New_Game_Scene/hover_flower.tscn" id="5_shkll"]
+
+[node name="NewGameScene" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(303, 28)
+script = ExtResource("1_r3ime")
+
+[node name="Grid" type="TextureRect" parent="Node2D"]
+offset_right = 567.0
+offset_bottom = 567.0
+texture = ExtResource("1_s1b8w")
+expand_mode = 1
+
+[node name="Intersections" type="Node2D" parent="Node2D"]
+
+[node name="WhitePebble" parent="Node2D/Intersections" instance=ExtResource("3_7fw1c")]
+position = Vector2(-14.5, -16)
+scale = Vector2(0.585714, 0.542857)
+
+[node name="BlackPebble" parent="Node2D/Intersections" instance=ExtResource("4_shkll")]
+position = Vector2(-16, -17)
+scale = Vector2(0.542857, 0.514286)
+
+[node name="HoverFlower" parent="Node2D/Intersections" instance=ExtResource("5_shkll")]
+position = Vector2(-14, -18)
+scale = Vector2(0.771429, 0.8)
+
+[node name="TurnLabel" type="Label" parent="Node2D/Intersections"]
+offset_left = -281.0
+offset_top = 25.0
+offset_right = 7.0
+offset_bottom = 120.0

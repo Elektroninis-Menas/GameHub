@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://crg2ovhdi8j4a"]
+
+[ext_resource type="Texture2D" uid="uid://bdko7wmgb1cek" path="res://Scenes/GO/New_Game_Scene/flower.png" id="1_m0c0n"]
+
+[node name="HoverFlower" type="Sprite2D"]
+scale = Vector2(0.771429, 0.8)
+texture = ExtResource("1_m0c0n")
