@@ -14,6 +14,8 @@ const TILE_SIZE := 30
 const WIDTH = 10
 const HEIGHT = 20
 
+var _is_paused : bool = false
+
 func _ready() -> void:
 	#layers.position.x = DisplayServer.window_get_size().x / 2 - TILE_SIZE * WIDTH / 2
 	#layers.position.y = TILE_SIZE
@@ -36,6 +38,13 @@ func _ready() -> void:
 	timer_input.wait_time = 0.1
 	timer_input.autostart = true
 	timer_input.timeout.connect(go_down) 
+
+## Pauses the game if paused is true
+func pause_game(paused: bool) -> void:
+	timer.paused = paused
+	timer_input.paused = paused
+	_is_paused = paused
+	
 
 func go_down() -> void:
 	game.go_down()
@@ -92,7 +101,7 @@ func on_draw_next_piece() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if game_over:
+	if game_over || _is_paused:
 		return
 	var update := false
 	if Input.is_action_just_pressed("ui_down"):
