@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0khur64q0flg"]
+
+[ext_resource type="Texture2D" uid="uid://grhacu34yak6" path="res://Scenes/GO/New_Game_Scene/pebbleblacke.png" id="1_losgk"]
+
+[node name="BlackPebble" type="Sprite2D"]
+scale = Vector2(0.542857, 0.514286)
+texture = ExtResource("1_losgk")
