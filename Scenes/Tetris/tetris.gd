@@ -61,6 +61,20 @@ func go_space() -> void:
 	figure.y -= 1
 	freeze()
 	
+func get_shadow() -> Figure:
+	var initial_y := figure.y
+	while !intersects():
+		figure.y += 1
+	figure.y -= 1
+	
+	
+	var shadow := Figure.new(figure.x, figure.y)
+	figure.y = initial_y
+	shadow.type = figure.type
+	shadow.rotation = figure.rotation
+	shadow.color = Figure.MAX_COLORS + 1
+	return shadow
+	
 func go_down() -> void:
 	figure.y += 1
 	if intersects():
