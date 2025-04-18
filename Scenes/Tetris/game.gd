@@ -25,8 +25,6 @@ func _ready() -> void:
 	game.on_line_broken.connect(on_line_broken)
 	game.new_figure()
 	draw_board()
-	draw_score()
-	draw_linesBroken()
 	
 	timer = Timer.new()
 	timer.autostart = true
@@ -80,8 +78,14 @@ func draw_board() -> void:
 	if game.figure != null:
 		for row in range(4):
 			for col in range(4):
+				# Draw shadow
+				var shadow := game.get_shadow()
+				if row * 4 + col in shadow.image():
+					field[row + shadow.y][col + shadow.x] = shadow.color
+				# Draw figure
 				if row * 4 + col in game.figure.image():
 					field[row + game.figure.y][col + game.figure.x] = game.figure.color
+				
 	
 	# Draw the main Tetris grid
 	for row in range(game.height):

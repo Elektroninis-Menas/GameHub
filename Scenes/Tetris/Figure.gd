@@ -5,6 +5,7 @@ var y := 0
 var type: int
 var color: int
 var rotation: int
+static var MAX_COLORS = 7
 const figures : Array[Array] = [
 	[[1, 5, 9, 13], [4, 5, 6, 7]],
 	[[4, 5, 9, 10], [2, 6, 5, 9]],
@@ -19,7 +20,7 @@ func _init(new_x: int, new_y: int) -> void:
 	x = new_x
 	y = new_y
 	type = randi_range(0, len(figures) - 1)
-	color = randi_range(1, 7)
+	color = randi_range(1, MAX_COLORS)
 	rotation = 0
 
 func image() -> Array:
