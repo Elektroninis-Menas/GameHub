@@ -129,3 +129,9 @@ func toggle_button(x: int, y: int, red_style: StyleBoxFlat, green_style: StyleBo
 			else:
 				button.add_theme_stylebox_override("normal", red_style)
 				button.add_theme_stylebox_override("pressed", red_style)
+
+
+func _on_button_2_pressed() -> void:
+	_ready()
+	if victory_label.visible == true:
+		victory_label.visible = false
