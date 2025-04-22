@@ -82,6 +82,47 @@ offset_bottom = 614.0
 theme_override_font_sizes/font_size = 30
 text = "Reset"
 
+[node name="Difficulty name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 28.0
+offset_right = 242.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 40
+
+[node name="PressedName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 40.0
+offset_right = 1122.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 25
+text = "Buttons pressed"
+
+[node name="PressedCounter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 996.0
+offset_top = 93.0
+offset_right = 1057.0
+offset_bottom = 149.0
+theme_override_font_sizes/font_size = 40
+
+[node name="HighscoreName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 177.0
+offset_right = 1090.0
+offset_bottom = 226.0
+theme_override_font_sizes/font_size = 25
+text = "Highscore"
+
+[node name="HighscoreCounter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 995.0
+offset_top = 225.0
+offset_right = 1046.0
+offset_bottom = 277.0
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
