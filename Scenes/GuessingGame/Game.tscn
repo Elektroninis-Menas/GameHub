@@ -79,6 +79,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit6" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -86,6 +87,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit7" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -93,6 +95,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit8" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -100,6 +103,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit9" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -107,6 +111,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit10" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -114,6 +119,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit11" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -121,6 +127,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit12" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -128,6 +135,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit13" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -135,6 +143,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit14" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -142,6 +151,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit15" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -149,6 +159,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit16" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -156,6 +167,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit17" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -163,6 +175,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit18" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -170,6 +183,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit19" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -177,6 +191,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit20" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -184,6 +199,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit21" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -191,6 +207,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit22" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -198,6 +215,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit23" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -205,6 +223,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit24" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -212,6 +231,7 @@ alignment = 1
 max_length = 1
 
 [node name="LineEdit25" type="LineEdit" parent="GridContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("1_p2gs0")
@@ -229,53 +249,57 @@ text = "Guess the word!"
 
 [node name="SubmitButton1" type="Button" parent="."]
 layout_mode = 0
-offset_left = 849.0
+offset_left = 847.0
 offset_top = 191.0
-offset_right = 960.0
+offset_right = 958.0
 offset_bottom = 240.0
 text = "Submit"
 script = ExtResource("3_ro40q")
 end_index = 5
 
 [node name="SubmitButton2" type="Button" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 846.0
-offset_top = 250.0
-offset_right = 957.0
-offset_bottom = 299.0
+offset_left = 848.0
+offset_top = 243.0
+offset_right = 959.0
+offset_bottom = 292.0
 text = "Submit"
 script = ExtResource("3_ro40q")
 start_index = 5
 end_index = 10
 
 [node name="SubmitButton3" type="Button" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 845.0
-offset_top = 305.0
-offset_right = 956.0
-offset_bottom = 354.0
+offset_left = 849.0
+offset_top = 297.0
+offset_right = 960.0
+offset_bottom = 346.0
 text = "Submit"
 script = ExtResource("3_ro40q")
 start_index = 10
 end_index = 15
 
 [node name="SubmitButton4" type="Button" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 846.0
-offset_top = 357.0
-offset_right = 957.0
-offset_bottom = 406.0
+offset_left = 849.0
+offset_top = 354.0
+offset_right = 960.0
+offset_bottom = 403.0
 text = "Submit"
 script = ExtResource("3_ro40q")
 start_index = 15
 end_index = 20
 
 [node name="SubmitButton5" type="Button" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 844.0
-offset_top = 410.0
-offset_right = 955.0
-offset_bottom = 459.0
+offset_left = 849.0
+offset_top = 406.0
+offset_right = 960.0
+offset_bottom = 455.0
 text = "Submit"
 script = ExtResource("3_ro40q")
 start_index = 20

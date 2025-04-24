@@ -68,10 +68,26 @@ func collor_word(word, target_word, slice):
 				print("Target:", target_word)
 				print("Green at:", green_indices)
 				print("Used for yellow:", used_target_indices)
+				hide()
+		show_others()
 		return true
 	else:
+		if word.length() < 5:
+			print("Incomplete word!")
+			return
 		print("❌ Not in word list.")
 		return
-	if word.length() < 5:
-		print("Incomplete word!")
-		return
+func show_others():
+	self.hide()
+	var next_start = end_index
+	var next_end = next_start + 5
+	var children = inputs.get_children()
+	if next_end <= children.size():
+		for i in range(next_start, next_end):
+			children[i].show()
+	var current_name = self.name
+	var number = int(current_name.replace("SubmitButton", ""))
+	var next_button_name = "SubmitButton%d" % (number + 1)
+
+	if control.has_node(next_button_name):
+		control.get_node(next_button_name).show()
