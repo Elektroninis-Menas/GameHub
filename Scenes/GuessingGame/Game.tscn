@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds44gk0pio3tw"]
+[gd_scene load_steps=5 format=3 uid="uid://ds44gk0pio3tw"]
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://GridTheme.tres" id="1_p2gs0"]
 [ext_resource type="Script" uid="uid://c77qn7ksamw0q" path="res://Scenes/GuessingGame/game.gd" id="1_ro40q"]
 [ext_resource type="Script" uid="uid://d2ypd3kp2rdi5" path="res://Scenes/GuessingGame/submitButtonScript.gd" id="3_ro40q"]
+[ext_resource type="Script" uid="uid://bturlf54bh32m" path="res://Scenes/GuessingGame/button.gd" id="4_m6yub"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -305,9 +306,53 @@ script = ExtResource("3_ro40q")
 start_index = 20
 end_index = 25
 
+[node name="winwindow" type="Window" parent="."]
+title = "Laimėjimas!"
+initial_position = 2
+size = Vector2i(800, 400)
+visible = false
+
+[node name="win" type="Label" parent="winwindow"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -399.0
+offset_top = -82.5
+offset_right = 399.0
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_p2gs0")
+
+[node name="Button" type="Button" parent="winwindow"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -169.0
+offset_top = -72.0
+offset_right = 4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_p2gs0")
+text = "Išeiti"
+script = ExtResource("4_m6yub")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 28.0
+offset_right = 249.0
+offset_bottom = 129.0
+text = "Bandymų liko: 5"
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="SubmitButton1" to="SubmitButton1" method="_on_pressed"]
 [connection signal="pressed" from="SubmitButton2" to="SubmitButton2" method="_on_pressed"]
 [connection signal="pressed" from="SubmitButton3" to="SubmitButton3" method="_on_pressed"]
 [connection signal="pressed" from="SubmitButton4" to="SubmitButton4" method="_on_pressed"]
 [connection signal="pressed" from="SubmitButton5" to="SubmitButton5" method="_on_pressed"]
+[connection signal="pressed" from="winwindow/Button" to="winwindow/Button" method="_on_pressed"]

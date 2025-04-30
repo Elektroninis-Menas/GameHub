@@ -5,6 +5,9 @@ extends Button
 
 @onready var inputs: GridContainer = $"../GridContainer"
 @onready var control: Control = $".."
+@onready var win_window: Window = $"../winwindow"
+@onready var result_label: Label = $"../winwindow/win"
+@onready var attempts_label: Label = $"../Label2"
 
 func _on_pressed():
 	var slice : Array = inputs.get_children().slice(start_index, end_index)
@@ -46,7 +49,10 @@ func collor_word(word, target_word, slice):
 				color_input(slice[i], Color(0, 1, 0))  # Green
 				green_indices.append(i)
 				used_target_indices.append(i)
-
+		if word == target_word:
+			win_window.show()
+			result_label.text = "Teisingai! Tu laimėjai! žodis: " +  str(word)
+			return true
 # 🟨 Second pass – correct letter, wrong position
 		for i in range(5):
 			if i in green_indices:
@@ -69,7 +75,7 @@ func collor_word(word, target_word, slice):
 				print("Green at:", green_indices)
 				print("Used for yellow:", used_target_indices)
 				hide()
-		show_others()
+		show_others(target_word)
 		return true
 	else:
 		if word.length() < 5:
@@ -77,7 +83,7 @@ func collor_word(word, target_word, slice):
 			return
 		print("❌ Not in word list.")
 		return
-func show_others():
+func show_others(word):
 	self.hide()
 	var next_start = end_index
 	var next_end = next_start + 5
@@ -88,6 +94,10 @@ func show_others():
 	var current_name = self.name
 	var number = int(current_name.replace("SubmitButton", ""))
 	var next_button_name = "SubmitButton%d" % (number + 1)
-
+	attempts_label.text = "Bandymų liko: %d" % (5 - number)
 	if control.has_node(next_button_name):
 		control.get_node(next_button_name).show()
+	else:
+		win_window.show()
+		result_label.text = "Nepavyko, žodis buvo: " + str(word)
+	
