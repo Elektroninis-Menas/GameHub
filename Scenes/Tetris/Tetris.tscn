@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://cfhypddxwshel"]
+[gd_scene load_steps=25 format=4 uid="uid://cfhypddxwshel"]
 
 [ext_resource type="Theme" uid="uid://2brjlwlc5xuk" path="res://Scenes/Tetris/Tetris-UI.tres" id="1_22w2r"]
 [ext_resource type="Script" uid="uid://bs47kawuqinmx" path="res://Scenes/Tetris/game.gd" id="1_43bmy"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://bsbxo32gdni6x" path="res://Scenes/Tetris/Tetris Frame.png" id="5_m3qmx"]
 [ext_resource type="Script" uid="uid://dmtc6fcsook" path="res://Scenes/Tetris/menu.gd" id="7_lplsm"]
 [ext_resource type="FontFile" uid="uid://cve3skpxf7fjy" path="res://Scenes/Tetris/Fipps-Regular.otf" id="8_pnva8"]
-[ext_resource type="PackedScene" uid="uid://cqttxi4576f83" path="res://Scenes/Main menu/Game button.tscn" id="9_qb1js"]
+[ext_resource type="Script" uid="uid://bnsy4xiwx4wfc" path="res://Scenes/Main menu/game_button.gd" id="11_kk011"]
+[ext_resource type="Script" uid="uid://cyv2dfb7isqcf" path="res://Scenes/Tetris/pause_menu.gd" id="12_atvrt"]
+[ext_resource type="Script" uid="uid://dqhxsmrwubea8" path="res://Scenes/Tetris/settings.gd" id="12_kk011"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnva8"]
 
@@ -134,6 +136,17 @@ line_spacing = 0.0
 font = ExtResource("8_pnva8")
 font_size = 60
 
+[sub_resource type="LabelSettings" id="LabelSettings_qb1js"]
+line_spacing = 0.0
+font = ExtResource("8_pnva8")
+font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atvrt"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="Tetris" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -186,7 +199,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pnva8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_kk011")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_qb1js")
 theme_override_styles/normal = SubResource("StyleBoxTexture_kk011")
-text = "Menu"
+text = "Pause"
 script = ExtResource("4_pnva8")
 
 [node name="Board" type="Control" parent="Game/Layers"]
@@ -280,6 +293,145 @@ label_settings = ExtResource("5_fol2h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PauseMenu" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22, 0.0044, 0.15532, 0.603922)
+script = ExtResource("12_atvrt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Paused"
+label_settings = SubResource("LabelSettings_4pnan")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="End Game" type="Button" parent="PauseMenu/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "End Game"
+
+[node name="Statistics" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.164223, 0.0567025, 0.255511, 1)
+script = ExtResource("12_kk011")
+
+[node name="MarginContainer" type="MarginContainer" parent="Statistics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Statistics/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Statistics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Statistics"
+label_settings = SubResource("LabelSettings_qb1js")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Statistics/MarginContainer/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Statistics/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Back" type="Button" parent="Statistics/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Statistics/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_atvrt")
+horizontal_scroll_mode = 0
+
+[node name="Table" type="RichTextLabel" parent="Statistics/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 4
+bbcode_enabled = true
+text = "[table=5]
+[cell]Header[/cell]
+[cell]Header[/cell]
+[cell]Header[/cell]
+[cell]Header[/cell]
+[cell]Header[/cell]
+
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[cell]Item[/cell]
+[/table]"
+fit_content = true
+autowrap_mode = 0
+
 [node name="Menu" type="ColorRect" parent="."]
 visible = false
 layout_mode = 1
@@ -288,7 +440,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_22w2r")
 color = Color(0.21758, 0.00456799, 0.153078, 1)
 script = ExtResource("7_lplsm")
 
@@ -315,17 +466,20 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Play" parent="Menu/VBoxContainer/VBoxContainer" instance=ExtResource("9_qb1js")]
+[node name="Play" type="Button" parent="Menu/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 1
 text = "Play"
-script = null
 
-[node name="MainMenu" parent="Menu/VBoxContainer/VBoxContainer" instance=ExtResource("9_qb1js")]
+[node name="Statistics" type="Button" parent="Menu/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 1
+text = "Statistics
+"
+
+[node name="MainMenu" type="Button" parent="Menu/VBoxContainer/VBoxContainer"]
+layout_mode = 2
 text = "Main menu
 "
+script = ExtResource("11_kk011")
 game_scene = "uid://6vcfcvr2ovo4"
 
-[connection signal="pressed" from="Menu/VBoxContainer/VBoxContainer/Play" to="Menu" method="_on_play_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/VBoxContainer/MainMenu" to="Menu/VBoxContainer/VBoxContainer/MainMenu" method="_on_pressed"]

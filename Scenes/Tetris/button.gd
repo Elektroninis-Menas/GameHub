@@ -1,6 +1,6 @@
 extends Button
 
-@onready var menu: ColorRect = $"../../../Menu"
+@onready var pause_menu: ColorRect = $"../../../PauseMenu"
 
 func _pressed() -> void:
-	menu.show_menu()
+	pause_menu.show_menu()
