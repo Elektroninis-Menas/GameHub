@@ -1,6 +1,5 @@
 class_name Tetris
 
-var level := 2
 var score := 0
 var field: Array
 var width := 10
@@ -8,13 +7,16 @@ var height := 20
 var figure : Figure
 var next_figure : Figure
 var lines_broken := 0
-var pieces_placed := -1
+var pieces_placed := 0
 
 signal game_over
 signal preview_figure
 signal on_line_broken
 
 func _init(new_height: int, new_width: int) -> void:
+	lines_broken = 0
+	pieces_placed = 0
+	score = 0
 	height = new_height
 	width = new_width
 	next_figure = Figure.new(int(float(width) / 2) - 1, 0)
