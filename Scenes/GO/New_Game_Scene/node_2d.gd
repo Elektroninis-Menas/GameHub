@@ -8,18 +8,31 @@ const OFFSET_Y := 55
 
 var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for black)
 
-@onready var turn_label = $Intersections/TurnLabel
+@onready var turn_label = $TurnLabel
 @onready var stones_container = $Intersections
 
 @onready var white_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/white_pebble.tscn")
 @onready var black_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/black_pebble.tscn") 
 @onready var highlight_scene = preload("res://Scenes/GO/New_Game_Scene/hover_flower.tscn")
+var last_player_passed := false  # Track if previous player passed
+var consecutive_passes := 0  
+@onready var white_captures_label = $WhiteCaptures
+@onready var black_captures_label = $BlackCaptures
+
 
 var hover_preview: Node2D
 var is_white_turn := true  # Start with white
+var white_captures := 0
+var black_captures := 0
+
 
 func update_turn_label():
 	turn_label.text = "White's Turn" if is_white_turn else "Black's Turn"
+	
+func update_capture_labels():
+	white_captures_label.text = "White Captures: %d" % white_captures
+	black_captures_label.text = "Black Captures: %d" % black_captures
+
 
 func _ready():
 	hover_preview = highlight_scene.instantiate()
@@ -27,6 +40,7 @@ func _ready():
 	hover_preview.visible = false
 	stones_container.add_child(hover_preview)
 	is_white_turn = !is_white_turn 
+	update_capture_labels()
 	update_turn_label()
 
 func get_world_position(x: int, y: int) -> Vector2:
@@ -84,13 +98,23 @@ func has_liberties(group: Array) -> bool:
 func capture_group(group: Array):
 	for cell in group:
 		for child in stones_container.get_children():
+			if child == hover_preview:
+				continue
 			if child.position == get_world_position(cell.x, cell.y):
 				child.queue_free()
 				break
+		# Increase capture count based on who captured
+		if is_white_turn:
+			white_captures += 1
+		else:
+			black_captures += 1
+
 		occupied_cells.erase(cell)
 
-# === INPUT HANDLING ===
+	update_capture_labels()
 
+
+# === INPUT HANDLING ===
 func _unhandled_input(event):
 	var mouse_pos = stones_container.get_local_mouse_position()
 	var grid_coords = get_grid_coordinates(mouse_pos)
@@ -100,29 +124,87 @@ func _unhandled_input(event):
 		hover_preview.visible = true
 
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			# Place pebble
+			last_player_passed = false
+			consecutive_passes = 0
+			# Temporarily place stone to test
+			occupied_cells[grid_coords] = is_white_turn
+			var opponent_color = !is_white_turn
+
+			# Check captures around placed stone
+			var captured_any := false
+			for neighbor in get_adjacent_cells(grid_coords):
+				if occupied_cells.has(neighbor) and occupied_cells[neighbor] == opponent_color:
+					var group = get_group(neighbor, opponent_color)
+					if not has_liberties(group):
+						captured_any = true
+						break
+
+			# Check if move is suicide
+			var own_group = get_group(grid_coords, is_white_turn)
+			var suicide = not has_liberties(own_group)
+
+			# Undo temporary placement
+			occupied_cells.erase(grid_coords)
+
+			# If move is suicide and doesn't capture enemy, reject
+			if suicide and not captured_any:
+				return  # Don't place the stone, don't change turn
+
+			# Actually place the pebble (legal move)
 			var pebble = white_pebble_scene.instantiate() if is_white_turn else black_pebble_scene.instantiate()
 			pebble.position = get_world_position(grid_coords.x, grid_coords.y)
 			stones_container.add_child(pebble)
 
 			# Track placement
 			occupied_cells[grid_coords] = is_white_turn
-			var opponent_color = !is_white_turn
 
-			# Check captures around placed stone
+			# Now perform actual captures
 			for neighbor in get_adjacent_cells(grid_coords):
 				if occupied_cells.has(neighbor) and occupied_cells[neighbor] == opponent_color:
 					var group = get_group(neighbor, opponent_color)
 					if not has_liberties(group):
 						capture_group(group)
 
-			# Optional suicide check (currently allows suicide)
-			var own_group = get_group(grid_coords, is_white_turn)
-			if not has_liberties(own_group):
-				capture_group(own_group)
+			# Check again if own group has no liberties (for suicide moves allowed)
+			var own_group_after = get_group(grid_coords, is_white_turn)
+			if not has_liberties(own_group_after):
+				capture_group(own_group_after)
 
 			# Change turn
 			is_white_turn = !is_white_turn
 			update_turn_label()
 	else:
 		hover_preview.visible = false
+
+
+func _on_reset_button_pressed() -> void:
+	for child in stones_container.get_children():
+		# Keep hover_preview and all labels
+		if child != hover_preview and child != turn_label and child != white_captures_label and child != black_captures_label:
+			child.queue_free()
+			occupied_cells.clear()
+			white_captures = 0
+			black_captures = 0
+			is_white_turn = false
+			update_capture_labels()
+			update_turn_label()
+			last_player_passed = false
+			consecutive_passes = 0
+			hover_preview.visible = false
+
+
+func _on_pass_pressed() -> void:
+	consecutive_passes += 1 if last_player_passed else 1
+	last_player_passed = true
+	
+	# Check for two consecutive passes
+	if consecutive_passes >= 2:
+		_on_reset_button_pressed()  # Reset the game
+		return
+	
+	# Switch turns
+		is_white_turn = !is_white_turn
+		update_turn_label()
+	
+	# Reset hover preview if visible
+	hover_preview.visible = false
