@@ -1,6 +1,6 @@
 extends Node
 
-var settings_menu_scene = preload("res://scenes/Settings Menu.tscn")  # Change path
+var settings_menu_scene = preload("res://Scenes/Settings Menu.tscn")  # Change path
 var settings_instance = null
 
 func _input(event):

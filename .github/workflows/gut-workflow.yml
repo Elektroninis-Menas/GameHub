@@ -1,0 +1,15 @@
+name: Godot Unit Testing
+run-name: GUT run by ${{ github.actor }} due to ${{ github.event_name }} (${{ github.ref_name }})
+on: [push]
+jobs:
+  Godot-Unit-Tests:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/gytiskau/godot4-gut-testing:main
+    steps:
+      - name: Run the tests
+        uses: gytiskau/godot4-gut-testing@v1.0
+        with:
+          gutConfigPath: .gutconfig.json
+          extraGodotFlags: "--headless"
+          importGodotResources: true

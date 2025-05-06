@@ -1,63 +1,76 @@
 extends Control
 
 const SETTINGS_FILE = "user://settings.json"
+const DEFAULT_VOLUME := 50.0
+const DEFAULT_MUTED := false
 
-@onready var volume: HSlider = $Volume  # Assigns the volume slider
-@onready var mute: CheckBox = $Mute  # Assigns the mute checkbox
+@onready var volume: HSlider = $ColorRect/MarginContainer/VBoxContainer/Volume
+@onready var mute: CheckBox = $ColorRect/MarginContainer/VBoxContainer/Mute
 
 func _ready():
-	# Load saved settings
+	# Load and apply settings
 	var settings = load_settings()
-	var saved_volume = settings["volume"]
-	var is_muted = settings["muted"]
-
-	# Apply saved volume and mute state
-	volume.value = float(saved_volume)
-	mute.button_pressed = is_muted
-	set_volume(saved_volume)
-
-	AudioServer.set_bus_mute(0, is_muted)  # Apply mute state
-	volume.editable = not is_muted  # Disable slider if muted
+	print("Loaded settings: ", settings)  # Debug
+	
+	volume.value = settings["volume"]
+	mute.button_pressed = settings["muted"]
+	
+	# Force immediate audio update
+	update_audio_settings(settings["volume"], settings["muted"])
+	volume.editable = not settings["muted"]
 
 func _on_volume_value_changed(value: float) -> void:
-	set_volume(value)
-	save_settings(value, mute.button_pressed)  # Save both volume & mute state
-
-	# Auto-toggle mute if volume is 0
-	if value == 0:
-		mute.button_pressed = true
-	else:
-		mute.button_pressed = false
+	value = clamp(value, 0.0, 100.0)
+	mute.button_pressed = (value == 0)  # Auto-mute at zero volume
+	update_audio_settings(value, mute.button_pressed)
 	save_settings(value, mute.button_pressed)
 
 func _on_mute_toggled(toggled_on: bool) -> void:
-	AudioServer.set_bus_mute(0, toggled_on)  # Mute/unmute audio
-	volume.editable = not toggled_on  # Disable slider if muted
-	save_settings(volume.value, toggled_on)  # Save both volume & mute state
+	volume.editable = not toggled_on
+	update_audio_settings(volume.value, toggled_on)
+	save_settings(volume.value, toggled_on)
 
-func set_volume(value: float):
-	if value == 0:
-		AudioServer.set_bus_mute(0, true)  # Mute if slider is at 0
-	else:
-		AudioServer.set_bus_mute(0, false)
-		var volume_db = linear_to_db(value / 100.0)  # Convert 0-100 to dB
-		AudioServer.set_bus_volume_db(0, volume_db)
+func update_audio_settings(vol: float, is_muted: bool):
+	AudioServer.set_bus_mute(0, is_muted)
+	if not is_muted:
+		var vol_db = linear_to_db(vol / 100.0)
+		AudioServer.set_bus_volume_db(0, vol_db)
+	print("Audio updated - Volume: ", vol, " dB | Muted: ", is_muted)  # Debug
 
-func save_settings(volume_value: float, mute_state: bool):
-	var data = {"volume": volume_value, "muted": mute_state}
+func save_settings(vol: float, is_muted: bool):
+	var data = {
+		"volume": clamp(vol, 0.0, 100.0),
+		"muted": is_muted
+	}
+	
 	var file = FileAccess.open(SETTINGS_FILE, FileAccess.WRITE)
-	file.store_string(JSON.stringify(data))
-	file.close()
+	if file:
+		file.store_string(JSON.stringify(data))
+		file.close()
+		print("Settings saved: ", data)  # Debug
+	else:
+		print("Error: Could not save settings!")  # Debug
 
 func load_settings() -> Dictionary:
 	if not FileAccess.file_exists(SETTINGS_FILE):
-		return {"volume": 50, "muted": false}  # Default values
+		print("Note: No settings file found, using defaults.")
+		return {"volume": DEFAULT_VOLUME, "muted": DEFAULT_MUTED}
 	
 	var file = FileAccess.open(SETTINGS_FILE, FileAccess.READ)
-	var content = file.get_as_text()
+	if not file:
+		print("Warning: Could not open settings file, using defaults.")
+		return {"volume": DEFAULT_VOLUME, "muted": DEFAULT_MUTED}
+	
+	var content = file.get_as_text().strip_edges()
 	file.close()
-
+	
 	var data = JSON.parse_string(content)
-	if data and "volume" in data and "muted" in data:
-		return data
-	return {"volume": 50, "muted": false}  # Default values if file is empty/corrupt
+	if not data or typeof(data) != TYPE_DICTIONARY:
+		print("Error: Invalid JSON, using defaults.")
+		return {"volume": DEFAULT_VOLUME, "muted": DEFAULT_MUTED}
+	
+	# Validate loaded data
+	return {
+		"volume": clamp(float(data.get("volume", DEFAULT_VOLUME)), 0.0, 100.0),
+		"muted": bool(data.get("muted", DEFAULT_MUTED))
+	}
