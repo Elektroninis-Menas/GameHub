@@ -24,6 +24,17 @@ MusicManager="*res://AutoLoads/MusicManager.gd"
 
 project/assembly_name="GameHub"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Unit_testing/": "teal",
+"res://test/": "green"
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

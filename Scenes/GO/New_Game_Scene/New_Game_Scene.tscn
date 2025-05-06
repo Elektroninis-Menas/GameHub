@@ -29,8 +29,52 @@ position = Vector2(-16, -17)
 [node name="HoverFlower" parent="Node2D/Intersections" instance=ExtResource("5_shkll")]
 position = Vector2(-14, -18)
 
-[node name="TurnLabel" type="Label" parent="Node2D/Intersections"]
+[node name="TurnLabel" type="Label" parent="Node2D"]
 offset_left = -281.0
 offset_top = 25.0
 offset_right = 7.0
 offset_bottom = 120.0
+
+[node name="WhiteCaptures" type="Label" parent="Node2D"]
+offset_left = -266.0
+offset_top = 156.0
+offset_right = -20.0
+offset_bottom = 236.0
+text = "WHITE CAPTURED:"
+
+[node name="BlackCaptures" type="Label" parent="Node2D"]
+offset_left = -267.0
+offset_top = 272.0
+offset_right = -43.0
+offset_bottom = 366.0
+text = "BLACK CAPTURED:"
+
+[node name="BlackCount" type="Label" parent="Node2D"]
+offset_left = -263.0
+offset_top = 299.0
+offset_right = -129.0
+offset_bottom = 378.0
+
+[node name="WhiteCount" type="Label" parent="Node2D"]
+offset_left = -261.0
+offset_top = 183.0
+offset_right = -129.0
+offset_bottom = 254.0
+
+[node name="ResetButton" type="Button" parent="Node2D"]
+offset_left = 619.0
+offset_top = 509.0
+offset_right = 828.0
+offset_bottom = 607.0
+action_mode = 0
+text = "RESET"
+
+[node name="Pass" type="Button" parent="Node2D"]
+offset_left = -279.0
+offset_top = 528.0
+offset_right = -42.0
+offset_bottom = 607.0
+text = "PASS"
+
+[connection signal="pressed" from="Node2D/ResetButton" to="Node2D" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Node2D/Pass" to="Node2D" method="_on_pass_pressed"]
