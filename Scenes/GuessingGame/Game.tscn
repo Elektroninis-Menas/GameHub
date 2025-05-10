@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds44gk0pio3tw"]
+[gd_scene load_steps=6 format=3 uid="uid://ds44gk0pio3tw"]
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://Scenes/GuessingGame/GridTheme.tres" id="1_p2gs0"]
 [ext_resource type="Script" uid="uid://c77qn7ksamw0q" path="res://Scenes/GuessingGame/game.gd" id="1_ro40q"]
 [ext_resource type="Script" uid="uid://d2ypd3kp2rdi5" path="res://Scenes/GuessingGame/submitButtonScript.gd" id="3_ro40q"]
 [ext_resource type="Script" uid="uid://bturlf54bh32m" path="res://Scenes/GuessingGame/button.gd" id="4_m6yub"]
+[ext_resource type="Script" uid="uid://bbk24jskjy1kn" path="res://Scenes/GuessingGame/exit_button.gd" id="5_yisjd"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -349,6 +350,17 @@ offset_right = 249.0
 offset_bottom = 129.0
 text = "Bandymų liko: 5"
 
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 571.0
+offset_right = 196.0
+offset_bottom = 630.0
+theme = ExtResource("1_p2gs0")
+text = "Exit"
+script = ExtResource("5_yisjd")
+game_scene = "uid://c2i0owtx01e8i"
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="SubmitButton1" to="SubmitButton1" method="_on_pressed"]
 [connection signal="pressed" from="SubmitButton2" to="SubmitButton2" method="_on_pressed"]
@@ -356,3 +368,4 @@ text = "Bandymų liko: 5"
 [connection signal="pressed" from="SubmitButton4" to="SubmitButton4" method="_on_pressed"]
 [connection signal="pressed" from="SubmitButton5" to="SubmitButton5" method="_on_pressed"]
 [connection signal="pressed" from="winwindow/Button" to="winwindow/Button" method="_on_pressed"]
+[connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]
