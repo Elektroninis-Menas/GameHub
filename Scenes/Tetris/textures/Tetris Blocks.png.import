@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqvip0jtne4k8"
-path="res://.godot/imported/Block texture.png-fc6384389e679c113ead6cf8d20a184a.ctex"
+uid="uid://ca3a1282m8h86"
+path="res://.godot/imported/Tetris Blocks.png-2d3dd90044c01486557733a79b675175.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Tetris/Block texture.png"
-dest_files=["res://.godot/imported/Block texture.png-fc6384389e679c113ead6cf8d20a184a.ctex"]
+source_file="res://Scenes/Tetris/textures/Tetris Blocks.png"
+dest_files=["res://.godot/imported/Tetris Blocks.png-2d3dd90044c01486557733a79b675175.ctex"]
 
 [params]
 
@@ -23,12 +23,12 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
