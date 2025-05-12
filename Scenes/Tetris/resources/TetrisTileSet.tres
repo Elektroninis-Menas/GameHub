@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=10 format=3 uid="uid://coxlgjuxlofsb"]
 
-[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/Tetris Blocks.png" id="1_oo1p2"]
+[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/textures/Tetris Blocks.png" id="1_oo1p2"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_43bmy"]
 tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 131073, 65536, 0)

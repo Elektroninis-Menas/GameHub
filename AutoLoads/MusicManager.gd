@@ -18,7 +18,8 @@ func _ready():
 
 	# 🔊 Load and apply saved audio settings on startup
 	var settings = load_settings()
-	update_audio_settings(settings["volume"], settings["muted"])
+	update_audio_settings(settings.get("volume", DEFAULT_VOLUME), 
+						  settings.get("mute", DEFAULT_MUTED))
 
 func _on_music_finished():
 	music_player.play()
@@ -54,3 +55,49 @@ func load_settings() -> Dictionary:
 		"volume": clamp(float(data.get("volume", DEFAULT_VOLUME)), 0.0, 100.0),
 		"muted": bool(data.get("muted", DEFAULT_MUTED))
 	}
+	
+func set_volume(volume: float) -> void:
+	volume = clamp(volume, 0.0, 100.0)
+	
+	var volume_db = linear_to_db(volume / 100.0)
+	AudioServer.set_bus_volume_db(0, volume_db)
+		
+	#save_volume(volume)
+
+func set_save_mute(mute: bool) -> void:
+	AudioServer.set_bus_mute(0, mute)
+	save_mute(mute)
+	
+func save_volume(volume: float):
+	var data: Dictionary
+	var file: FileAccess
+	if FileAccess.file_exists(SETTINGS_FILE):
+		file = FileAccess.open(SETTINGS_FILE, FileAccess.READ)
+		data = JSON.parse_string(file.get_as_text().strip_edges())
+		file.close()
+	else:
+		data = {}
+	
+	file = FileAccess.open(SETTINGS_FILE, FileAccess.WRITE)
+		
+	data["volume"] = volume
+	
+	file.store_string(JSON.stringify(data))
+	file.close()
+	print("saved volume %s" % volume)
+	
+func save_mute(mute: bool):
+	var data: Dictionary
+	var file: FileAccess
+	if FileAccess.file_exists(SETTINGS_FILE):
+		file = FileAccess.open(SETTINGS_FILE, FileAccess.READ)
+		data = JSON.parse_string(file.get_as_text().strip_edges())
+		file.close()
+	else:
+		data = {}
+	
+	file = FileAccess.open(SETTINGS_FILE, FileAccess.WRITE)
+	
+	data["muted"] = mute
+	file.store_string(JSON.stringify(data))
+	file.close()

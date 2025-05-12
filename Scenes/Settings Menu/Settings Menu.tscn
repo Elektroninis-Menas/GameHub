@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://crk1meeb7fcpa"]
 
-[ext_resource type="Script" uid="uid://dddc28km7crik" path="res://Scenes/settings_menu.gd" id="1_y4b6o"]
+[ext_resource type="Script" uid="uid://cdh4nvadufv7g" path="res://Scenes/Settings Menu/settings_menu.gd" id="1_y4b6o"]
 
 [sub_resource type="Theme" id="Theme_y4b6o"]
 CheckBox/font_sizes/font_size = 30
@@ -60,6 +60,3 @@ text = "Mute"
 
 [node name="Mute" type="CheckBox" parent="ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
-[connection signal="value_changed" from="ColorRect/MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
-[connection signal="toggled" from="ColorRect/MarginContainer/VBoxContainer/Mute" to="." method="_on_mute_toggled"]

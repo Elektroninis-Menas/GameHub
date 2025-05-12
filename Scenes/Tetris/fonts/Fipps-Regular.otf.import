@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://pk2pgb5j8xau"
-path="res://.godot/imported/Mojang-Regular.ttf-5b442d8c23bb217a2a474cd66d2bb423.fontdata"
+uid="uid://cve3skpxf7fjy"
+path="res://.godot/imported/Fipps-Regular.otf-4c0b0725cd6ccb1cad694446589d06e6.fontdata"
 
 [deps]
 
-source_file="res://Scenes/Tetris/Mojang-Regular.ttf"
-dest_files=["res://.godot/imported/Mojang-Regular.ttf-5b442d8c23bb217a2a474cd66d2bb423.fontdata"]
+source_file="res://Scenes/Tetris/fonts/Fipps-Regular.otf"
+dest_files=["res://.godot/imported/Fipps-Regular.otf-4c0b0725cd6ccb1cad694446589d06e6.fontdata"]
 
 [params]
 
@@ -23,7 +23,7 @@ allow_system_fallback=true
 force_autohinter=false
 hinting=1
 subpixel_positioning=0
-keep_rounding_remainders=false
+keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
 fallbacks=[]

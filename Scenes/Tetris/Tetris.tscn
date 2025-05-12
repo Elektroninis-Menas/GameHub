@@ -1,18 +1,18 @@
-[gd_scene load_steps=28 format=4 uid="uid://cfhypddxwshel"]
+[gd_scene load_steps=29 format=4 uid="uid://cfhypddxwshel"]
 
-[ext_resource type="Theme" uid="uid://2brjlwlc5xuk" path="res://Scenes/Tetris/Tetris-UI.tres" id="1_22w2r"]
-[ext_resource type="Script" uid="uid://bs47kawuqinmx" path="res://Scenes/Tetris/game.gd" id="1_43bmy"]
-[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/Tetris Blocks.png" id="2_43bmy"]
-[ext_resource type="Texture2D" uid="uid://cqvip0jtne4k8" path="res://Scenes/Tetris/Block texture.png" id="3_enwe5"]
-[ext_resource type="Texture2D" uid="uid://dhnoqexoom1i6" path="res://Scenes/Tetris/Golden Button.png" id="3_qb1js"]
-[ext_resource type="LabelSettings" uid="uid://dwylcg230otk3" path="res://Scenes/Tetris/Tetris_UI_label_settings.tres" id="5_fol2h"]
-[ext_resource type="Texture2D" uid="uid://bsbxo32gdni6x" path="res://Scenes/Tetris/Tetris Frame.png" id="5_m3qmx"]
-[ext_resource type="Script" uid="uid://dmtc6fcsook" path="res://Scenes/Tetris/menu.gd" id="7_lplsm"]
-[ext_resource type="FontFile" uid="uid://cve3skpxf7fjy" path="res://Scenes/Tetris/Fipps-Regular.otf" id="8_pnva8"]
-[ext_resource type="Script" uid="uid://b2ujepo5c8ilk" path="res://Scenes/Tetris/game_over_menu.gd" id="10_atvrt"]
+[ext_resource type="Theme" uid="uid://2brjlwlc5xuk" path="res://Scenes/Tetris/resources/Tetris-UI.tres" id="1_22w2r"]
+[ext_resource type="Script" uid="uid://bs47kawuqinmx" path="res://Scenes/Tetris/scripts/game.gd" id="1_43bmy"]
+[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/textures/Tetris Blocks.png" id="2_43bmy"]
+[ext_resource type="Texture2D" uid="uid://cqvip0jtne4k8" path="res://Scenes/Tetris/textures/Block texture.png" id="3_enwe5"]
+[ext_resource type="Texture2D" uid="uid://dhnoqexoom1i6" path="res://Scenes/Tetris/textures/Golden Button.png" id="3_qb1js"]
+[ext_resource type="LabelSettings" uid="uid://dwylcg230otk3" path="res://Scenes/Tetris/resources/Tetris_UI_label_settings.tres" id="5_fol2h"]
+[ext_resource type="Texture2D" uid="uid://bsbxo32gdni6x" path="res://Scenes/Tetris/textures/Tetris Frame.png" id="5_m3qmx"]
+[ext_resource type="Script" uid="uid://dmtc6fcsook" path="res://Scenes/Tetris/scripts/menu.gd" id="7_lplsm"]
+[ext_resource type="FontFile" uid="uid://cve3skpxf7fjy" path="res://Scenes/Tetris/fonts/Fipps-Regular.otf" id="8_pnva8"]
+[ext_resource type="Script" uid="uid://b2ujepo5c8ilk" path="res://Scenes/Tetris/scripts/game_over_menu.gd" id="10_atvrt"]
 [ext_resource type="Script" uid="uid://bnsy4xiwx4wfc" path="res://Scenes/Main menu/game_button.gd" id="11_kk011"]
-[ext_resource type="Script" uid="uid://cyv2dfb7isqcf" path="res://Scenes/Tetris/pause_menu.gd" id="12_atvrt"]
-[ext_resource type="Script" uid="uid://dqhxsmrwubea8" path="res://Scenes/Tetris/settings.gd" id="12_kk011"]
+[ext_resource type="Script" uid="uid://cyv2dfb7isqcf" path="res://Scenes/Tetris/scripts/pause_menu.gd" id="12_atvrt"]
+[ext_resource type="Script" uid="uid://dqhxsmrwubea8" path="res://Scenes/Tetris/scripts/settings.gd" id="12_kk011"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnva8"]
 
@@ -167,6 +167,9 @@ shader = SubResource("VisualShader_gtfx7")
 line_spacing = 0.0
 font = ExtResource("8_pnva8")
 font_size = 60
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_atvrt"]
+blend_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_qb1js"]
 line_spacing = 0.0
@@ -335,8 +338,7 @@ label_settings = ExtResource("5_fol2h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseMenu" type="ColorRect" parent="TetrisControl" node_paths=PackedStringArray("resume_button", "restart_button", "exit_button", "tetris_control", "menu", "statistics")]
-visible = false
+[node name="PauseMenu" type="ColorRect" parent="TetrisControl" node_paths=PackedStringArray("resume_button", "restart_button", "exit_button", "volume", "mute", "tetris_control", "menu")]
 material = SubResource("ShaderMaterial_digkk")
 layout_mode = 1
 anchors_preset = 15
@@ -349,9 +351,10 @@ script = ExtResource("12_atvrt")
 resume_button = NodePath("VBoxContainer/VBoxContainer/Resume")
 restart_button = NodePath("VBoxContainer/VBoxContainer/Restart")
 exit_button = NodePath("VBoxContainer/VBoxContainer/Exit")
+volume = NodePath("VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Volume")
+mute = NodePath("VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Mute")
 tetris_control = NodePath("..")
 menu = NodePath("../../Menu")
-statistics = NodePath("../../Statistics")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TetrisControl/PauseMenu"]
 layout_mode = 1
@@ -388,7 +391,35 @@ text = "Restart"
 layout_mode = 2
 text = "Exit"
 
+[node name="HSeparator" type="HSeparator" parent="TetrisControl/PauseMenu/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TetrisControl/PauseMenu/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TetrisControl/PauseMenu/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TetrisControl/PauseMenu/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Mute" type="CheckBox" parent="TetrisControl/PauseMenu/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_atvrt")
+layout_mode = 2
+tooltip_text = "Mute"
+
+[node name="Volume" type="HSlider" parent="TetrisControl/PauseMenu/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+tooltip_text = "Volume"
+value = 50.0
+
 [node name="GameOverMenu" type="ColorRect" parent="TetrisControl" node_paths=PackedStringArray("play_again_button", "exit_button", "tetris_control", "menu")]
+visible = false
 material = SubResource("ShaderMaterial_digkk")
 layout_mode = 1
 anchors_preset = 15

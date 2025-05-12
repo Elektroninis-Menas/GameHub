@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://xti8fnv2nk28"]
 
 [ext_resource type="Script" uid="uid://cm121uvip4pup" path="res://Scenes/LightsOut/lights_out_game.gd" id="1_830x7"]
-[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/Tetris Blocks.png" id="1_a2umc"]
+[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/textures/Tetris Blocks.png" id="1_a2umc"]
 [ext_resource type="Script" uid="uid://cgsuvhuqo548p" path="res://Scenes/LightsOut/button.gd" id="3_ua3b5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjr65"]
