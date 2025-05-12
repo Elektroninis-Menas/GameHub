@@ -112,6 +112,44 @@ Easy - 3x3 grid
 Medium - 5x5 grid
 Hard - 7x7 grid"
 
+[node name="ResetScoresButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1029.0
+offset_top = 12.0
+offset_right = 1135.0
+offset_bottom = 52.0
+text = "Reset Scores"
+
+[node name="ResetMenu" type="PopupPanel" parent="."]
+position = Vector2i(350, 50)
+size = Vector2i(400, 200)
+
+[node name="ResetText" type="RichTextLabel" parent="ResetMenu"]
+visible = false
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 196.0
+theme_override_font_sizes/normal_font_size = 27
+text = "Are you sure you want to delete all the highscore data (this cannot be undone)
+(click anywhere else to cancel)"
+
+[node name="ResetButtonConfirm" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -133.0
+offset_top = -336.0
+offset_right = 81.0
+offset_bottom = -226.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "YES"
+
 [connection signal="ready" from="ColorRect" to="MainMenuButton" method="_on_color_rect_ready"]
 [connection signal="pressed" from="ColorRect/Easy" to="ColorRect/Easy" method="_on_pressed"]
 [connection signal="pressed" from="ColorRect/Medium" to="ColorRect/Medium" method="_on_pressed"]
@@ -119,3 +157,6 @@ Hard - 7x7 grid"
 [connection signal="pressed" from="MainMenuButton" to="MainMenuButton" method="_on_pressed"]
 [connection signal="button_down" from="RulesButton" to="MainMenuButton" method="_on_rules_button_button_down"]
 [connection signal="visibility_changed" from="RulesMenu" to="MainMenuButton" method="_on_rules_menu_visibility_changed"]
+[connection signal="button_down" from="ResetScoresButton" to="MainMenuButton" method="_on_reset_scores_button_button_down"]
+[connection signal="visibility_changed" from="ResetMenu" to="MainMenuButton" method="_on_reset_menu_visibility_changed"]
+[connection signal="button_down" from="ResetButtonConfirm" to="MainMenuButton" method="_on_reset_button_confirm_button_down"]
