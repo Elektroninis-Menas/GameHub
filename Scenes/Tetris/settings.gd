@@ -1,10 +1,8 @@
 extends ColorRect
 
-@onready var table: RichTextLabel = $MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/Table
-@onready var back_button: Button = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Back
-@onready var menu: ColorRect = $"../Menu"
-
-const STATISTICS_JSON = "user://TetrisStatistics.json"
+@export var table: RichTextLabel
+@export var back_button: Button
+@export var menu: ColorRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,11 +11,11 @@ func _ready() -> void:
 	
 func display_statistics() -> void:
 	show()
-	if !FileAccess.file_exists(STATISTICS_JSON):
+	if !FileAccess.file_exists(TetrisStatistics.STATISTICS_JSON):
 		table.text = "No data yet!"
 		return
 
-	var data := TetrisStatistics.load_statistics(STATISTICS_JSON);
+	var data := TetrisStatistics.load_statistics();
 	if data.is_empty():
 		table.text = "No data yet!"
 		return

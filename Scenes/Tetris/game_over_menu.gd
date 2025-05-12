@@ -1,27 +1,21 @@
 extends ColorRect
 
-@export var resume_button: Button
-@export var restart_button: Button
+@export var play_again_button: Button
 @export var exit_button: Button
 
 @export var tetris_control: TetrisControl
 @export var menu: ColorRect
-@export var statistics: ColorRect
 
 func _ready() -> void:
-	resume_button.pressed.connect(hide_menu)
-	restart_button.pressed.connect(on_restart_pressed)
+	play_again_button.pressed.connect(on_play_again_pressed)
 	exit_button.pressed.connect(on_exit_pressed)
 	hide()
 
-func on_restart_pressed() -> void:
+func on_play_again_pressed() -> void:
 	tetris_control.restart_game()
-	hide()
+	hide_menu()
 
 func on_exit_pressed() -> void:
-	tetris_control.end_game()
-	tetris_control.exit_game()
-	
 	hide()
 	menu.show()
 
