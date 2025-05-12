@@ -1,12 +1,16 @@
+## Class for loading and saving tetris game statistics
 class_name TetrisStatistics
 
-## Loads a Tetris statistics [JSON] file and returns a [Array] of data
-static func load_statistics(json_path: String) -> Array:
-	if !FileAccess.file_exists(json_path):
-		printerr("Tetris statistics file %s does not exist." % json_path)
+## Path to the statistcs json file
+static var STATISTICS_JSON = "user://TetrisStatistics.json"
+
+## Loads a Tetris statistics from [member STATISTICS_JSON] and returns a [Array] of data
+static func load_statistics() -> Array:
+	if !FileAccess.file_exists(STATISTICS_JSON):
+		printerr("Tetris statistics file %s does not exist." % STATISTICS_JSON)
 		return []
 	
-	var stat_file := FileAccess.open(json_path, FileAccess.READ)
+	var stat_file := FileAccess.open(STATISTICS_JSON, FileAccess.READ)
 	if stat_file == null:
 		printerr("Tetris statistics file found but cannot open.")
 		return []
@@ -22,12 +26,12 @@ static func load_statistics(json_path: String) -> Array:
 	return data["Data"]
 
 ## Saves Tetris game [member stats] to config in [member config_path]
-static func save_statistic(stats: Dictionary, json_path: String) -> void:
+static func save_statistic(stats: Dictionary) -> void:
 	var stat_file : FileAccess
-	if FileAccess.file_exists(json_path):
-		stat_file = FileAccess.open(json_path, FileAccess.READ_WRITE)
+	if FileAccess.file_exists(STATISTICS_JSON):
+		stat_file = FileAccess.open(STATISTICS_JSON, FileAccess.READ_WRITE)
 	else:
-		stat_file = FileAccess.open(json_path, FileAccess.WRITE_READ)
+		stat_file = FileAccess.open(STATISTICS_JSON, FileAccess.WRITE_READ)
 	
 	if stat_file == null:
 		printerr("Tetris statistics file found but cannot open.")

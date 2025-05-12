@@ -11,7 +11,7 @@ var pieces_placed := 0
 
 signal game_over
 signal preview_figure
-signal on_line_broken
+signal line_broken
 
 func _init(new_height: int, new_width: int) -> void:
 	lines_broken = 0
@@ -55,7 +55,7 @@ func break_lines() -> void:
 					field[row1][col] = field[row1 - 1][col]
 	score += lines ** 2
 	lines_broken += lines
-	on_line_broken.emit()
+	line_broken.emit()
 	
 func go_space() -> void:
 	while !intersects():
