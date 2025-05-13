@@ -6,6 +6,7 @@ extends ColorRect
 @export var statistics_button: Button
 
 func _ready() -> void:
+	MusicManager.play_music_for_game("Tetris")
 	play_button.pressed.connect(on_play_pressed)
 	statistics_button.pressed.connect(on_statistics_pressed)
 	show()
