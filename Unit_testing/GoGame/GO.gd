@@ -3,19 +3,19 @@ extends RefCounted
 
 const GRID_SIZE := 10
 
-# Game state
-var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for black)
+## Stores Vector2i -> bool (true for white, false for black)
+var occupied_cells := {}
 var is_white_turn := false
 var white_captures := 0
 var black_captures := 0
 var last_player_passed := false
 var consecutive_passes := 0
 
-# Returns true if a specific grid position is valid
+## Returns true if a specific grid position is valid
 func is_valid_position(pos: Vector2i) -> bool:
 	return pos.x >= 0 and pos.x < GRID_SIZE and pos.y >= 0 and pos.y < GRID_SIZE
 
-# Get adjacent cells (orthogonal neighbors)
+## Get adjacent cells (orthogonal neighbors)
 func get_adjacent_cells(cell: Vector2i) -> Array:
 	var adj = []
 	for offset in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
@@ -24,7 +24,7 @@ func get_adjacent_cells(cell: Vector2i) -> Array:
 			adj.append(neighbor)
 	return adj
 
-# Get all stones of the same color connected to the starting cell
+## Get all stones of the same color connected to the starting cell
 func get_group(start_cell: Vector2i, color: bool) -> Array:
 	var visited := {}
 	var stack := [start_cell]
@@ -43,7 +43,7 @@ func get_group(start_cell: Vector2i, color: bool) -> Array:
 
 	return group
 
-# Check if a group has any liberties (empty adjacent spaces)
+## Check if a group has any liberties (empty adjacent spaces)
 func has_liberties(group: Array) -> bool:
 	for cell in group:
 		for neighbor in get_adjacent_cells(cell):
@@ -51,7 +51,7 @@ func has_liberties(group: Array) -> bool:
 				return true
 	return false
 
-# Capture a group and return the number of stones captured
+## Capture a group and return the number of stones captured
 func capture_group(group: Array) -> int:
 	var capture_count = 0
 	
@@ -61,7 +61,7 @@ func capture_group(group: Array) -> int:
 	
 	return capture_count
 
-# Reset the game state
+## Reset the game state
 func reset_game() -> void:
 	occupied_cells.clear()
 	white_captures = 0
@@ -70,11 +70,11 @@ func reset_game() -> void:
 	last_player_passed = false
 	consecutive_passes = 0
 
-# Switch turn between players
+## Switch turn between players
 func switch_turn() -> void:
 	is_white_turn = !is_white_turn
 
-# Pass the current turn
+## Pass the current turn
 func pass_turn() -> bool:
 	consecutive_passes += 1 if last_player_passed else 1
 	last_player_passed = true
@@ -87,7 +87,7 @@ func pass_turn() -> bool:
 	switch_turn()
 	return false  # Game continues
 
-# Find territory - empty points surrounded by a single color
+## Find territory - empty points surrounded by a single color
 func find_territory() -> Dictionary:
 	var black_territory := 0
 	var white_territory := 0
@@ -138,7 +138,7 @@ func find_territory() -> Dictionary:
 		"white_territory": white_territory
 	}
 
-# Calculate final score including territory and captures
+## Calculate final score including territory and captures
 func calculate_score() -> Dictionary:
 	var territory = find_territory()
 	
@@ -152,7 +152,7 @@ func calculate_score() -> Dictionary:
 		"white_score": white_score
 	}
 
-# Attempt to place a stone at the given position
+## Attempt to place a stone at the given position
 func place_stone(pos: Vector2i) -> Dictionary:
 	var result = {
 		"success": false,
@@ -233,7 +233,7 @@ func place_stone(pos: Vector2i) -> Dictionary:
 	switch_turn()
 	return result
 
-# Get current score (territory counting not implemented)
+## Get current score (territory counting not implemented)
 func get_score() -> Dictionary:
 	return {
 		"white_captures": white_captures,
