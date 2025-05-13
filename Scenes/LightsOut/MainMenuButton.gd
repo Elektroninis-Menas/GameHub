@@ -23,6 +23,7 @@ func _ready() -> void:
 		printerr("No scene given to button \"%s\"" % self.text)
 		return
 	scene = load(game_scene)
+	MusicManager.play_music_for_game("LightsOut")
 	
 # Function for the button to transition to a new scene
 func _on_pressed() -> void:
