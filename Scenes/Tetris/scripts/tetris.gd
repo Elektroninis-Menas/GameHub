@@ -12,11 +12,12 @@ var pieces_placed := 0
 signal game_over
 signal preview_figure
 signal line_broken
+signal level_change(level: int)
 
 func _init(new_height: int, new_width: int) -> void:
+	score = 0
 	lines_broken = 0
 	pieces_placed = 0
-	score = 0
 	height = new_height
 	width = new_width
 	next_figure = Figure.new(int(float(width) / 2) - 1, 0)
@@ -53,14 +54,22 @@ func break_lines() -> void:
 			for row1 in range(row, 1, -1):
 				for col in range(width):
 					field[row1][col] = field[row1 - 1][col]
-	score += lines ** 2
+	match lines:
+		1: score +=   40 * (lines_broken/10 + 1)
+		2: score +=  100 * (lines_broken/10 + 1)
+		3: score +=  300 * (lines_broken/10 + 1)
+		4: score += 1200 * (lines_broken/10 + 1)
 	lines_broken += lines
 	line_broken.emit()
+	if lines_broken / 10 > (lines_broken - lines) / 10:
+		level_change.emit(lines_broken/10)
 	
 func go_space() -> void:
 	while !intersects():
 		figure.y += 1
+		score += 2
 	figure.y -= 1
+	score -= 2
 	freeze()
 	
 func get_shadow() -> Figure:

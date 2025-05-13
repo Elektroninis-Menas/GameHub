@@ -46,12 +46,16 @@ func start_game() -> void:
 	game_state.game_over.connect(on_game_over)
 	game_state.preview_figure.connect(on_draw_next_piece)
 	game_state.line_broken.connect(on_line_broken)
+	game_state.level_change.connect(on_level_change)
 	
 	game_state.new_figure()
 	game_state.pieces_placed = 0
 	draw_everything()
 	_timer.start()
 	_ms_started = Time.get_ticks_msec()
+
+func on_level_change(level: int) -> void:
+	_timer.wait_time = (0.8-(level*0.007))**(level)
 
 func draw_everything() -> void:
 	draw_board()
@@ -90,7 +94,9 @@ func pause_game(paused: bool) -> void:
 ## Moves the active tetramino down and draws the board
 func go_down() -> void:
 	game_state.go_down()
+	game_state.score += 1
 	draw_board()
+	draw_score()
 
 ## On line broken callback - dreaws the score and lines broken
 func on_line_broken() -> void:
