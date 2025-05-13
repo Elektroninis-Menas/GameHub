@@ -3,8 +3,8 @@ extends Control
 class_name TetrisControl
 
 @export var TILE_SIZE: int = 30
-@export var WIDTH = 10
-@export var HEIGHT = 20
+@export var WIDTH: int = 10
+@export var HEIGHT: int = 20
 
 @export var board_layer: TileMapLayer
 @export var preview_layer: TileMapLayer
@@ -49,6 +49,7 @@ func start_game() -> void:
 	game_state.level_change.connect(on_level_change)
 	
 	game_state.new_figure()
+	game_state.figure.x = int(float(game_state.width) / 2) - 1
 	game_state.pieces_placed = 0
 	draw_everything()
 	_timer.start()
@@ -128,27 +129,15 @@ func on_game_over() -> void:
 ## Draws the board and the falling tetramino from [member game_state]
 ## to [member TetrisControl.board_layer]
 func draw_board() -> void:
-	# Write the active tetramino and its shadow to the field 
-	var field := game_state.field.duplicate(true)
-	if game_state.figure != null:
-		for row in range(4):
-			for col in range(4):
-				# Write active tetramino shadow
-				var shadow := game_state.get_shadow()
-				if row * 4 + col in shadow.image():
-					field[row + shadow.y][col + shadow.x] = shadow.color
-				# Write active tetramino
-				if row * 4 + col in game_state.figure.image():
-					field[row + game_state.figure.y][col + game_state.figure.x] = game_state.figure.color
-				
-	
-	# Display the field
 	board_layer.clear()
+	draw_tetramino(game_state.get_shadow(), board_layer, 1)
+	draw_tetramino(game_state.figure, board_layer)
+	
+	var field := game_state.field
 	for row in range(game_state.height):
 		for col in range(game_state.width):
 			if field[row][col] > 0:
-				board_layer.set_cell(Vector2i(col, row), 0, Vector2i(field[row][col] - 1, 0))
-
+				board_layer.set_cell(Vector2i(col, row), 0, Vector2i(field[row][col], 0))
 
 ## Callback to update next piece preview [member TetrisControl.preview_layer]
 func on_draw_next_piece() -> void:
@@ -157,14 +146,16 @@ func on_draw_next_piece() -> void:
 	draw_tetramino(game_state.next_figure, preview_layer)
 
 ## Draws the [param tetramino] to [param layer]
-static func draw_tetramino(tetramino: Figure, layer: TileMapLayer) -> void:
+static func draw_tetramino(tetramino: Figure, layer: TileMapLayer, is_shadow: bool = false) -> void:
 	if tetramino == null:
 		return
 	
+	
+	var color: int = 8 if is_shadow else tetramino.type + 1
 	for row in range(4):
 		for col in range(4):
 			if row * 4 + col in tetramino.image():
-				layer.set_cell(Vector2i(col, row + 1), 0, Vector2i(tetramino.color - 1, 0))
+				layer.set_cell(Vector2i(col + tetramino.x, row + tetramino.y), 0, Vector2i(color, 0))
 
 func _input(event: InputEvent) -> void:
 	if _game_over || _is_paused:
