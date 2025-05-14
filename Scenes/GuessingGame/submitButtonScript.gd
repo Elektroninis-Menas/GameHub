@@ -9,29 +9,33 @@ extends Button
 @onready var result_label: Label = $"../winwindow/win"
 @onready var attempts_label: Label = $"../Label2"
 
+
 func _on_pressed():
-	var slice : Array = inputs.get_children().slice(start_index, end_index)
+	var slice: Array = inputs.get_children().slice(start_index, end_index)
 	var word := collect_word(slice)
 	var target_word: String = control.random_word.to_upper()
 	if target_word.is_empty():
 		print("tuscia")
 	else:
 		print(target_word)
-	
+
 	collor_word(word, target_word, slice)
-	
+
+
 func collect_word(slice: Array) -> String:
 	var word := ""
-	
-	for line_edit : LineEdit in slice:
+
+	for line_edit: LineEdit in slice:
 		var letter = line_edit.text.strip_edges().to_upper()
 		word += letter
 	return word
-	
+
+
 func color_input(line_edit: LineEdit, color: Color):
 	var style = StyleBoxFlat.new()
 	style.bg_color = color
 	line_edit.add_theme_stylebox_override("normal", style)
+
 
 func collor_word(word, target_word, slice):
 	if word in control.word_list:
@@ -39,8 +43,8 @@ func collor_word(word, target_word, slice):
 		#var guess_chars = []
 		#var target_chars = []
 		#for i in range(5):
-			#guess_chars.append(word[i])
-			#target_chars.append(target_word[i])
+		#guess_chars.append(word[i])
+		#target_chars.append(target_word[i])
 		var green_indices = []
 		var used_target_indices = []
 # 🟩 First pass – exact matches
@@ -51,7 +55,7 @@ func collor_word(word, target_word, slice):
 				used_target_indices.append(i)
 		if word == target_word:
 			win_window.show()
-			result_label.text = "Teisingai! Tu laimėjai! žodis: " +  str(word)
+			result_label.text = "Teisingai! Tu laimėjai! žodis: " + str(word)
 			return true
 # 🟨 Second pass – correct letter, wrong position
 		for i in range(5):
@@ -83,6 +87,8 @@ func collor_word(word, target_word, slice):
 			return
 		print("❌ Not in word list.")
 		return
+
+
 func show_others(word):
 	self.hide()
 	var next_start = end_index
@@ -100,4 +106,3 @@ func show_others(word):
 	else:
 		win_window.show()
 		result_label.text = "Nepavyko, žodis buvo: " + str(word)
-	

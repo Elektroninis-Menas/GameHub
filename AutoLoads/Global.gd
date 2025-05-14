@@ -5,6 +5,7 @@ var settings_instance : Node
 
 var disable_default_menu: bool = false
 
+
 func _input(event):
 	if disable_default_menu:
 		return
