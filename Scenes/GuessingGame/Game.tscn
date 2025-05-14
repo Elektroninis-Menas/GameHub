@@ -257,7 +257,6 @@ offset_right = 958.0
 offset_bottom = 240.0
 text = "Submit"
 script = ExtResource("3_ro40q")
-end_index = 5
 
 [node name="SubmitButton2" type="Button" parent="."]
 visible = false
@@ -268,8 +267,6 @@ offset_right = 959.0
 offset_bottom = 292.0
 text = "Submit"
 script = ExtResource("3_ro40q")
-start_index = 5
-end_index = 10
 
 [node name="SubmitButton3" type="Button" parent="."]
 visible = false
@@ -280,8 +277,6 @@ offset_right = 960.0
 offset_bottom = 346.0
 text = "Submit"
 script = ExtResource("3_ro40q")
-start_index = 10
-end_index = 15
 
 [node name="SubmitButton4" type="Button" parent="."]
 visible = false
@@ -292,8 +287,6 @@ offset_right = 960.0
 offset_bottom = 403.0
 text = "Submit"
 script = ExtResource("3_ro40q")
-start_index = 15
-end_index = 20
 
 [node name="SubmitButton5" type="Button" parent="."]
 visible = false
@@ -304,8 +297,6 @@ offset_right = 960.0
 offset_bottom = 455.0
 text = "Submit"
 script = ExtResource("3_ro40q")
-start_index = 20
-end_index = 25
 
 [node name="winwindow" type="Window" parent="."]
 title = "Laimėjimas!"
