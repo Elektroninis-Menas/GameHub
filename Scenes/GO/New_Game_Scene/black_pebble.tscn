@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0khur64q0flg"]
 
-[ext_resource type="Texture2D" uid="uid://grhacu34yak6" path="res://Scenes/GO/New_Game_Scene/pebbleblacke.png" id="1_losgk"]
+[ext_resource type="Texture2D" uid="uid://b8ycohbbsuj40" path="res://Scenes/GO/New_Game_Scene/BlackPebble.PNG" id="1_losgk"]
 
 [node name="BlackPebble" type="Sprite2D"]
-scale = Vector2(0.542857, 0.514286)
+scale = Vector2(0.05, 0.048)
 texture = ExtResource("1_losgk")
