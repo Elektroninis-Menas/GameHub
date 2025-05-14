@@ -31,4 +31,5 @@ func load_word_list() -> Array[String]:
 	else:
 		push_error("Failed to load word list.")
 
+	file = null
 	return valid

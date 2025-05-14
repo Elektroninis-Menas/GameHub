@@ -6,9 +6,9 @@ var grid: TestGrid = null
 func before_each():
 	grid = autofree(TestGrid.new())
 	grid.grid_size = 3
-	grid.pressed_counter=Label.new()
-	grid.victory_label=Label.new()
-	grid.highscore_counter=Label.new()
+	#grid.pressed_counter=Label.new()
+	#grid.victory_label=Label.new()
+	#grid.highscore_counter=Label.new()
 
 
 	grid.buttons = []
@@ -17,26 +17,24 @@ func before_each():
 		grid.buttons[i] = []
 		grid.buttons[i].resize(grid.grid_size)
 
+func after_each():
+	if len(grid.buttons) > 0:
+		for row in grid.buttons:
+			for button: Button in row:
+				if button != null:
+					button.free()
+
 func test_grid_initialization():
 	assert_not_null(grid, "Grid should be initialized")
 	assert_eq(grid.grid_size, 3, "Grid size should be 3")
 	assert_eq(grid.buttons.size(), 3, "Buttons array should have size 3")
 	assert_eq(grid.buttons[0].size(), 3, "Each row should have size 3")
 	
-func test_different_grid_distributions():
-	var red_style = StyleBoxFlat.new()
-	var green_style = StyleBoxFlat.new()
-	
+func test_different_grid_distributions():	
 	var first_grid_state = []
 	for y in range(grid.grid_size):
 		for x in range(grid.grid_size):
-			var button = Button.new()
-			if grid.rng.randf() < 0.5:
-				button.set_meta("is_green", false)
-			else:
-				button.set_meta("is_green", true)
-			grid.buttons[x][y] = button
-			first_grid_state.append(button.get_meta("is_green"))
+			first_grid_state.append(grid.rng.randf() < 0.5)
 	
 	if not has_red_buttons_in_state(first_grid_state):
 		first_grid_state[0] = false
@@ -46,12 +44,7 @@ func test_different_grid_distributions():
 		var current_grid_state = []
 		for y in range(grid.grid_size):
 			for x in range(grid.grid_size):
-				var button = Button.new()
-				if grid.rng.randf() < 0.5:
-					button.set_meta("is_green", false)
-				else:
-					button.set_meta("is_green", true)
-				current_grid_state.append(button.get_meta("is_green"))
+				current_grid_state.append(grid.rng.randf() < 0.5)
 		
 		if not has_red_buttons_in_state(current_grid_state):
 			current_grid_state[0] = false
@@ -94,6 +87,7 @@ func test_button_toggling_affects_neighbours():
 			
 	var red_style=StyleBoxFlat.new()
 	var green_style=StyleBoxFlat.new()
+	grid.pressed_counter = Label.new()
 	grid._on_button_pressed(1, 1, red_style, green_style)
 	assert_true(grid.buttons[1][1].get_meta("is_green"), "Center button should be toggled")
 	assert_true(grid.buttons[0][1].get_meta("is_green"), "Left button should be toggled")
@@ -104,9 +98,7 @@ func test_button_toggling_affects_neighbours():
 	assert_false(grid.buttons[2][0].get_meta("is_green"), "Top-right corner should remain unchanged")
 	assert_false(grid.buttons[0][2].get_meta("is_green"), "Bottom-left corner should remain unchanged")
 	assert_false(grid.buttons[2][2].get_meta("is_green"), "Bottom-right corner should remain unchanged")
-
-func after_each():
-	pass
+	grid.pressed_counter.free()
 
 func test_all_green_when_all_buttons_are_green():
 

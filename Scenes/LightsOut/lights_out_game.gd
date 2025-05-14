@@ -17,7 +17,7 @@ const COLOR_RED = Color("#ff5555")
 const COLOR_GREEN = Color("#55ff55")
 const COLOR_DARK = Color("#333333")
 
-var buttons = []  # 2D array to store button references
+var buttons : Array[Array] = []  # 2D array to store button references
 
 
 func _ready():

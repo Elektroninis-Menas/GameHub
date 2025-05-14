@@ -6,16 +6,23 @@ var grid: TestGrid = null
 func before_each():
 	grid = autofree(TestGrid.new())
 	grid.grid_size = 5 
-	grid.pressed_counter = Label.new()
-	grid.victory_label = Label.new()
-	grid.highscore_counter = Label.new()
-	grid.difficulty_name = Label.new()  
+	grid.pressed_counter = autofree(Label.new())
+	grid.victory_label = autofree(Label.new())
+	grid.highscore_counter = autofree(Label.new())
+	grid.difficulty_name = autofree(Label.new())
 
 	grid.buttons = []
 	grid.buttons.resize(grid.grid_size)
 	for i in range(grid.grid_size):
 		grid.buttons[i] = []
 		grid.buttons[i].resize(grid.grid_size)
+
+func after_each():
+	if len(grid.buttons) > 0:
+		for row in grid.buttons:
+			for button: Button in row:
+				if button != null:
+					button.free()
 
 func test_grid_initialization():
 	assert_not_null(grid, "Grid should be initialized")
