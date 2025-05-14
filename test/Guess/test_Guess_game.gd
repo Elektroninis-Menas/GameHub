@@ -35,11 +35,13 @@ func test_file_access_success():
 		file.close()
 		
 func test_word_list_no_duplicates():
-	var result=game.load_word_list()
-	var unique_words=[]
+	var result: Array[String] = game.load_word_list()
+	var unique_words: Array[String] = []
 	for word in result:
 		assert_false(unique_words.has(word),"Word list should not contain duplicates")
 		unique_words.append(word)
+	
+	
 
 func test_random_word_changes():
 	game._ready()

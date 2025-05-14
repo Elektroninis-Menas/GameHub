@@ -4,7 +4,7 @@ extends Control
 const WORDS = "res://Scenes/GuessingGame/a_words.txt"
 
 var word_list: Array[String]
-var random_word
+var random_word: String
 
 
 func _ready():
@@ -30,5 +30,5 @@ func load_word_list() -> Array[String]:
 		print("Loaded", valid.size(), "words.")
 	else:
 		push_error("Failed to load word list.")
-
+	
 	return valid
