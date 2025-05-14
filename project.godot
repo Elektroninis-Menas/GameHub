@@ -21,6 +21,10 @@ Global="*res://AutoLoads/Global.gd"
 MusicManager="*res://AutoLoads/MusicManager.gd"
 GameDifficulty="*res://Scenes/LightsOut/GameDifficulty.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=0
+
 [dotnet]
 
 project/assembly_name="GameHub"

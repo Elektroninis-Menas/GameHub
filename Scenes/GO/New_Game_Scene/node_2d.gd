@@ -115,12 +115,37 @@ func capture_group(group: Array):
 		# Increase capture count based on who captured
 		if is_white_turn:
 			white_captures += 1
+			update_grey_hearts(white_captures, "res://Scenes/GO/New_Game_Scene/greyheart_dead.png")
 		else:
 			black_captures += 1
 
 		occupied_cells.erase(cell)
 
 	update_capture_labels()
+
+func update_grey_hearts(capture_count: int, dead_texture_path: String):
+	var grey_heart_dead_texture = load(dead_texture_path)
+	var grey_heart_default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
+	
+	# Reset both HBoxes first
+	for i in range(5):
+		$grey_l1.get_child(i).texture = grey_heart_default_texture
+		$grey_l2.get_child(i).texture = grey_heart_default_texture
+	
+	# Fill hearts based on capture count
+	if capture_count > 0:
+		# Determine how many hearts to fill in each HBox
+		var hearts_in_l1 = min(capture_count, 5)
+		var hearts_in_l2 = max(0, capture_count - 5)
+		
+		# Fill hearts in grey_l1
+		for i in range(hearts_in_l1):
+			$grey_l1.get_child(i).texture = grey_heart_dead_texture
+		
+		# Fill hearts in grey_l2
+		for i in range(hearts_in_l2):
+			$grey_l2.get_child(i).texture = grey_heart_dead_texture
+
 
 
 # === INPUT HANDLING ===
@@ -213,7 +238,17 @@ func _on_reset_button_pressed() -> void:
 			last_player_passed = false
 			consecutive_passes = 0
 			hover_preview.visible = false
-
+	reset_grey_hearts()
+	
+	
+func reset_grey_hearts():
+	var default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
+	for i in range(5):
+		var texture_rect = $grey_l1.get_child(i)
+		texture_rect.texture = default_texture
+	for i in range(5):
+		var texture_rect = $grey_l2.get_child(i)
+		texture_rect.texture = default_texture
 
 func _on_pass_pressed() -> void:
 	consecutive_passes += 1 if last_player_passed else 1

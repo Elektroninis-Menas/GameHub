@@ -5,6 +5,7 @@ extends Button
 
 func _ready():
 	connect("pressed", Callable(self, "_on_rules_button_pressed"))
+	MusicManager.play_music_for_game("GuessingGame")
 
 
 func _pressed() -> void:

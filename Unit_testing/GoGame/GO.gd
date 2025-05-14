@@ -3,8 +3,8 @@ extends RefCounted
 
 const GRID_SIZE := 10
 
-# Game state
-var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for black)
+## Stores Vector2i -> bool (true for white, false for black)
+var occupied_cells := {}
 var is_white_turn := false
 var white_captures := 0
 var black_captures := 0
@@ -144,7 +144,7 @@ func find_territory() -> Dictionary:
 	return {"black_territory": black_territory, "white_territory": white_territory}
 
 
-# Calculate final score including territory and captures
+## Calculate final score including territory and captures
 func calculate_score() -> Dictionary:
 	var territory = find_territory()
 

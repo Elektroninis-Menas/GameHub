@@ -1,0 +1,120 @@
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://2brjlwlc5xuk"]
+
+[ext_resource type="FontFile" uid="uid://pk2pgb5j8xau" path="res://Scenes/Tetris/fonts/Mojang-Regular.ttf" id="1_s5wx0"]
+[ext_resource type="Texture2D" uid="uid://00xoqtaddc48" path="res://Scenes/Tetris/textures/check-true.png" id="1_uhbit"]
+[ext_resource type="Texture2D" uid="uid://dtcnyuupnbo" path="res://Scenes/Tetris/textures/check-false.png" id="2_h5gou"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5wx0"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.646029, 0.646029, 0.646029, 0.856)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s5wx0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cbn2t"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhbit"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.766667, 0, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5gou"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.856)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ag58c"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.766667, 0, 0.92549)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhbit"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ag58c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h5gou"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_81g14"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81g14"]
+draw_center = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gb4k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7gb4k"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+
+[resource]
+default_font = ExtResource("1_s5wx0")
+default_font_size = 16
+Button/colors/font_color = Color(1, 1, 1, 0.890196)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_s5wx0")
+Button/styles/focus = SubResource("StyleBoxEmpty_s5wx0")
+Button/styles/hover = SubResource("StyleBoxFlat_cbn2t")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_uhbit")
+Button/styles/normal = SubResource("StyleBoxFlat_h5gou")
+Button/styles/pressed = SubResource("StyleBoxFlat_ag58c")
+CheckBox/font_sizes/font_size = 8
+CheckBox/icons/checked = ExtResource("1_uhbit")
+CheckBox/icons/unchecked = ExtResource("2_h5gou")
+CheckBox/styles/disabled = SubResource("StyleBoxEmpty_uhbit")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_ag58c")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_h5gou")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_81g14")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_81g14")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_7gb4k")
+HSlider/styles/slider = SubResource("StyleBoxFlat_7gb4k")
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
+RichTextLabel/colors/table_border = Color(1, 1, 1, 0.196)
+RichTextLabel/colors/table_even_row_bg = Color(0.0862745, 0.0196078, 0.14902, 1)
+RichTextLabel/colors/table_odd_row_bg = Color(0.137255, 0.0431373, 0.215686, 1)
+RichTextLabel/constants/table_h_separation = 17
+RichTextLabel/constants/table_v_separation = 13

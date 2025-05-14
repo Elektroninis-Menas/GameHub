@@ -1,3 +1,4 @@
+
 extends Control
 
 const WORDS = "res://Scenes/GuessingGame/a_words.txt"
