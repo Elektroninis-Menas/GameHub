@@ -1,12 +1,12 @@
 class_name Figure
 
-var x := 0 
+var x := 0
 var y := 0
 var type: int
 var color: int
 var rotation: int
 static var MAX_COLORS = 7
-const figures : Array[Array] = [
+const figures: Array[Array] = [
 	[[1, 5, 9, 13], [4, 5, 6, 7]],
 	[[4, 5, 9, 10], [2, 6, 5, 9]],
 	[[6, 7, 9, 10], [1, 5, 6, 10]],
@@ -16,6 +16,7 @@ const figures : Array[Array] = [
 	[[1, 2, 5, 6]],
 ]
 
+
 func _init(new_x: int, new_y: int) -> void:
 	x = new_x
 	y = new_y
@@ -23,8 +24,10 @@ func _init(new_x: int, new_y: int) -> void:
 	color = randi_range(1, MAX_COLORS)
 	rotation = 0
 
+
 func image() -> Array:
 	return figures[type][rotation]
+
 
 func rotate() -> void:
 	rotation = (rotation + 1) % len(figures[type])

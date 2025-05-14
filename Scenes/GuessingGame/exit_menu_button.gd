@@ -2,8 +2,10 @@ extends Button
 
 @export var popup_panel: NodePath  # Assign the PopupPanel in the Inspector
 
+
 func _ready():
 	connect("pressed", Callable(self, "_on_close_button_pressed"))
+
 
 func _pressed() -> void:
 	var panel = get_node(popup_panel)

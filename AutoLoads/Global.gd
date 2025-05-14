@@ -3,9 +3,11 @@ extends Node
 var settings_menu_scene = preload("res://Scenes/Settings Menu.tscn")  # Change path
 var settings_instance = null
 
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):  # "Esc" toggles settings
 		toggle_settings_menu()
+
 
 func toggle_settings_menu():
 	if settings_instance:
