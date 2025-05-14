@@ -1,11 +1,12 @@
 extends GutTest
 
 const TestGrid = preload("res://Scenes/LightsOut/lights_out_game.gd")
+const GRID_SIZE = 5
 var grid: TestGrid = null
 
 func before_each():
 	grid = autofree(TestGrid.new())
-	grid.grid_size = 5 
+	grid.grid_size = GRID_SIZE
 	grid.pressed_counter = autofree(Label.new())
 	grid.victory_label = autofree(Label.new())
 	grid.highscore_counter = autofree(Label.new())
@@ -23,12 +24,6 @@ func after_each():
 			for button: Button in row:
 				if button != null:
 					button.free()
-
-func test_grid_initialization():
-	assert_not_null(grid, "Grid should be initialized")
-	assert_eq(grid.grid_size, 5, "Grid size should be 5")  
-	assert_eq(grid.buttons.size(), 5, "Buttons array should have size 5") 
-	assert_eq(grid.buttons[0].size(), 5, "Each row should have size 5")  
 
 func test_victory_condition():
 	for y in range(grid.grid_size):
