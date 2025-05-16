@@ -13,80 +13,106 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 1150.0
-offset_bottom = 650.0
-
 [node name="ColorRect" type="ColorRect" parent="."]
 light_mask = 1023
 visibility_layer = 1023
-layout_mode = 0
-offset_right = 1150.0
-offset_bottom = 650.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.25098, 0.407843, 0.717647, 1)
 
-[node name="Easy" type="Button" parent="ColorRect"]
-layout_mode = 0
-offset_left = 165.0
-offset_top = 202.0
-offset_right = 332.0
-offset_bottom = 303.0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -48.0
+offset_right = 224.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Easy" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Easy"
 script = ExtResource("1_65m81")
 game_scene = "uid://xti8fnv2nk28"
 
-[node name="Medium" type="Button" parent="ColorRect"]
-layout_mode = 0
-offset_left = 484.0
-offset_top = 202.0
-offset_right = 651.0
-offset_bottom = 303.0
+[node name="Medium" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Medium"
 script = ExtResource("2_12goy")
 game_scene = "uid://xti8fnv2nk28"
 
-[node name="Difficult" type="Button" parent="ColorRect"]
-layout_mode = 0
-offset_left = 795.0
-offset_top = 201.0
-offset_right = 962.0
-offset_bottom = 302.0
+[node name="Difficult" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Hard"
 script = ExtResource("3_28xst")
 game_scene = "uid://xti8fnv2nk28"
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 250.0
-offset_top = 20.0
-offset_right = 850.0
-offset_bottom = 120.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 26.0
+offset_bottom = 122.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 70
 text = "Lights Out!"
 horizontal_alignment = 1
 
-[node name="MainMenuButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 500.0
-offset_right = 245.0
-offset_bottom = 600.0
+[node name="MainMenuButton" type="Button" parent="." node_paths=PackedStringArray("rules_menu", "rules_text", "label", "easy", "medium", "difficult", "reset_menu", "reset_button_confirm", "reset_text", "rules_button")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = -108.0
+offset_right = 256.0
+offset_bottom = -48.0
+grow_vertical = 0
 text = "Back to Main Menu"
 script = ExtResource("1_2q57d")
 game_scene = "uid://6vcfcvr2ovo4"
+rules_menu = NodePath("../RulesMenu")
+rules_text = NodePath("../RulesMenu/RulesText")
+label = NodePath("../Label")
+easy = NodePath("../HBoxContainer/Easy")
+medium = NodePath("../HBoxContainer/Medium")
+difficult = NodePath("../HBoxContainer/Difficult")
+reset_menu = NodePath("../ResetMenu")
+reset_button_confirm = NodePath("../ResetButtonConfirm")
+reset_text = NodePath("../ResetMenu/ResetText")
+rules_button = NodePath("../RulesButton")
 
 [node name="RulesButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 900.0
-offset_top = 500.0
-offset_right = 1100.0
-offset_bottom = 600.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -217.0
+offset_top = -108.0
+offset_right = -61.0
+offset_bottom = -48.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "Rules!"
 
 [node name="RulesMenu" type="PopupPanel" parent="."]
 title = "Rules"
-position = Vector2i(350, 50)
+initial_position = 4
 size = Vector2i(400, 500)
 
 [node name="RulesText" type="RichTextLabel" parent="RulesMenu"]
@@ -113,15 +139,19 @@ Medium - 5x5 grid
 Hard - 7x7 grid"
 
 [node name="ResetScoresButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1029.0
-offset_top = 12.0
-offset_right = 1135.0
-offset_bottom = 52.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -217.0
+offset_top = 44.0
+offset_right = -68.0
+offset_bottom = 104.0
+grow_horizontal = 0
 text = "Reset Scores"
 
 [node name="ResetMenu" type="PopupPanel" parent="."]
-position = Vector2i(350, 50)
+initial_position = 1
 size = Vector2i(400, 200)
 
 [node name="ResetText" type="RichTextLabel" parent="ResetMenu"]
@@ -151,9 +181,9 @@ grow_vertical = 0
 text = "YES"
 
 [connection signal="ready" from="ColorRect" to="MainMenuButton" method="_on_color_rect_ready"]
-[connection signal="pressed" from="ColorRect/Easy" to="ColorRect/Easy" method="_on_pressed"]
-[connection signal="pressed" from="ColorRect/Medium" to="ColorRect/Medium" method="_on_pressed"]
-[connection signal="pressed" from="ColorRect/Difficult" to="ColorRect/Difficult" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Easy" to="HBoxContainer/Easy" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Medium" to="HBoxContainer/Medium" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Difficult" to="HBoxContainer/Difficult" method="_on_pressed"]
 [connection signal="pressed" from="MainMenuButton" to="MainMenuButton" method="_on_pressed"]
 [connection signal="button_down" from="RulesButton" to="MainMenuButton" method="_on_rules_button_button_down"]
 [connection signal="visibility_changed" from="RulesMenu" to="MainMenuButton" method="_on_rules_menu_visibility_changed"]

@@ -2,17 +2,16 @@ extends Button
 
 @export_file("*.tscn") var game_scene: String
 var scene: PackedScene
-@onready var rules_menu: PopupPanel = $"../RulesMenu"
-@onready var rules_text: RichTextLabel = $"../RulesMenu/RulesText"
-@onready var label: Label = $"../Label"
-@onready var easy: Button = $"../ColorRect/Easy"
-@onready var medium: Button = $"../ColorRect/Medium"
-@onready var difficult: Button = $"../ColorRect/Difficult"
-@onready var reset_menu: PopupPanel = $"../ResetMenu"
-@onready var reset_button_confirm: Button = $"../ResetButtonConfirm"
-@onready var reset_text: RichTextLabel = $"../ResetMenu/ResetText"
-@onready var rules_button: Button = $"../RulesButton"
-@onready var main_menu_button: Button = $"."
+@export var rules_menu: PopupPanel
+@export var rules_text: RichTextLabel
+@export var label: Label
+@export var easy: Button
+@export var medium: Button
+@export var difficult: Button
+@export var reset_menu: PopupPanel
+@export var reset_button_confirm: Button
+@export var reset_text: RichTextLabel
+@export var rules_button: Button
 
 
 var can_toggle: bool = true
@@ -65,7 +64,7 @@ func _on_reset_menu_visibility_changed() -> void:
 	medium.visible = !medium.visible
 	difficult.visible = !difficult.visible
 	rules_button.visible = !rules_button.visible
-	main_menu_button.visible = !main_menu_button.visible
+	visible = !visible
 
 func _on_reset_button_confirm_button_down() -> void:
 	DirAccess.remove_absolute("user://high_scores.json")

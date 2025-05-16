@@ -4,11 +4,11 @@ var grid_size = GameDifficulty.difficulty
 @export var cell_size := 64
 @export var cell_spacing := 4
 var rng = RandomNumberGenerator.new()
-@onready var victory_label: Label = $VictoryLabel
-@onready var difficulty_name: Label = $"Difficulty name"
-@onready var pressed_counter: Label = $PressedCounter
-@onready var highscore_counter: Label = $HighscoreCounter
-@onready var timer_label: Label = $TimerLabel
+@export var victory_label: Label
+@export var difficulty_name: Label
+@export var pressed_counter: Label
+@export var highscore_counter: Label
+@export var timer_label: Label
 
 var counter = 0
 var high_scores = {}  # Dictionary to store high scores for each difficulty
@@ -49,7 +49,7 @@ func _ready():
 	if high_scores.has(difficulty_key):
 		highscore_counter.text = str(high_scores[difficulty_key])
 	else:
-		highscore_counter.text = "None"
+		highscore_counter.text = "0"
 	
 	start_timer()
 	if best_times.has(str(grid_size)):
