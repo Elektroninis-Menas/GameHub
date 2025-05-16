@@ -8,9 +8,13 @@ var rng = RandomNumberGenerator.new()
 @onready var difficulty_name: Label = $"Difficulty name"
 @onready var pressed_counter: Label = $PressedCounter
 @onready var highscore_counter: Label = $HighscoreCounter
+@onready var timer_label: Label = $TimerLabel
 
 var counter = 0
 var high_scores = {}  # Dictionary to store high scores for each difficulty
+var game_timer: float = 0.0
+var is_timer_running: bool = false
+var best_times = {}  # Dictionary to store best times for each difficulty
 
 # Predefined colors
 const COLOR_RED = Color("#ff5555")
@@ -46,7 +50,52 @@ func _ready():
 		highscore_counter.text = str(high_scores[difficulty_key])
 	else:
 		highscore_counter.text = "None"
+	
+	start_timer()
+	if best_times.has(str(grid_size)):
+		timer_label.text = format_time(best_times[str(grid_size)])
+	else:
+		timer_label.text = "00:00"
 
+func _process(delta):
+	if is_timer_running:
+		game_timer += delta
+		timer_label.text = format_time(game_timer)
+
+func start_timer():
+	game_timer = 0.0
+	is_timer_running = true
+	timer_label.text = "00:00"
+
+func stop_timer():
+	is_timer_running = false
+	
+	# Save best time if it's better than previous
+	var difficulty_key = str(grid_size)
+	if not best_times.has(difficulty_key) or game_timer < best_times[difficulty_key]:
+		best_times[difficulty_key] = game_timer
+		save_best_times()
+
+func format_time(seconds: float) -> String:
+	var minutes = int(seconds) / 60
+	var secs = int(seconds) % 60
+	return "%02d:%02d" % [minutes, secs]
+
+func load_best_times():
+	var file = FileAccess.open("user://best_times.json", FileAccess.READ)
+	if file:
+		best_times = JSON.parse_string(file.get_as_text())
+		if best_times == null:
+			best_times = {}
+		file.close()
+	else:
+		best_times = {}
+
+func save_best_times():
+	var file = FileAccess.open("user://best_times.json", FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(best_times))
+		file.close()
 
 func load_high_scores():
 	var file = FileAccess.open("user://high_scores.json", FileAccess.READ)
@@ -176,6 +225,11 @@ func _on_button_pressed(x: int, y: int, red_style: StyleBoxFlat, green_style: St
 			high_scores[difficulty_key] = counter
 			highscore_counter.text = str(counter)
 			save_high_scores()
+	
+	if all_green():
+		victory_label.visible = true
+		stop_timer()  # Stop timer when puzzle is solved
+		# [Rest of victory code...]
 
 
 func toggle_button(x: int, y: int, red_style: StyleBoxFlat, green_style: StyleBoxFlat):
@@ -198,4 +252,5 @@ func _on_button_2_pressed() -> void:
 	counter = 0
 	pressed_counter.text = str(counter)
 	victory_label.visible = false
+	start_timer()  # Restart timer on reset
 	create_valid_grid()
