@@ -1,7 +1,10 @@
 extends Control
 
-@onready var volume: HSlider = $ColorRect/MarginContainer/VBoxContainer/Volume
-@onready var mute: CheckBox = $ColorRect/MarginContainer/VBoxContainer/Mute
+@onready var volume: HSlider = $PanelContainer/VBoxContainer/HBoxContainer/Volume
+@onready var mute: CheckBox = $PanelContainer/VBoxContainer/HBoxContainer/Mute
+
+func _input(event: InputEvent) -> void:
+	event
 
 func _ready() -> void:
 	# Global.disable_default_menu = false
