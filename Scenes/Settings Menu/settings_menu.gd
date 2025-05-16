@@ -3,9 +3,6 @@ extends Control
 @onready var volume: HSlider = $PanelContainer/VBoxContainer/HBoxContainer/Volume
 @onready var mute: CheckBox = $PanelContainer/VBoxContainer/HBoxContainer/Mute
 
-func _input(event: InputEvent) -> void:
-	event
-
 func _ready() -> void:
 	# Global.disable_default_menu = false
 	var music_settings := MusicManager.load_settings()

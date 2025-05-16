@@ -3,11 +3,11 @@ extends Button
 @export var start_index: int
 @export var end_index: int
 
-@onready var inputs: GridContainer = $"../GridContainer"
-@onready var control: Control = $".."
-@onready var win_window: Window = $"../winwindow"
-@onready var result_label: Label = $"../winwindow/win"
-@onready var attempts_label: Label = $"../Label2"
+@onready var inputs: GridContainer = $"../../GridContainer"
+@onready var control: Control = $"../../.."
+@onready var win_window: Window = $"../../../winwindow"
+@onready var result_label: Label = $"../../../winwindow/win"
+@onready var attempts_label: Label = $"../../../Label2"
 
 
 func _on_pressed():
