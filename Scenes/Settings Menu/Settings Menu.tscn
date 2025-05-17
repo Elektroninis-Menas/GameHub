@@ -9,8 +9,8 @@ shader_parameter/brightness = 0.9
 shader_parameter/amount = 1.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_ifgm2"]
-size = Vector2(1150, 650)
-center_offset = Vector3(575, 325, 0)
+size = Vector2(3840, 2160)
+center_offset = Vector3(1920, 1080, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rugk"]
 content_margin_left = 10.0
