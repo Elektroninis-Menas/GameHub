@@ -10,7 +10,7 @@ func _on_settings_pressed() -> void:
 
 
 func _on_rules_pressed() -> void:
-	$Window.popup_centered()
+	$"../Window".popup_centered()
 
 
 func _on_exit_pressed() -> void:
