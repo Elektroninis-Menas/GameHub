@@ -82,7 +82,6 @@ initial_position = 1
 size = Vector2i(1153, 650)
 
 [node name="Label" type="Label" parent="PopupPanel"]
-anchors_preset = -1
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 1149.0

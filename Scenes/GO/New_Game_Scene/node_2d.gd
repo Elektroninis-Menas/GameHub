@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const GRID_SIZE := 10
 var padding := 20
@@ -8,21 +8,27 @@ const OFFSET_Y := 55
 
 var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for black)
 
-@onready var turn_label = $TurnLabel
-@onready var stones_container = $Intersections
+@export var stones_container: Node2D
+@export var turn_label: Label
+@export var white_captures_label: Label
+@export var black_captures_label: Label
+@export var grey_l1: HBoxContainer
+@export var grey_l2: HBoxContainer
+@export var black_l1: HBoxContainer
+@export var black_l2: HBoxContainer
+@export var tile_map: TileMapLayer
 
 @onready var white_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/white_pebble.tscn")
 @onready var black_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/black_pebble.tscn")
 @onready var highlight_scene = preload("res://Scenes/GO/New_Game_Scene/hover_flower.tscn")
 var last_player_passed := false  # Track if previous player passed
 var consecutive_passes := 0
-@onready var white_captures_label = $WhiteCaptures
-@onready var black_captures_label = $BlackCaptures
 
 var hover_preview: Node2D
 var is_white_turn := true  # Start with white
 var white_captures := 0
 var black_captures := 0
+var bounds = Rect2i(Vector2i(0, 0), Vector2i(GRID_SIZE, GRID_SIZE))
 
 
 func update_turn_label():
@@ -49,13 +55,13 @@ func get_world_position(x: int, y: int) -> Vector2:
 
 
 func get_grid_coordinates(mouse_pos: Vector2):
-	var x = int((mouse_pos.x - padding - OFFSET_X) / cell_size)
-	var y = int((mouse_pos.y - padding - OFFSET_Y) / cell_size)
+	var x = int((mouse_pos.x) / cell_size)
+	var y = int((mouse_pos.y) / cell_size)
 
 	if x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE:
 		var center = get_world_position(x, y)
 		var dist = mouse_pos.distance_to(center)
-		if dist < cell_size * 0.8:
+		if dist < cell_size:
 			return Vector2i(x, y)
 	return null
 
@@ -63,10 +69,15 @@ func get_grid_coordinates(mouse_pos: Vector2):
 # === CAPTURE LOGIC ===
 
 
-func get_adjacent_cells(cell: Vector2i) -> Array:
-	var adj = []
-	for offset in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
-		var neighbor = cell + offset
+func get_adjacent_cells(cell: Vector2i) -> Array[Vector2i]:
+	var adj: Array[Vector2i] = []
+	const directions = [
+		TileSet.CELL_NEIGHBOR_TOP_SIDE, 
+		TileSet.CELL_NEIGHBOR_LEFT_SIDE, 
+		TileSet.CELL_NEIGHBOR_RIGHT_SIDE, 
+		TileSet.CELL_NEIGHBOR_BOTTOM_SIDE]
+	for dir in directions:
+		var neighbor := tile_map.get_neighbor_cell(cell, dir)
 		if (
 			neighbor.x >= 0
 			and neighbor.x < GRID_SIZE
@@ -77,10 +88,10 @@ func get_adjacent_cells(cell: Vector2i) -> Array:
 	return adj
 
 
-func get_group(start_cell: Vector2i, color: bool) -> Array:
-	var visited := {}
+func get_group(start_cell: Vector2i, color: bool) -> Array[Vector2i]:
+	var visited : Dictionary[Vector2i, bool] = {}
 	var stack := [start_cell]
-	var group := []
+	var group: Array[Vector2i] = []
 
 	while stack.size() > 0:
 		var current = stack.pop_back()
@@ -104,12 +115,12 @@ func has_liberties(group: Array) -> bool:
 	return false
 
 
-func capture_group(group: Array):
+func capture_group(group: Array) -> void:
 	for cell in group:
 		for child in stones_container.get_children():
 			if child == hover_preview:
 				continue
-			if child.position == get_world_position(cell.x, cell.y):
+			if child.position == tile_map.map_to_local(cell):
 				child.queue_free()
 				break
 		# Increase capture count based on who captured
@@ -123,14 +134,14 @@ func capture_group(group: Array):
 
 	update_capture_labels()
 
-func update_grey_hearts(capture_count: int, dead_texture_path: String):
+func update_grey_hearts(capture_count: int, dead_texture_path: String) -> void:
 	var grey_heart_dead_texture = load(dead_texture_path)
 	var grey_heart_default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
 	
 	# Reset both HBoxes first
 	for i in range(5):
-		$grey_l1.get_child(i).texture = grey_heart_default_texture
-		$grey_l2.get_child(i).texture = grey_heart_default_texture
+		grey_l1.get_child(i).texture = grey_heart_default_texture
+		grey_l2.get_child(i).texture = grey_heart_default_texture
 	
 	# Fill hearts based on capture count
 	if capture_count > 0:
@@ -140,21 +151,24 @@ func update_grey_hearts(capture_count: int, dead_texture_path: String):
 		
 		# Fill hearts in grey_l1
 		for i in range(hearts_in_l1):
-			$grey_l1.get_child(i).texture = grey_heart_dead_texture
+			grey_l1.get_child(i).texture = grey_heart_dead_texture
 		
 		# Fill hearts in grey_l2
 		for i in range(hearts_in_l2):
-			$grey_l2.get_child(i).texture = grey_heart_dead_texture
+			grey_l2.get_child(i).texture = grey_heart_dead_texture
 
 
 
 # === INPUT HANDLING ===
 func _unhandled_input(event):
-	var mouse_pos = stones_container.get_local_mouse_position()
-	var grid_coords = get_grid_coordinates(mouse_pos)
-
+	var grid_coords := tile_map.local_to_map(tile_map.get_local_mouse_position())
+	
+	if !bounds.has_point(grid_coords):
+		hover_preview.visible = false
+		return
+	
 	if grid_coords != null and not occupied_cells.has(grid_coords):
-		hover_preview.position = get_world_position(grid_coords.x, grid_coords.y)
+		hover_preview.position = tile_map.map_to_local(grid_coords)
 		hover_preview.visible = true
 
 		if (
@@ -194,7 +208,7 @@ func _unhandled_input(event):
 				if is_white_turn
 				else black_pebble_scene.instantiate()
 			)
-			pebble.position = get_world_position(grid_coords.x, grid_coords.y)
+			pebble.position = tile_map.map_to_local(grid_coords)
 			stones_container.add_child(pebble)
 
 			# Track placement
@@ -244,10 +258,10 @@ func _on_reset_button_pressed() -> void:
 func reset_grey_hearts():
 	var default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
 	for i in range(5):
-		var texture_rect = $grey_l1.get_child(i)
+		var texture_rect = grey_l1.get_child(i)
 		texture_rect.texture = default_texture
 	for i in range(5):
-		var texture_rect = $grey_l2.get_child(i)
+		var texture_rect = grey_l2.get_child(i)
 		texture_rect.texture = default_texture
 
 func _on_pass_pressed() -> void:
