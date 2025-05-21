@@ -1,10 +1,5 @@
 {
-  "dirs": [
-"res://Unit_testing/GoGame",
-  "res://test",
-  "res://Unit_testing/GoGame"],
-
-
+  "dirs": ["res://test"],
   "include_subdirs": true,
   "ignore_pause": true,
   "log_level": 2,
