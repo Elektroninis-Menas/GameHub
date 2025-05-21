@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyqb4u1ls7vmh"]
+
+[ext_resource type="Theme" uid="uid://2brjlwlc5xuk" path="res://Scenes/Tetris/resources/Tetris-UI.tres" id="1_mf1hb"]
+[ext_resource type="Script" uid="uid://cyv2dfb7isqcf" path="res://Scenes/Tetris/scripts/pause_menu.gd" id="2_be2uj"]
+[ext_resource type="FontFile" uid="uid://cve3skpxf7fjy" path="res://Scenes/Tetris/fonts/Fipps-Regular.otf" id="3_i4qj1"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_digkk"]
+input_name = "color"
+
+[sub_resource type="VisualShader" id="VisualShader_gtfx7"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void fragment() {
+// Input:2
+	vec4 n_out2p0 = COLOR;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(36.656, 64.7874)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(640, 180)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_digkk")
+nodes/fragment/2/position = Vector2(80, 220)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1blg"]
+shader = SubResource("VisualShader_gtfx7")
+
+[sub_resource type="LabelSettings" id="LabelSettings_qrfyj"]
+line_spacing = 0.0
+font = ExtResource("3_i4qj1")
+font_size = 60
+
+[node name="PauseMenu" type="ColorRect" node_paths=PackedStringArray("resume_button", "restart_button", "exit_button", "volume", "mute")]
+material = SubResource("ShaderMaterial_a1blg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mf1hb")
+color = Color(0, 0, 0, 0.396078)
+script = ExtResource("2_be2uj")
+resume_button = NodePath("VBoxContainer/VBoxContainer/Resume")
+restart_button = NodePath("VBoxContainer/VBoxContainer/Restart")
+exit_button = NodePath("VBoxContainer/VBoxContainer/Exit")
+volume = NodePath("VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Volume")
+mute = NodePath("VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Mute")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Paused"
+label_settings = SubResource("LabelSettings_qrfyj")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Resume" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Restart" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Exit" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Mute" type="CheckBox" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Volume" type="HSlider" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0

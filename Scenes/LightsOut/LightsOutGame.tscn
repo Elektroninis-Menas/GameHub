@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://xti8fnv2nk28"]
+[gd_scene load_steps=7 format=3 uid="uid://xti8fnv2nk28"]
 
 [ext_resource type="Script" uid="uid://cm121uvip4pup" path="res://Scenes/LightsOut/lights_out_game.gd" id="1_830x7"]
-[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/Tetris Blocks.png" id="1_a2umc"]
+[ext_resource type="Texture2D" uid="uid://ca3a1282m8h86" path="res://Scenes/Tetris/textures/Tetris Blocks.png" id="1_a2umc"]
 [ext_resource type="Script" uid="uid://cgsuvhuqo548p" path="res://Scenes/LightsOut/button.gd" id="3_ua3b5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjr65"]
@@ -19,7 +19,10 @@ texture_region_size = Vector2i(30, 30)
 tile_size = Vector2i(30, 30)
 sources/1 = SubResource("TileSetAtlasSource_sjr65")
 
-[node name="LightsOutGame" type="Control"]
+[sub_resource type="Theme" id="Theme_830x7"]
+default_font_size = 24
+
+[node name="LightsOutGame" type="Control" node_paths=PackedStringArray("victory_label", "difficulty_name", "pressed_counter", "highscore_counter", "timer_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,17 +30,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_830x7")
+victory_label = NodePath("VictoryLabel")
+difficulty_name = NodePath("Difficulty name")
+pressed_counter = NodePath("VBoxContainer/PressedCounter")
+highscore_counter = NodePath("VBoxContainer/HighscoreCounter")
+timer_label = NodePath("VBoxContainer/TimerLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
-layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.165393, 0.504285, 0.711359, 1)
 
@@ -53,11 +58,15 @@ grow_vertical = 2
 tile_set = SubResource("TileSet_830x7")
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 66.0
-offset_top = 529.0
-offset_right = 226.0
-offset_bottom = 606.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 46.0
+offset_top = -116.0
+offset_right = 206.0
+offset_bottom = -39.0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 30
 text = "Back"
 script = ExtResource("3_ua3b5")
@@ -65,63 +74,83 @@ game_scene = "uid://v6u12tydg26f"
 
 [node name="VictoryLabel" type="Label" parent="."]
 visible = false
-layout_mode = 0
-offset_left = 410.0
-offset_top = 25.0
-offset_right = 700.0
-offset_bottom = 115.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -145.0
+offset_top = 21.0
+offset_right = 145.0
+offset_bottom = 111.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 65
 text = "You Won"
 
 [node name="Button2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 975.0
-offset_top = 528.0
-offset_right = 1115.0
-offset_bottom = 614.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -116.0
+offset_right = -37.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 30
 text = "Reset"
 
 [node name="Difficulty name" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
 offset_left = 53.0
 offset_top = 28.0
 offset_right = 242.0
 offset_bottom = 104.0
 theme_override_font_sizes/font_size = 40
 
-[node name="PressedName" type="Label" parent="."]
-layout_mode = 0
-offset_left = 925.0
-offset_top = 40.0
-offset_right = 1122.0
-offset_bottom = 90.0
-theme_override_font_sizes/font_size = 25
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -215.0
+offset_top = 23.0
+offset_right = -25.0
+offset_bottom = 247.0
+grow_horizontal = 0
+theme = SubResource("Theme_830x7")
+
+[node name="PressedName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
 text = "Buttons pressed"
+horizontal_alignment = 2
 
-[node name="PressedCounter" type="Label" parent="."]
-layout_mode = 0
-offset_left = 996.0
-offset_top = 93.0
-offset_right = 1057.0
-offset_bottom = 149.0
-theme_override_font_sizes/font_size = 40
+[node name="PressedCounter" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
 
-[node name="HighscoreName" type="Label" parent="."]
-layout_mode = 0
-offset_left = 925.0
-offset_top = 177.0
-offset_right = 1090.0
-offset_bottom = 226.0
-theme_override_font_sizes/font_size = 25
+[node name="HighscoreName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
 text = "Highscore"
+horizontal_alignment = 2
 
-[node name="HighscoreCounter" type="Label" parent="."]
-layout_mode = 0
-offset_left = 995.0
-offset_top = 225.0
-offset_right = 1046.0
-offset_bottom = 277.0
+[node name="HighscoreCounter" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="TimePlayed" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Time played"
+horizontal_alignment = 2
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "00:00"
+horizontal_alignment = 2
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
