@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cxjakvtva07db"]
+[gd_scene load_steps=15 format=3 uid="uid://cxjakvtva07db"]
 
 [ext_resource type="Script" uid="uid://ddffx40vf77lj" path="res://Scenes/GO/New_Game_Scene/node_2d.gd" id="1_r3ime"]
 [ext_resource type="Texture2D" uid="uid://bap5b28j2c53n" path="res://Scenes/GO/New_Game_Scene/grid2.png" id="2_shkll"]
@@ -9,6 +9,9 @@
 [ext_resource type="FontFile" uid="uid://ckcbuk3n5p7f6" path="res://Scenes/GO/joystix monospace.otf" id="7_ap72t"]
 [ext_resource type="Texture2D" uid="uid://ddrwm3wvdbh0a" path="res://Scenes/GO/New_Game_Scene/blackheart.png" id="7_gpano"]
 [ext_resource type="Texture2D" uid="uid://nxo4do8uy4vv" path="res://Scenes/GO/GO_exit.png" id="10_1mdkj"]
+
+[sub_resource type="TileSet" id="TileSet_wo2kj"]
+tile_size = Vector2i(46, 46)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5iok"]
 
@@ -33,6 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_r3ime")
 
 [node name="Grid" type="TextureRect" parent="Node2D"]
@@ -51,6 +55,10 @@ grow_vertical = 2
 texture = ExtResource("2_shkll")
 expand_mode = 1
 
+[node name="TileMapLayer" type="TileMapLayer" parent="Node2D/Grid"]
+position = Vector2(58.5, 53.5)
+tile_set = SubResource("TileSet_wo2kj")
+
 [node name="Intersections" type="Node2D" parent="Node2D"]
 
 [node name="WhitePebble" parent="Node2D/Intersections" instance=ExtResource("3_7fw1c")]
@@ -66,14 +74,23 @@ visible = false
 position = Vector2(-19, -73)
 
 [node name="TurnLabel" type="Label" parent="Node2D"]
-offset_left = 581.0
-offset_top = 68.0
-offset_right = 869.0
-offset_bottom = 163.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 291.0
+offset_top = -160.0
+offset_right = 500.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("7_ap72t")
 theme_override_font_sizes/font_size = 21
+text = "Black's Turn"
 
 [node name="ResetButton" type="Button" parent="Node2D"]
 layout_mode = 1

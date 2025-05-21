@@ -10,10 +10,13 @@ var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for b
 
 @onready var turn_label = $TurnLabel
 @onready var stones_container = $Intersections
-
 @onready var white_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/white_pebble.tscn")
 @onready var black_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/black_pebble.tscn") 
 @onready var highlight_scene = preload("res://Scenes/GO/New_Game_Scene/hover_flower.tscn")
+@onready var winner_canvas = $"../Winner"
+@onready var winner_label = $"../Winner/PanelContainer/MarginContainer/Rows/Winner_Label"
+@onready var tile_map: TileMapLayer = $Grid/TileMapLayer
+
 var last_player_passed := false  # Track if previous player passed
 var consecutive_passes := 0  
 
@@ -21,10 +24,7 @@ var hover_preview: Node2D
 var is_white_turn := true  # Start with white
 var white_captures := 0
 var black_captures := 0
-
-# Add reference to Winner canvas
-@onready var winner_canvas = $"../Winner"
-@onready var winner_label = $"../Winner/PanelContainer/MarginContainer/Rows/Winner_Label"
+var bounds = Rect2i(Vector2i(0, 0), Vector2i(GRID_SIZE, GRID_SIZE))
 
 # Win threshold
 const CAPTURE_WIN_THRESHOLD := 10
@@ -61,14 +61,11 @@ func update_hover_preview():
 	stones_container.add_child(hover_preview)
 
 func get_world_position(x: int, y: int) -> Vector2:
-	return Vector2(
-		padding + OFFSET_X + x * cell_size,
-		padding + OFFSET_Y + y * cell_size
-	)
+	return Vector2(padding + OFFSET_X + x * cell_size, padding + OFFSET_Y + y * cell_size)
 
 func get_grid_coordinates(mouse_pos: Vector2):
-	var x = int((mouse_pos.x - padding - OFFSET_X) / cell_size)
-	var y = int((mouse_pos.y - padding - OFFSET_Y) / cell_size)
+	var x = int((mouse_pos.x) / cell_size)
+	var y = int((mouse_pos.y) / cell_size)
 
 	if x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE:
 		var center = get_world_position(x, y)
@@ -79,14 +76,25 @@ func get_grid_coordinates(mouse_pos: Vector2):
 
 # === CAPTURE LOGIC ===
 
-func get_adjacent_cells(cell: Vector2i) -> Array:
-	var adj = []
-	for offset in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
-		var neighbor = cell + offset
-		if neighbor.x >= 0 and neighbor.x < GRID_SIZE and neighbor.y >= 0 and neighbor.y < GRID_SIZE:
+
+func get_adjacent_cells(cell: Vector2i) -> Array[Vector2i]:
+	var adj: Array[Vector2i] = []
+	const directions = [
+		TileSet.CELL_NEIGHBOR_TOP_SIDE, 
+		TileSet.CELL_NEIGHBOR_LEFT_SIDE, 
+		TileSet.CELL_NEIGHBOR_RIGHT_SIDE, 
+		TileSet.CELL_NEIGHBOR_BOTTOM_SIDE]
+	for dir in directions:
+		var neighbor := tile_map.get_neighbor_cell(cell, dir)
+		if (
+			neighbor.x >= 0
+			and neighbor.x < GRID_SIZE
+			and neighbor.y >= 0
+			and neighbor.y < GRID_SIZE
+		):
 			adj.append(neighbor)
 	return adj
-
+	
 func get_group(start_cell: Vector2i, color: bool) -> Array:
 	var visited := {}
 	var stack := [start_cell]
@@ -203,9 +211,13 @@ func update_hearts(capture_count: int, player_color: String):
 
 # === INPUT HANDLING ===
 func _unhandled_input(event):
-	var mouse_pos = stones_container.get_local_mouse_position()
-	var grid_coords = get_grid_coordinates(mouse_pos)
+	var grid_coords := tile_map.local_to_map(tile_map.get_local_mouse_position())
 
+	if !bounds.has_point(grid_coords):
+		hover_preview.visible = false
+		return
+
+	print(grid_coords)
 	if grid_coords != null and not occupied_cells.has(grid_coords):
 		hover_preview.position = get_world_position(grid_coords.x, grid_coords.y)
 		hover_preview.visible = true
@@ -239,7 +251,7 @@ func _unhandled_input(event):
 
 			# Actually place the pebble (legal move)
 			var pebble = white_pebble_scene.instantiate() if is_white_turn else black_pebble_scene.instantiate()
-			pebble.position = get_world_position(grid_coords.x, grid_coords.y)
+			pebble.position = tile_map.map_to_local(grid_coords)
 			stones_container.add_child(pebble)
 
 			# Track placement
