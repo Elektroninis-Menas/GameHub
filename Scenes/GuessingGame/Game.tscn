@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds44gk0pio3tw"]
+[gd_scene load_steps=7 format=3 uid="uid://ds44gk0pio3tw"]
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://Scenes/GuessingGame/GridTheme.tres" id="1_p2gs0"]
 [ext_resource type="Script" uid="uid://c77qn7ksamw0q" path="res://Scenes/GuessingGame/game.gd" id="1_ro40q"]
-[ext_resource type="Script" uid="uid://d2ypd3kp2rdi5" path="res://Scenes/GuessingGame/submitButtonScript.gd" id="3_ro40q"]
-[ext_resource type="Script" uid="uid://bturlf54bh32m" path="res://Scenes/GuessingGame/button.gd" id="4_m6yub"]
+[ext_resource type="Script" uid="uid://bturlf54bh32m" path="res://Scenes/GuessingGame/winwindow.gd" id="4_m6yub"]
+[ext_resource type="Script" uid="uid://cp7v42gmdnoio" path="res://Scenes/GuessingGame/Input.gd" id="5_oxgnx"]
+[ext_resource type="Theme" uid="uid://crf864admsixw" path="res://Scenes/GuessingGame/guess_input.tres" id="5_y186u"]
 [ext_resource type="Script" uid="uid://bbk24jskjy1kn" path="res://Scenes/GuessingGame/exit_button.gd" id="5_yisjd"]
 
 [node name="Control" type="Control"]
@@ -41,36 +42,18 @@ text = "Guess the word!"
 title = "Laimėjimas!"
 initial_position = 2
 size = Vector2i(800, 400)
-visible = false
+script = ExtResource("4_m6yub")
 
 [node name="win" type="Label" parent="winwindow"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -399.0
-offset_top = -82.5
-offset_right = 399.0
-offset_bottom = 82.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_p2gs0")
-
-[node name="Button" type="Button" parent="winwindow"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -169.0
-offset_top = -72.0
-offset_right = 4.0
-grow_horizontal = 0
-grow_vertical = 0
-theme = ExtResource("1_p2gs0")
-text = "Išeiti"
-script = ExtResource("4_m6yub")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 1
@@ -95,262 +78,29 @@ text = "Exit"
 script = ExtResource("5_yisjd")
 game_scene = "uid://c2i0owtx01e8i"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 270)
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -291.5
+offset_left = -50.0
 offset_top = -140.0
-offset_right = 291.5
+offset_right = 50.0
 offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+[node name="GuessControl" type="VBoxContainer" parent="Buttons"]
 layout_mode = 2
-columns = 5
+theme = ExtResource("5_y186u")
+script = ExtResource("5_oxgnx")
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit2" type="LineEdit" parent="HBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit3" type="LineEdit" parent="HBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit4" type="LineEdit" parent="HBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit5" type="LineEdit" parent="HBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit6" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit7" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit8" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit9" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit10" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit11" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit12" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit13" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit14" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit15" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit16" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit17" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit18" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit19" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit20" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit21" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit22" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit23" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit24" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="LineEdit25" type="LineEdit" parent="HBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme = ExtResource("1_p2gs0")
-alignment = 1
-max_length = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-
-[node name="SubmitButton1" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="SubmitButton" type="Button" parent="Buttons"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 text = "Submit"
-script = ExtResource("3_ro40q")
-
-[node name="SubmitButton2" type="Button" parent="HBoxContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-text = "Submit"
-script = ExtResource("3_ro40q")
-
-[node name="SubmitButton3" type="Button" parent="HBoxContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-text = "Submit"
-script = ExtResource("3_ro40q")
-
-[node name="SubmitButton4" type="Button" parent="HBoxContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-text = "Submit"
-script = ExtResource("3_ro40q")
-
-[node name="SubmitButton5" type="Button" parent="HBoxContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-text = "Submit"
-script = ExtResource("3_ro40q")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
-[connection signal="pressed" from="winwindow/Button" to="winwindow/Button" method="_on_pressed"]
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/SubmitButton1" to="HBoxContainer/VBoxContainer/SubmitButton1" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/SubmitButton2" to="HBoxContainer/VBoxContainer/SubmitButton2" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/SubmitButton3" to="HBoxContainer/VBoxContainer/SubmitButton3" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/SubmitButton4" to="HBoxContainer/VBoxContainer/SubmitButton4" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/SubmitButton5" to="HBoxContainer/VBoxContainer/SubmitButton5" method="_on_pressed"]

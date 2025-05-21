@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://crf864admsixw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k7pc2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1ohh"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+LineEdit/colors/font_uneditable_color = Color(0.87451, 0.87451, 0.87451, 1)
+LineEdit/constants/caret_width = 1
+LineEdit/constants/minimum_character_width = 1
+LineEdit/font_sizes/font_size = 32
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_k7pc2")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_b1ohh")
+LineEdit/styles/read_only = null
