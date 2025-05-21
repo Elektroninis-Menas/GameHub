@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds44gk0pio3tw"]
+[gd_scene load_steps=9 format=3 uid="uid://ds44gk0pio3tw"]
 
 [ext_resource type="Theme" uid="uid://cr0pof5lf03ss" path="res://Scenes/GuessingGame/GridTheme.tres" id="1_p2gs0"]
 [ext_resource type="Script" uid="uid://c77qn7ksamw0q" path="res://Scenes/GuessingGame/game.gd" id="1_ro40q"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://crf864admsixw" path="res://Scenes/GuessingGame/guess_input.tres" id="5_y186u"]
 [ext_resource type="Script" uid="uid://bbk24jskjy1kn" path="res://Scenes/GuessingGame/exit_button.gd" id="5_yisjd"]
 [ext_resource type="Script" uid="uid://4tqwp06h6okm" path="res://Scenes/GuessingGame/hint_button.gd" id="7_y186u"]
+[ext_resource type="Script" uid="uid://ur06sk8qixal" path="res://Scenes/GuessingGame/reset.gd" id="8_q5ilk"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("win_window", "result_label", "attempts_label", "guess_control", "submit_button")]
 layout_mode = 3
@@ -125,6 +126,13 @@ offset_top = 8.0
 offset_right = 92.0
 offset_bottom = 51.0
 
+[node name="Reset" type="Button" parent="Buttons"]
+layout_mode = 2
+text = "Reset"
+script = ExtResource("8_q5ilk")
+game_scene = "uid://ds44gk0pio3tw"
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="ExitButton" to="ExitButton" method="_on_pressed"]
 [connection signal="pressed" from="Buttons/HintButton" to="Buttons/HintButton" method="_on_pressed"]
+[connection signal="pressed" from="Buttons/Reset" to="Buttons/Reset" method="_on_pressed"]
