@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const GRID_SIZE := 10
 var padding := 20
@@ -73,7 +73,7 @@ func get_grid_coordinates(mouse_pos: Vector2):
 	if x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE:
 		var center = get_world_position(x, y)
 		var dist = mouse_pos.distance_to(center)
-		if dist < cell_size * 0.8:
+		if dist < cell_size:
 			return Vector2i(x, y)
 	return null
 
