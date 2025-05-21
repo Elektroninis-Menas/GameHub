@@ -6,7 +6,7 @@ extends Control
 @export var guess_control: GuessControl
 @export var submit_button: Button
 
-const WORDS_PATH = "res://Scenes/GuessingGame/a_words.txt"
+const WORDS_PATH = "res://Scenes/GuessingGame/words"
 
 var word_list: Array[String]
 var target_word: String
@@ -15,7 +15,7 @@ var attempts_left := 5
 func _ready():
 	submit_button.pressed.connect(_on_submit_pressed)
 	win_window.hide()
-	word_list = load_word_list(WORDS_PATH)
+	word_list = load_word_list_from_folder(WORDS_PATH)
 
 	if word_list.is_empty():
 		push_warning("Word list is empty.")
@@ -25,19 +25,36 @@ func _ready():
 	print("Target word: ", target_word)
 
 ## Loads a word list from [param fileName]
-static func load_word_list(fileName: String) -> Array[String]:
-	var valid: Array[String]
-	var file = FileAccess.open(fileName, FileAccess.READ)
+static func load_word_list_from_folder(folder_path: String) -> Array[String]:
+	var words: Array[String] = []
+	var dir = DirAccess.open(folder_path)
+	if not dir:
+		push_error("Failed to open directory: " + folder_path)
+		return words
+
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		if not dir.current_is_dir() and file_name.ends_with(".txt"):
+			var file_path = folder_path + "/" + file_name
+			words.append_array(load_word_list(file_path))
+		file_name = dir.get_next()
+	dir.list_dir_end()
+	
+	print("Loaded ", words.size(), " words from folder ", folder_path)
+	return words
+
+static func load_word_list(file_path: String) -> Array[String]:
+	var valid: Array[String] = []
+	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
 		while not file.eof_reached():
 			var word = file.get_line().strip_edges().to_upper()
-			if word.length() == 5:  # or any other check
+			if word.length() == 5:  # tavo patikra
 				valid.append(word)
 		file.close()
-		print("Loaded ", valid.size(), " words.")
 	else:
-		push_error("Failed to load word list.")
-	
+		push_error("Failed to load word list from: " + file_path)
 	return valid
 
 ## Called when submit is pressed. Handles main game logic.
