@@ -9,12 +9,12 @@ const OFFSET_Y := 55
 var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for black)
 
 @onready var turn_label = $TurnLabel
-@onready var stones_container = $Intersections
+@onready var stones_container = $Grid/Intersections
 @onready var white_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/white_pebble.tscn")
 @onready var black_pebble_scene = preload("res://Scenes/GO/New_Game_Scene/black_pebble.tscn") 
 @onready var highlight_scene = preload("res://Scenes/GO/New_Game_Scene/hover_flower.tscn")
 @onready var winner_canvas = $"../Winner"
-@onready var winner_label = $"../Winner/PanelContainer/MarginContainer/Rows/Winner_Label"
+@onready var winner_label = $"../Winner/PanelContainer/Rows/Winner_Label"
 @onready var tile_map: TileMapLayer = $Grid/TileMapLayer
 
 var last_player_passed := false  # Track if previous player passed
@@ -63,16 +63,6 @@ func update_hover_preview():
 func get_world_position(x: int, y: int) -> Vector2:
 	return Vector2(padding + OFFSET_X + x * cell_size, padding + OFFSET_Y + y * cell_size)
 
-func get_grid_coordinates(mouse_pos: Vector2):
-	var x = int((mouse_pos.x) / cell_size)
-	var y = int((mouse_pos.y) / cell_size)
-
-	if x >= 0 and x < GRID_SIZE and y >= 0 and y < GRID_SIZE:
-		var center = get_world_position(x, y)
-		var dist = mouse_pos.distance_to(center)
-		if dist < cell_size:
-			return Vector2i(x, y)
-	return null
 
 # === CAPTURE LOGIC ===
 
@@ -125,7 +115,7 @@ func capture_group(group: Array):
 		for child in stones_container.get_children():
 			if child == hover_preview:
 				continue
-			if child.position == get_world_position(cell.x, cell.y):
+			if child.position == tile_map.map_to_local(cell):
 				child.queue_free()
 				break
 		
@@ -217,9 +207,8 @@ func _unhandled_input(event):
 		hover_preview.visible = false
 		return
 
-	print(grid_coords)
 	if grid_coords != null and not occupied_cells.has(grid_coords):
-		hover_preview.position = get_world_position(grid_coords.x, grid_coords.y)
+		hover_preview.position = tile_map.map_to_local(grid_coords)
 		hover_preview.visible = true
 
 		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

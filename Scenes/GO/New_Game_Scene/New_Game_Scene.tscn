@@ -28,6 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Node2D" type="Control" parent="."]
 layout_mode = 1
@@ -36,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_r3ime")
 
 [node name="Grid" type="TextureRect" parent="Node2D"]
@@ -59,17 +60,18 @@ expand_mode = 1
 position = Vector2(58.5, 53.5)
 tile_set = SubResource("TileSet_wo2kj")
 
-[node name="Intersections" type="Node2D" parent="Node2D"]
+[node name="Intersections" type="Node2D" parent="Node2D/Grid"]
+position = Vector2(58.5, 53.5)
 
-[node name="WhitePebble" parent="Node2D/Intersections" instance=ExtResource("3_7fw1c")]
+[node name="WhitePebble" parent="Node2D/Grid/Intersections" instance=ExtResource("3_7fw1c")]
 visible = false
 position = Vector2(-15, -70)
 
-[node name="BlackPebble" parent="Node2D/Intersections" instance=ExtResource("4_shkll")]
+[node name="BlackPebble" parent="Node2D/Grid/Intersections" instance=ExtResource("4_shkll")]
 visible = false
 position = Vector2(-17, -78)
 
-[node name="HoverFlower" parent="Node2D/Intersections" instance=ExtResource("5_shkll")]
+[node name="HoverFlower" parent="Node2D/Grid/Intersections" instance=ExtResource("5_shkll")]
 visible = false
 position = Vector2(-19, -73)
 
@@ -349,30 +351,27 @@ text = "X"
 flat = true
 
 [node name="Winner" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="Winner"]
 custom_minimum_size = Vector2(-0.45, 0)
-offset_top = -2.0
-offset_right = 1154.0
-offset_bottom = 642.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Winner/PanelContainer"]
+[node name="Rows" type="VBoxContainer" parent="Winner/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 87
+alignment = 1
 
-[node name="Rows" type="VBoxContainer" parent="Winner/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Winner_Label" type="Label" parent="Winner/PanelContainer/MarginContainer/Rows"]
+[node name="Winner_Label" type="Label" parent="Winner/PanelContainer/Rows"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ap72t")
 theme_override_font_sizes/font_size = 61
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="Winner/PanelContainer/MarginContainer/Rows"]
+[node name="Label" type="Label" parent="Winner/PanelContainer/Rows"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_ap72t")
 theme_override_font_sizes/font_size = 61
@@ -380,21 +379,21 @@ text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Restart_panel" type="Button" parent="Winner/PanelContainer/MarginContainer/Rows"]
+[node name="Restart_panel" type="Button" parent="Winner/PanelContainer/Rows"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.0352941, 0.466667, 0.2, 1)
 theme_override_fonts/font = ExtResource("7_ap72t")
 theme_override_font_sizes/font_size = 51
 text = "RESTART"
 
-[node name="GoMenu_panel" type="Button" parent="Winner/PanelContainer/MarginContainer/Rows"]
+[node name="GoMenu_panel" type="Button" parent="Winner/PanelContainer/Rows"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1.40782e-06, 0.416489, 0.0833902, 1)
 theme_override_fonts/font = ExtResource("7_ap72t")
 theme_override_font_sizes/font_size = 36
 text = "GO MENU"
 
-[node name="MainMenu_panel" type="Button" parent="Winner/PanelContainer/MarginContainer/Rows"]
+[node name="MainMenu_panel" type="Button" parent="Winner/PanelContainer/Rows"]
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.0352941, 0.466667, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0.0352941, 0.466667, 0.2, 1)
@@ -405,6 +404,6 @@ text = "MAIN MENU"
 [connection signal="pressed" from="Node2D/ResetButton" to="Node2D" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Node2D/Pass" to="Node2D" method="_on_pass_pressed"]
 [connection signal="pressed" from="Node2D/GoExit/Exit" to="Node2D" method="_on_exit_pressed"]
-[connection signal="pressed" from="Winner/PanelContainer/MarginContainer/Rows/Restart_panel" to="Node2D" method="_on_restart_panel_pressed"]
-[connection signal="pressed" from="Winner/PanelContainer/MarginContainer/Rows/GoMenu_panel" to="Node2D" method="_on_go_menu_panel_pressed"]
-[connection signal="pressed" from="Winner/PanelContainer/MarginContainer/Rows/MainMenu_panel" to="Node2D" method="_on_main_menu_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/Rows/Restart_panel" to="Node2D" method="_on_restart_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/Rows/GoMenu_panel" to="Node2D" method="_on_go_menu_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/Rows/MainMenu_panel" to="Node2D" method="_on_main_menu_panel_pressed"]
