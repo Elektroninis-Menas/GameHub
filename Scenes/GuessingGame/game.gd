@@ -95,3 +95,15 @@ static func check_guess(guess: String, solution: String) -> Array[GuessControl.L
 		rez[i] = letter_type
 		
 	return rez
+
+func reveal_hint() -> String:	
+	var word = guess_control.get_last_entered_word()
+	print(target_word + " " + word)
+	for i in range(target_word.length()):
+		if target_word[i] == word[i]:
+			print(target_word[i] + " " + word[i])
+			pass
+		else:
+			return "Raidė '{l}' yra {i} pozicijoje.".format({"l": target_word[i], "i": i+1})
+
+	return "Daugiau patarimų nėra – visos raidės jau įrašytos teisingai."
