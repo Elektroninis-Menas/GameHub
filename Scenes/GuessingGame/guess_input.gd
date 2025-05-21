@@ -1,5 +1,5 @@
 extends HBoxContainer
-## Guess game input for inputing a word in letter boxes
+## Guess game input for inputing a word in single letter [class LineEdit] inputs 
 class_name GuessInput
 
 var inputs: Array[LineEdit]

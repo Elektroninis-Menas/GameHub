@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://crf864admsixw" path="res://Scenes/GuessingGame/guess_input.tres" id="5_y186u"]
 [ext_resource type="Script" uid="uid://bbk24jskjy1kn" path="res://Scenes/GuessingGame/exit_button.gd" id="5_yisjd"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("win_window", "result_label", "attempts_label", "guess_control", "submit_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ro40q")
+win_window = NodePath("winwindow")
+result_label = NodePath("winwindow/win")
+attempts_label = NodePath("Label2")
+guess_control = NodePath("Buttons/GuessControl")
+submit_button = NodePath("Buttons/SubmitButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

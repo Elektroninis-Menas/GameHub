@@ -1,10 +1,10 @@
 extends Control
 
-@onready var win_window: Window = $"winwindow"
-@onready var result_label: Label = $"winwindow/win"
-@onready var attempts_label: Label = $"Label2"
-@onready var guess_control: GuessControl = $"Buttons/GuessControl"
-@onready var submit_button: Button = $Buttons/SubmitButton
+@export var win_window: Window
+@export var result_label: Label
+@export var attempts_label: Label
+@export var guess_control: GuessControl
+@export var submit_button: Button
 
 const WORDS_PATH = "res://Scenes/GuessingGame/a_words.txt"
 
