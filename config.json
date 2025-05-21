@@ -2,14 +2,10 @@
  "background_color": "262626ff",
  "compact_mode": false,
  "configured_dirs": [
-  "res://Unit_testing/GoGame",
   "res://test",
-  "res://Unit_testing/GoGame"
  ],
  "dirs": [
-  "res://Unit_testing/GoGame",
   "res://test",
-  "res://Unit_testing/GoGame"
  ],
  "disable_colors": false,
  "double_strategy": 1,
