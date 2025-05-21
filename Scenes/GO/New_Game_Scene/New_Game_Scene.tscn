@@ -1,14 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxjakvtva07db"]
+[gd_scene load_steps=15 format=3 uid="uid://cxjakvtva07db"]
 
 [ext_resource type="Script" uid="uid://ddffx40vf77lj" path="res://Scenes/GO/New_Game_Scene/node_2d.gd" id="1_r3ime"]
 [ext_resource type="Texture2D" uid="uid://bap5b28j2c53n" path="res://Scenes/GO/New_Game_Scene/grid2.png" id="2_shkll"]
+[ext_resource type="PackedScene" uid="uid://c8gdg161qhsab" path="res://Scenes/GO/New_Game_Scene/white_pebble.tscn" id="3_7fw1c"]
+[ext_resource type="PackedScene" uid="uid://d0khur64q0flg" path="res://Scenes/GO/New_Game_Scene/black_pebble.tscn" id="4_shkll"]
+[ext_resource type="PackedScene" uid="uid://crg2ovhdi8j4a" path="res://Scenes/GO/New_Game_Scene/hover_flower.tscn" id="5_shkll"]
 [ext_resource type="Texture2D" uid="uid://bekqr8fh6gmp0" path="res://Scenes/GO/New_Game_Scene/greyheart.png" id="6_6ejpx"]
+[ext_resource type="FontFile" uid="uid://ckcbuk3n5p7f6" path="res://Scenes/GO/joystix monospace.otf" id="7_ap72t"]
 [ext_resource type="Texture2D" uid="uid://ddrwm3wvdbh0a" path="res://Scenes/GO/New_Game_Scene/blackheart.png" id="7_gpano"]
+[ext_resource type="Texture2D" uid="uid://nxo4do8uy4vv" path="res://Scenes/GO/GO_exit.png" id="10_1mdkj"]
 
-[sub_resource type="TileSet" id="TileSet_6ejpx"]
+[sub_resource type="TileSet" id="TileSet_wo2kj"]
 tile_size = Vector2i(46, 46)
 
-[node name="Node2D" type="Control" node_paths=PackedStringArray("stones_container", "turn_label", "white_captures_label", "black_captures_label", "grey_l1", "grey_l2", "black_l1", "black_l2", "tile_map")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5iok"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kobvd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nwngj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wo2kj"]
+
+[node name="NewGameScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,18 +29,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("1_r3ime")
-stones_container = NodePath("Grid/StonesContainer")
-turn_label = NodePath("VBoxContainer/TurnLabel")
-white_captures_label = NodePath("VBoxContainer/WhiteCaptures")
-black_captures_label = NodePath("VBoxContainer/BlackCaptures")
-grey_l1 = NodePath("VBoxContainer2/VBoxContainer/grey_l1")
-grey_l2 = NodePath("VBoxContainer2/VBoxContainer/grey_l2")
-black_l1 = NodePath("VBoxContainer2/VBoxContainer2/black_l1")
-black_l2 = NodePath("VBoxContainer2/VBoxContainer2/black_l2")
-tile_map = NodePath("Grid/TileMapLayer")
 
-[node name="Grid" type="TextureRect" parent="."]
+[node name="Node2D" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_r3ime")
+
+[node name="Grid" type="TextureRect" parent="Node2D"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,216 +56,354 @@ grow_vertical = 2
 texture = ExtResource("2_shkll")
 expand_mode = 1
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Grid"]
-position = Vector2(55.5, 50.5)
-tile_set = SubResource("TileSet_6ejpx")
+[node name="TileMapLayer" type="TileMapLayer" parent="Node2D/Grid"]
+position = Vector2(58.5, 53.5)
+tile_set = SubResource("TileSet_wo2kj")
 
-[node name="StonesContainer" type="Node2D" parent="Grid"]
-position = Vector2(55, 50)
+[node name="Intersections" type="Node2D" parent="Node2D/Grid"]
+position = Vector2(58.5, 53.5)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-offset_left = 23.0
-offset_top = 23.0
-offset_right = 165.0
-offset_bottom = 154.0
+[node name="WhitePebble" parent="Node2D/Grid/Intersections" instance=ExtResource("3_7fw1c")]
+visible = false
+position = Vector2(-15, -70)
 
-[node name="TurnLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "1"
+[node name="BlackPebble" parent="Node2D/Grid/Intersections" instance=ExtResource("4_shkll")]
+visible = false
+position = Vector2(-17, -78)
 
-[node name="WhiteCaptures" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "WHITE CAPTURED:"
+[node name="HoverFlower" parent="Node2D/Grid/Intersections" instance=ExtResource("5_shkll")]
+visible = false
+position = Vector2(-19, -73)
 
-[node name="BlackCaptures" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "BLACK CAPTURED:"
-
-[node name="ResetButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -192.0
-offset_top = -98.0
-offset_right = -47.0
-offset_bottom = -48.0
-grow_horizontal = 0
-grow_vertical = 0
-action_mode = 0
-text = "RESET"
-
-[node name="Pass" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -98.0
-offset_right = 197.0
-offset_bottom = -48.0
-grow_vertical = 0
-text = "PASS"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+[node name="TurnLabel" type="Label" parent="Node2D"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 290.0
-offset_top = -104.0
-offset_right = 516.0
-offset_bottom = 104.0
+offset_left = 291.0
+offset_top = -160.0
+offset_right = 500.0
+offset_bottom = -134.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 21
+text = "Black's Turn"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
-layout_mode = 2
+[node name="ResetButton" type="Button" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -242.0
+offset_top = -121.0
+offset_right = -31.0
+offset_bottom = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(0, 0.368094, 0.0583119, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 47
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_w5iok")
+action_mode = 0
+text = "RESET"
 
-[node name="grey_l1" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
+[node name="Pass" type="Button" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = -118.0
+offset_right = 270.0
+offset_bottom = -39.0
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(0.0686854, 0.432829, 0, 1)
+theme_override_colors/icon_hover_color = Color(4.09111e-07, 0.323575, 0.22434, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 49
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kobvd")
+text = "PASS"
 
-[node name="grey1" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey_l1" type="HBoxContainer" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 280.0
+offset_top = -118.0
+offset_right = 496.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="grey1" type="TextureRect" parent="Node2D/grey_l1"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey2" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey2" type="TextureRect" parent="Node2D/grey_l1"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey3" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey3" type="TextureRect" parent="Node2D/grey_l1"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey4" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey4" type="TextureRect" parent="Node2D/grey_l1"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey5" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey5" type="TextureRect" parent="Node2D/grey_l1"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey_l2" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
+[node name="grey_l2" type="HBoxContainer" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 280.0
+offset_top = -74.0
+offset_right = 496.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="grey6" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l2"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-texture = ExtResource("6_6ejpx")
-expand_mode = 5
-
-[node name="grey7" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l2"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-texture = ExtResource("6_6ejpx")
-expand_mode = 5
-
-[node name="grey8" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey6" type="TextureRect" parent="Node2D/grey_l2"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey9" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey7" type="TextureRect" parent="Node2D/grey_l2"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="grey10" type="TextureRect" parent="VBoxContainer2/VBoxContainer/grey_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="grey8" type="TextureRect" parent="Node2D/grey_l2"]
 layout_mode = 2
 texture = ExtResource("6_6ejpx")
-expand_mode = 5
+expand_mode = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer2"]
+[node name="grey9" type="TextureRect" parent="Node2D/grey_l2"]
 layout_mode = 2
+texture = ExtResource("6_6ejpx")
+expand_mode = 3
 
-[node name="black_l1" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer2"]
+[node name="grey10" type="TextureRect" parent="Node2D/grey_l2"]
 layout_mode = 2
-size_flags_horizontal = 0
+texture = ExtResource("6_6ejpx")
+expand_mode = 3
 
-[node name="black1" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l1"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-texture = ExtResource("7_gpano")
-expand_mode = 5
+[node name="black_l1" type="HBoxContainer" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 284.0
+offset_top = -6.0
+offset_right = 500.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="black2" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l1"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-texture = ExtResource("7_gpano")
-expand_mode = 5
-
-[node name="black3" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l1"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-texture = ExtResource("7_gpano")
-expand_mode = 5
-
-[node name="black4" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black1" type="TextureRect" parent="Node2D/black_l1"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[node name="black5" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l1"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black2" type="TextureRect" parent="Node2D/black_l1"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[node name="black_l2" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="black6" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black3" type="TextureRect" parent="Node2D/black_l1"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[node name="black7" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black4" type="TextureRect" parent="Node2D/black_l1"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[node name="black8" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black5" type="TextureRect" parent="Node2D/black_l1"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[node name="black9" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black_l2" type="HBoxContainer" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 285.0
+offset_top = 38.0
+offset_right = 501.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="black6" type="TextureRect" parent="Node2D/black_l2"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[node name="black10" type="TextureRect" parent="VBoxContainer2/VBoxContainer2/black_l2"]
-custom_minimum_size = Vector2(42, 0)
+[node name="black7" type="TextureRect" parent="Node2D/black_l2"]
 layout_mode = 2
 texture = ExtResource("7_gpano")
-expand_mode = 5
+expand_mode = 3
 
-[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="Pass" to="." method="_on_pass_pressed"]
+[node name="black8" type="TextureRect" parent="Node2D/black_l2"]
+layout_mode = 2
+texture = ExtResource("7_gpano")
+expand_mode = 3
+
+[node name="black9" type="TextureRect" parent="Node2D/black_l2"]
+layout_mode = 2
+texture = ExtResource("7_gpano")
+expand_mode = 3
+
+[node name="black10" type="TextureRect" parent="Node2D/black_l2"]
+layout_mode = 2
+texture = ExtResource("7_gpano")
+expand_mode = 3
+
+[node name="GoExit" type="TextureRect" parent="Node2D"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -133.0
+offset_top = 10.0
+offset_right = 891.0
+offset_bottom = 1034.0
+grow_horizontal = 0
+scale = Vector2(0.119873, 0.116211)
+texture = ExtResource("10_1mdkj")
+
+[node name="Exit" type="Button" parent="Node2D/GoExit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 427
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nwngj")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wo2kj")
+text = "X"
+flat = true
+
+[node name="Winner" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="Winner"]
+custom_minimum_size = Vector2(-0.45, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rows" type="VBoxContainer" parent="Winner/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Winner_Label" type="Label" parent="Winner/PanelContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 61
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Winner/PanelContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 61
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart_panel" type="Button" parent="Winner/PanelContainer/Rows"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.0352941, 0.466667, 0.2, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 51
+text = "RESTART"
+
+[node name="GoMenu_panel" type="Button" parent="Winner/PanelContainer/Rows"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1.40782e-06, 0.416489, 0.0833902, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 36
+text = "GO MENU"
+
+[node name="MainMenu_panel" type="Button" parent="Winner/PanelContainer/Rows"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.0352941, 0.466667, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.0352941, 0.466667, 0.2, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 36
+text = "MAIN MENU"
+
+[connection signal="pressed" from="Node2D/ResetButton" to="Node2D" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Node2D/Pass" to="Node2D" method="_on_pass_pressed"]
+[connection signal="pressed" from="Node2D/GoExit/Exit" to="Node2D" method="_on_exit_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/Rows/Restart_panel" to="Node2D" method="_on_restart_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/Rows/GoMenu_panel" to="Node2D" method="_on_go_menu_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/Rows/MainMenu_panel" to="Node2D" method="_on_main_menu_panel_pressed"]

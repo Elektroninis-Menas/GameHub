@@ -1,36 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://c42auk0ldtuiw"]
+[gd_scene load_steps=10 format=3 uid="uid://c42auk0ldtuiw"]
 
-[ext_resource type="Texture2D" uid="uid://cxxrahw5fj6h8" path="res://Scenes/GO/Go_bg.png" id="1_dnk5a"]
-[ext_resource type="Texture2D" uid="uid://ccxo0r6e3qoaw" path="res://Scenes/GO/GO.png" id="2_dnk5a"]
+[ext_resource type="Texture2D" uid="uid://s7bsg5vrbtr5" path="res://Scenes/GO/BG.png" id="1_3dp00"]
 [ext_resource type="Script" uid="uid://b7udxnoxkwy8e" path="res://Scenes/GO/menu.gd" id="3_2rcna"]
 [ext_resource type="Texture2D" uid="uid://nxo4do8uy4vv" path="res://Scenes/GO/GO_exit.png" id="4_2nvgp"]
-[ext_resource type="Texture2D" uid="uid://bqpralxypfwrn" path="res://Scenes/GO/GO_button.png" id="5_58d7q"]
 [ext_resource type="Script" uid="uid://c6qiur67r20c3" path="res://Scenes/GO/rules_button.gd" id="6_2rcna"]
+[ext_resource type="FontFile" uid="uid://ckcbuk3n5p7f6" path="res://Scenes/GO/joystix monospace.otf" id="6_3dp00"]
 [ext_resource type="Script" uid="uid://wxm5ee0m06ub" path="res://Scenes/GO/Rules_Window.gd" id="7_3dp00"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_58d7q"]
-content_margin_left = 30.0
-content_margin_top = 10.0
-content_margin_right = 30.0
-content_margin_bottom = 10.0
-texture = ExtResource("4_2nvgp")
-region_rect = Rect2(93, 108, 841, 829)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qvdl2"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2rcna"]
-content_margin_left = 50.0
-content_margin_top = 20.0
-content_margin_right = 50.0
-content_margin_bottom = 20.0
-texture = ExtResource("5_58d7q")
-region_rect = Rect2(66, 272, 885, 422)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_58d7q"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3dp00"]
-content_margin_left = 50.0
-content_margin_top = 20.0
-content_margin_right = 50.0
-content_margin_bottom = 20.0
-texture = ExtResource("5_58d7q")
-region_rect = Rect2(65, 277, 893, 419)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kinhi"]
 
 [node name="GoMenu" type="Control"]
 layout_mode = 3
@@ -47,102 +28,51 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_dnk5a")
+texture = ExtResource("1_3dp00")
 expand_mode = 2
+flip_h = true
 
-[node name="GO_title" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -129.0
-offset_right = 129.0
-offset_bottom = 221.0
-grow_horizontal = 2
-texture = ExtResource("2_dnk5a")
-expand_mode = 1
-
-[node name="Exit" type="Button" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -126.0
-offset_top = 27.0
-offset_right = -35.0
-offset_bottom = 116.0
+offset_left = -164.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 150.0
 grow_horizontal = 0
-theme_override_colors/font_outline_color = Color(0.188235, 0.117647, 0.176471, 1)
-theme_override_colors/font_color = Color(0.941176, 0.913725, 0.752941, 1)
-theme_override_constants/outline_size = 15
+texture = ExtResource("4_2nvgp")
+expand_mode = 1
+
+[node name="Exit" type="Button" parent="TextureRect"]
+layout_mode = 2
+offset_left = 31.0
+offset_top = 30.0
+offset_right = 121.0
+offset_bottom = 108.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
 theme_override_font_sizes/font_size = 50
-theme_override_styles/focus = SubResource("StyleBoxTexture_58d7q")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_58d7q")
-theme_override_styles/hover = SubResource("StyleBoxTexture_58d7q")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_58d7q")
-theme_override_styles/normal = SubResource("StyleBoxTexture_58d7q")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qvdl2")
 text = "X
 "
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -167.5
-offset_right = 330.0
-offset_bottom = 167.5
-grow_vertical = 2
-script = ExtResource("3_2rcna")
-
-[node name="Play" type="Button" parent="VBoxContainer2"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.184314, 0.113725, 0.172549, 1)
-theme_override_colors/font_color = Color(0.941176, 0.913725, 0.752941, 1)
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 50
-theme_override_styles/focus = SubResource("StyleBoxTexture_2rcna")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2rcna")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2rcna")
-theme_override_styles/hover = SubResource("StyleBoxTexture_2rcna")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_2rcna")
-theme_override_styles/normal = SubResource("StyleBoxTexture_2rcna")
-text = "PLAY"
-
-[node name="Rules" type="Button" parent="VBoxContainer2"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.176471, 0.109804, 0.172549, 1)
-theme_override_colors/font_color = Color(0.94902, 0.909804, 0.752941, 1)
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 50
-theme_override_styles/focus = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/normal = SubResource("StyleBoxTexture_3dp00")
-action_mode = 0
-text = "RULES
-"
-script = ExtResource("6_2rcna")
-
-[node name="Settings" type="Button" parent="VBoxContainer2"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.176471, 0.109804, 0.172549, 1)
-theme_override_colors/font_color = Color(0.94902, 0.909804, 0.752941, 1)
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 50
-theme_override_styles/focus = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3dp00")
-theme_override_styles/normal = SubResource("StyleBoxTexture_3dp00")
-text = "SETTINGS"
-
 [node name="Window" type="Window" parent="."]
 title = "RULES"
-position = Vector2i(40, 100)
-size = Vector2i(1075, 515)
+initial_position = 1
+size = Vector2i(500, 450)
 visible = false
 unresizable = true
 script = ExtResource("7_3dp00")
@@ -150,8 +80,11 @@ script = ExtResource("7_3dp00")
 [node name="CanvasLayer" type="CanvasLayer" parent="Window"]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Window/CanvasLayer"]
-offset_right = 429.135
-offset_bottom = 11293.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Go Rules (9x9 Board)
 Goal: Control more territory than your opponent.
 
@@ -165,12 +98,82 @@ Suicide: You can’t place a stone where it would have no liberties (unless it c
 
 Ko Rule: Don’t repeat the previous board position.
 
-End Game: When both players pass, the game ends.
-
-Scoring: Add your controlled territory + captured stones."
+End Game: When both players pass or someone captures 10 stones, the game ends."
 fit_content = true
 
-[connection signal="pressed" from="Exit" to="VBoxContainer2" method="_on_exit_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Play" to="VBoxContainer2" method="_on_play_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Rules" to="VBoxContainer2" method="_on_rules_pressed"]
-[connection signal="pressed" from="VBoxContainer2/Settings" to="VBoxContainer2" method="_on_settings_pressed"]
+[node name="MENU" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -92.0
+offset_right = 375.0
+offset_bottom = 92.0
+grow_vertical = 2
+script = ExtResource("3_2rcna")
+
+[node name="Play" type="Button" parent="MENU"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 95
+theme_override_styles/focus = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_58d7q")
+text = "PLAY"
+
+[node name="Rules" type="Button" parent="MENU"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 55
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kinhi")
+action_mode = 0
+text = "RULES
+"
+script = ExtResource("6_2rcna")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -181.5
+offset_right = 181.5
+offset_bottom = 176.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 146
+text = "GO!"
+
+[connection signal="pressed" from="TextureRect/Exit" to="MENU" method="_on_exit_pressed"]
+[connection signal="pressed" from="MENU/Play" to="MENU" method="_on_play_pressed"]
+[connection signal="pressed" from="MENU/Rules" to="MENU" method="_on_rules_pressed"]
