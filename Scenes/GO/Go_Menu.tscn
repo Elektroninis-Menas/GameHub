@@ -1,24 +1,35 @@
-[gd_scene load_steps=8 format=3 uid="uid://c42auk0ldtuiw"]
+[gd_scene load_steps=13 format=3 uid="uid://c42auk0ldtuiw"]
 
-[ext_resource type="Texture2D" uid="uid://cxxrahw5fj6h8" path="res://Scenes/GO/Go_bg.png" id="1_dnk5a"]
+[ext_resource type="Texture2D" uid="uid://s7bsg5vrbtr5" path="res://Scenes/GO/BG.png" id="1_3dp00"]
 [ext_resource type="Texture2D" uid="uid://ccxo0r6e3qoaw" path="res://Scenes/GO/GO.png" id="2_dnk5a"]
 [ext_resource type="Script" uid="uid://b7udxnoxkwy8e" path="res://Scenes/GO/menu.gd" id="3_2rcna"]
 [ext_resource type="Texture2D" uid="uid://nxo4do8uy4vv" path="res://Scenes/GO/GO_exit.png" id="4_2nvgp"]
 [ext_resource type="Texture2D" uid="uid://bqpralxypfwrn" path="res://Scenes/GO/GO_button.png" id="5_58d7q"]
 [ext_resource type="Script" uid="uid://c6qiur67r20c3" path="res://Scenes/GO/rules_button.gd" id="6_2rcna"]
+[ext_resource type="FontFile" uid="uid://ckcbuk3n5p7f6" path="res://Scenes/GO/joystix monospace.otf" id="6_3dp00"]
 [ext_resource type="Script" uid="uid://wxm5ee0m06ub" path="res://Scenes/GO/Rules_Window.gd" id="7_3dp00"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_58d7q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4k8cm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kinhi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qvdl2"]
 
 [node name="GoMenu" type="Node2D"]
 
 [node name="GO_bg" type="TextureRect" parent="."]
 offset_left = 5.0
 offset_top = 3.0
-offset_right = 1160.0
-offset_bottom = 656.0
-texture = ExtResource("1_dnk5a")
+offset_right = 1153.0
+offset_bottom = 649.0
+texture = ExtResource("1_3dp00")
 expand_mode = 2
+flip_h = true
 
 [node name="GO_title" type="TextureRect" parent="GO_bg"]
+visible = false
 layout_mode = 0
 offset_left = 448.0
 offset_top = -15.0
@@ -46,6 +57,7 @@ texture = ExtResource("4_2nvgp")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="MENU"]
+visible = false
 layout_mode = 0
 offset_left = -208.0
 offset_top = -290.0
@@ -55,6 +67,7 @@ texture = ExtResource("5_58d7q")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="MENU"]
+visible = false
 layout_mode = 0
 offset_left = -214.0
 offset_top = -131.0
@@ -64,6 +77,7 @@ texture = ExtResource("5_58d7q")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="MENU"]
+visible = false
 layout_mode = 0
 offset_left = -217.0
 offset_top = 34.0
@@ -81,29 +95,77 @@ offset_bottom = 230.0
 
 [node name="Play" type="Button" parent="MENU"]
 layout_mode = 2
-offset_left = -134.0
-offset_top = -164.0
-offset_right = 50.0
-offset_bottom = -63.0
-theme_override_font_sizes/font_size = 50
+offset_left = -166.0
+offset_top = -147.0
+offset_right = 149.0
+offset_bottom = -33.0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 95
+theme_override_styles/focus = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_58d7q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_58d7q")
 text = "PLAY"
 
 [node name="Settings" type="Button" parent="MENU"]
 layout_mode = 2
-offset_left = -193.0
-offset_top = 143.0
-offset_right = 128.0
-offset_bottom = 264.0
-theme_override_font_sizes/font_size = 50
+offset_left = -222.0
+offset_top = 18.0
+offset_right = 109.0
+offset_bottom = 120.0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_4k8cm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4k8cm")
 text = "SETTINGS"
 
 [node name="Rules" type="Button" parent="MENU"]
 layout_mode = 2
-offset_left = -189.0
-offset_top = -18.0
-offset_right = 128.0
-offset_bottom = 108.0
-theme_override_font_sizes/font_size = 50
+offset_left = -186.0
+offset_top = -44.0
+offset_right = 92.0
+offset_bottom = 44.0
+theme_override_colors/font_hover_color = Color(0, 0.745098, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 55
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kinhi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kinhi")
 action_mode = 0
 text = "RULES
 "
@@ -115,7 +177,21 @@ offset_left = 781.0
 offset_top = -267.0
 offset_right = 871.0
 offset_bottom = -189.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("6_3dp00")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qvdl2")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qvdl2")
 text = "X
 "
 
@@ -145,10 +221,20 @@ Suicide: You can’t place a stone where it would have no liberties (unless it c
 
 Ko Rule: Don’t repeat the previous board position.
 
-End Game: When both players pass, the game ends.
-
-Scoring: Add your controlled territory + captured stones."
+End Game: When both players pass or someone captures 10 stones, the game ends."
 fit_content = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 460.0
+offset_top = -10.0
+offset_right = 823.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/font = ExtResource("6_3dp00")
+theme_override_font_sizes/font_size = 146
+text = "GO!"
 
 [connection signal="pressed" from="MENU/Play" to="MENU" method="_on_play_pressed"]
 [connection signal="pressed" from="MENU/Settings" to="MENU" method="_on_settings_pressed"]

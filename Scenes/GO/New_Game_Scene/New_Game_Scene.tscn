@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxjakvtva07db"]
+[gd_scene load_steps=13 format=3 uid="uid://cxjakvtva07db"]
 
 [ext_resource type="Script" uid="uid://ddffx40vf77lj" path="res://Scenes/GO/New_Game_Scene/node_2d.gd" id="1_r3ime"]
 [ext_resource type="Texture2D" uid="uid://bap5b28j2c53n" path="res://Scenes/GO/New_Game_Scene/grid2.png" id="2_shkll"]
@@ -6,7 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://d0khur64q0flg" path="res://Scenes/GO/New_Game_Scene/black_pebble.tscn" id="4_shkll"]
 [ext_resource type="PackedScene" uid="uid://crg2ovhdi8j4a" path="res://Scenes/GO/New_Game_Scene/hover_flower.tscn" id="5_shkll"]
 [ext_resource type="Texture2D" uid="uid://bekqr8fh6gmp0" path="res://Scenes/GO/New_Game_Scene/greyheart.png" id="6_6ejpx"]
+[ext_resource type="FontFile" uid="uid://ckcbuk3n5p7f6" path="res://Scenes/GO/joystix monospace.otf" id="7_ap72t"]
 [ext_resource type="Texture2D" uid="uid://ddrwm3wvdbh0a" path="res://Scenes/GO/New_Game_Scene/blackheart.png" id="7_gpano"]
+[ext_resource type="Texture2D" uid="uid://nxo4do8uy4vv" path="res://Scenes/GO/GO_exit.png" id="10_1mdkj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5iok"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kobvd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wo2kj"]
 
 [node name="NewGameScene" type="Node2D"]
 
@@ -23,66 +31,77 @@ expand_mode = 1
 [node name="Intersections" type="Node2D" parent="Node2D"]
 
 [node name="WhitePebble" parent="Node2D/Intersections" instance=ExtResource("3_7fw1c")]
-position = Vector2(-14.5, -16)
+position = Vector2(-15, -70)
 
 [node name="BlackPebble" parent="Node2D/Intersections" instance=ExtResource("4_shkll")]
-position = Vector2(-16, -17)
+position = Vector2(-17, -78)
 
 [node name="HoverFlower" parent="Node2D/Intersections" instance=ExtResource("5_shkll")]
-position = Vector2(-14, -18)
+position = Vector2(-19, -73)
 
 [node name="TurnLabel" type="Label" parent="Node2D"]
-offset_left = -281.0
-offset_top = 25.0
-offset_right = 7.0
-offset_bottom = 120.0
-
-[node name="WhiteCaptures" type="Label" parent="Node2D"]
-offset_left = -266.0
-offset_top = 156.0
-offset_right = -20.0
-offset_bottom = 236.0
-text = "WHITE CAPTURED:"
-
-[node name="BlackCaptures" type="Label" parent="Node2D"]
-offset_left = -267.0
-offset_top = 272.0
-offset_right = -43.0
-offset_bottom = 366.0
-text = "BLACK CAPTURED:"
-
-[node name="BlackCount" type="Label" parent="Node2D"]
-offset_left = -263.0
-offset_top = 299.0
-offset_right = -129.0
-offset_bottom = 378.0
-
-[node name="WhiteCount" type="Label" parent="Node2D"]
-offset_left = -261.0
-offset_top = 183.0
-offset_right = -129.0
-offset_bottom = 254.0
+offset_left = 581.0
+offset_top = 68.0
+offset_right = 869.0
+offset_bottom = 163.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 21
 
 [node name="ResetButton" type="Button" parent="Node2D"]
-offset_left = 619.0
-offset_top = 509.0
-offset_right = 828.0
-offset_bottom = 607.0
+offset_left = 603.0
+offset_top = 506.0
+offset_right = 814.0
+offset_bottom = 596.0
+theme_override_colors/font_hover_color = Color(0, 0.368094, 0.0583119, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 47
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w5iok")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_w5iok")
 action_mode = 0
 text = "RESET"
 
 [node name="Pass" type="Button" parent="Node2D"]
-offset_left = -279.0
-offset_top = 528.0
-offset_right = -42.0
-offset_bottom = 607.0
+offset_left = -272.0
+offset_top = 509.0
+offset_right = -35.0
+offset_bottom = 588.0
+theme_override_colors/font_hover_color = Color(0.0686854, 0.432829, 0, 1)
+theme_override_colors/icon_hover_color = Color(4.09111e-07, 0.323575, 0.22434, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 49
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kobvd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kobvd")
 text = "PASS"
 
 [node name="grey_l1" type="HBoxContainer" parent="Node2D"]
-offset_left = 578.0
-offset_top = 54.0
-offset_right = 618.0
-offset_bottom = 94.0
+offset_left = 576.0
+offset_top = 117.0
+offset_right = 792.0
+offset_bottom = 157.0
 
 [node name="grey1" type="TextureRect" parent="Node2D/grey_l1"]
 layout_mode = 2
@@ -110,10 +129,10 @@ texture = ExtResource("6_6ejpx")
 expand_mode = 3
 
 [node name="grey_l2" type="HBoxContainer" parent="Node2D"]
-offset_left = 577.0
-offset_top = 89.0
-offset_right = 793.0
-offset_bottom = 129.0
+offset_left = 575.0
+offset_top = 152.0
+offset_right = 791.0
+offset_bottom = 192.0
 
 [node name="grey6" type="TextureRect" parent="Node2D/grey_l2"]
 layout_mode = 2
@@ -202,5 +221,91 @@ layout_mode = 2
 texture = ExtResource("7_gpano")
 expand_mode = 3
 
+[node name="GoExit" type="Sprite2D" parent="Node2D"]
+position = Vector2(-232, 35)
+scale = Vector2(0.119873, 0.116211)
+texture = ExtResource("10_1mdkj")
+
+[node name="Exit" type="Button" parent="Node2D"]
+offset_left = -280.0
+offset_top = -14.0
+offset_right = -184.0
+offset_bottom = 81.0
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 49
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_wo2kj")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wo2kj")
+text = "X"
+
+[node name="Winner" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="Winner"]
+custom_minimum_size = Vector2(-0.45, 0)
+offset_top = -2.0
+offset_right = 1154.0
+offset_bottom = 642.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Winner/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 87
+
+[node name="Rows" type="VBoxContainer" parent="Winner/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Winner_Label" type="Label" parent="Winner/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 61
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Winner/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 61
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart_panel" type="Button" parent="Winner/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.0352941, 0.466667, 0.2, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 51
+text = "RESTART"
+
+[node name="GoMenu_panel" type="Button" parent="Winner/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1.40782e-06, 0.416489, 0.0833902, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 36
+text = "GO MENU"
+
+[node name="MainMenu_panel" type="Button" parent="Winner/PanelContainer/MarginContainer/Rows"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.0352941, 0.466667, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.0352941, 0.466667, 0.2, 1)
+theme_override_fonts/font = ExtResource("7_ap72t")
+theme_override_font_sizes/font_size = 36
+text = "MAIN MENU"
+
 [connection signal="pressed" from="Node2D/ResetButton" to="Node2D" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Node2D/Pass" to="Node2D" method="_on_pass_pressed"]
+[connection signal="pressed" from="Node2D/Exit" to="Node2D" method="_on_exit_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/MarginContainer/Rows/Restart_panel" to="Node2D" method="_on_restart_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/MarginContainer/Rows/GoMenu_panel" to="Node2D" method="_on_go_menu_panel_pressed"]
+[connection signal="pressed" from="Winner/PanelContainer/MarginContainer/Rows/MainMenu_panel" to="Node2D" method="_on_main_menu_panel_pressed"]

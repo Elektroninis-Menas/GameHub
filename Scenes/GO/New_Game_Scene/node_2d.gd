@@ -16,32 +16,49 @@ var occupied_cells := {}  # Stores Vector2i -> bool (true for white, false for b
 @onready var highlight_scene = preload("res://Scenes/GO/New_Game_Scene/hover_flower.tscn")
 var last_player_passed := false  # Track if previous player passed
 var consecutive_passes := 0  
-@onready var white_captures_label = $WhiteCaptures
-@onready var black_captures_label = $BlackCaptures
-
 
 var hover_preview: Node2D
 var is_white_turn := true  # Start with white
 var white_captures := 0
 var black_captures := 0
 
+# Add reference to Winner canvas
+@onready var winner_canvas = $"../Winner"
+@onready var winner_label = $"../Winner/PanelContainer/MarginContainer/Rows/Winner_Label"
 
-func update_turn_label():
-	turn_label.text = "White's Turn" if is_white_turn else "Black's Turn"
-	
-func update_capture_labels():
-	white_captures_label.text = "White Captures: %d" % white_captures
-	black_captures_label.text = "Black Captures: %d" % black_captures
+# Win threshold
+const CAPTURE_WIN_THRESHOLD := 10
 
 
 func _ready():
-	hover_preview = highlight_scene.instantiate()
+	# Hide winner canvas at start
+	winner_canvas.visible = false
+	
+	hover_preview = white_pebble_scene.instantiate()  # Start with white pebble
 	hover_preview.modulate.a = 0.5
 	hover_preview.visible = false
 	stones_container.add_child(hover_preview)
 	is_white_turn = !is_white_turn 
-	update_capture_labels()
 	update_turn_label()
+	update_hover_preview()  # Set initial hover preview
+
+func update_turn_label():
+	turn_label.text = "White's Turn" if is_white_turn else "Black's Turn"
+
+func update_hover_preview():
+	# Remove current hover preview
+	if hover_preview:
+		hover_preview.queue_free()
+	
+	# Create new hover preview based on current turn
+	if is_white_turn:
+		hover_preview = white_pebble_scene.instantiate()
+	else:
+		hover_preview = black_pebble_scene.instantiate()
+	
+	hover_preview.modulate.a = 0.5
+	hover_preview.visible = false
+	stones_container.add_child(hover_preview)
 
 func get_world_position(x: int, y: int) -> Vector2:
 	return Vector2(
@@ -103,41 +120,86 @@ func capture_group(group: Array):
 			if child.position == get_world_position(cell.x, cell.y):
 				child.queue_free()
 				break
-		# Increase capture count based on who captured
-		if is_white_turn:
-			white_captures += 1
-			update_grey_hearts(white_captures, "res://Scenes/GO/New_Game_Scene/greyheart_dead.png")
-		else:
-			black_captures += 1
-
+		
 		occupied_cells.erase(cell)
 
-	update_capture_labels()
+	# Increase capture count and update hearts based on who captured
+	if is_white_turn:
+		white_captures += group.size()
+		update_hearts(white_captures, "white")
+		check_win_condition("White")
+	else:
+		black_captures += group.size()
+		update_hearts(black_captures, "black")
+		check_win_condition("Black")
 
-func update_grey_hearts(capture_count: int, dead_texture_path: String):
-	var grey_heart_dead_texture = load(dead_texture_path)
-	var grey_heart_default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
+# New function to check if player has won
+func check_win_condition(player: String):
+	var captures = white_captures if player == "White" else black_captures
 	
-	# Reset both HBoxes first
+	if captures >= CAPTURE_WIN_THRESHOLD:
+		# Game over, show winner
+		declare_winner(player)
+
+# New function to declare winner
+func declare_winner(player: String):
+	# Set winner text
+	winner_label.text = player + " Wins!"
+	
+	# Show winner canvas
+	winner_canvas.visible = true
+	
+	# Disable input for the game
+	set_process_unhandled_input(false)
+
+func update_hearts(capture_count: int, player_color: String):
+	var dead_texture_path: String
+	var default_texture_path: String
+	
+	# Choose appropriate textures based on player color (flipped assignment)
+	if player_color == "white":
+		dead_texture_path = "res://Scenes/GO/New_Game_Scene/blackheart_dead.png"
+		default_texture_path = "res://Scenes/GO/New_Game_Scene/blackheart.png"
+	else:  # black player
+		dead_texture_path = "res://Scenes/GO/New_Game_Scene/greyheart_dead.png"
+		default_texture_path = "res://Scenes/GO/New_Game_Scene/greyheart.png"
+	
+	var dead_texture = load(dead_texture_path)
+	var default_texture = load(default_texture_path)
+	
+	# Update hearts for the capturing player (flipped assignments)
+	var hbox1_name: String
+	var hbox2_name: String
+	
+	if player_color == "white":
+		hbox1_name = "black_l1"  # White player uses black heart containers
+		hbox2_name = "black_l2"  # White player uses black heart containers
+	else:  # black player
+		hbox1_name = "grey_l1"  # Black player uses grey heart containers
+		hbox2_name = "grey_l2"  # Black player uses grey heart containers
+	
+	# Reset hearts first
 	for i in range(5):
-		$grey_l1.get_child(i).texture = grey_heart_default_texture
-		$grey_l2.get_child(i).texture = grey_heart_default_texture
+		if get_node(hbox1_name).get_child_count() > i:
+			get_node(hbox1_name).get_child(i).texture = default_texture
+		if get_node(hbox2_name).get_child_count() > i:
+			get_node(hbox2_name).get_child(i).texture = default_texture
 	
 	# Fill hearts based on capture count
 	if capture_count > 0:
 		# Determine how many hearts to fill in each HBox
-		var hearts_in_l1 = min(capture_count, 5)
-		var hearts_in_l2 = max(0, capture_count - 5)
+		var hearts_in_first = min(capture_count, 5)
+		var hearts_in_second = max(0, capture_count - 5)
 		
-		# Fill hearts in grey_l1
-		for i in range(hearts_in_l1):
-			$grey_l1.get_child(i).texture = grey_heart_dead_texture
+		# Fill hearts in first HBox, with bounds checking
+		for i in range(hearts_in_first):
+			if get_node(hbox1_name).get_child_count() > i:
+				get_node(hbox1_name).get_child(i).texture = dead_texture
 		
-		# Fill hearts in grey_l2
-		for i in range(hearts_in_l2):
-			$grey_l2.get_child(i).texture = grey_heart_dead_texture
-
-
+		# Fill hearts in second HBox, with bounds checking
+		for i in range(hearts_in_second):
+			if get_node(hbox2_name).get_child_count() > i:
+				get_node(hbox2_name).get_child(i).texture = dead_texture
 
 # === INPUT HANDLING ===
 func _unhandled_input(event):
@@ -198,35 +260,57 @@ func _unhandled_input(event):
 			# Change turn
 			is_white_turn = !is_white_turn
 			update_turn_label()
+			update_hover_preview()  # Update hover preview for new turn
 	else:
 		hover_preview.visible = false
 
 
 func _on_reset_button_pressed() -> void:
+	# Re-enable input processing
+	set_process_unhandled_input(true)
+	
+	# Hide winner canvas
+	winner_canvas.visible = false
+	
 	for child in stones_container.get_children():
-		# Keep hover_preview and all labels
-		if child != hover_preview and child != turn_label and child != white_captures_label and child != black_captures_label:
+		# Keep hover_preview and turn_label
+		if child != hover_preview and child != turn_label:
 			child.queue_free()
-			occupied_cells.clear()
-			white_captures = 0
-			black_captures = 0
-			is_white_turn = false
-			update_capture_labels()
-			update_turn_label()
-			last_player_passed = false
-			consecutive_passes = 0
-			hover_preview.visible = false
-	reset_grey_hearts()
+	
+	occupied_cells.clear()
+	white_captures = 0
+	black_captures = 0
+	is_white_turn = false
+	update_turn_label()
+	update_hover_preview()  # Reset hover preview to match turn
+	last_player_passed = false
+	consecutive_passes = 0
+	hover_preview.visible = false
+	reset_all_hearts()
 	
 	
-func reset_grey_hearts():
-	var default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
-	for i in range(5):
-		var texture_rect = $grey_l1.get_child(i)
-		texture_rect.texture = default_texture
-	for i in range(5):
-		var texture_rect = $grey_l2.get_child(i)
-		texture_rect.texture = default_texture
+func reset_all_hearts():
+	# Reset white player hearts (now using black heart textures)
+	var black_default_texture = load("res://Scenes/GO/New_Game_Scene/blackheart.png")
+	if has_node("black_l1") and has_node("black_l2"):
+		for i in range(5):
+			if $black_l1.get_child_count() > i:
+				$black_l1.get_child(i).texture = black_default_texture
+			if $black_l2.get_child_count() > i:
+				$black_l2.get_child(i).texture = black_default_texture
+	
+	# Reset black player hearts (now using grey heart textures)
+	var grey_default_texture = load("res://Scenes/GO/New_Game_Scene/greyheart.png")
+	if has_node("grey_l1") and has_node("grey_l2"):
+		for i in range(5):
+			if $grey_l1.get_child_count() > i:
+				$grey_l1.get_child(i).texture = grey_default_texture
+			if $grey_l2.get_child_count() > i:
+				$grey_l2.get_child(i).texture = grey_default_texture
+
+# Add a new function for the play again button on the winner canvas
+func _on_play_again_button_pressed() -> void:
+	_on_reset_button_pressed()
 
 func _on_pass_pressed() -> void:
 	consecutive_passes += 1 if last_player_passed else 1
@@ -238,8 +322,25 @@ func _on_pass_pressed() -> void:
 		return
 	
 	# Switch turns
-		is_white_turn = !is_white_turn
-		update_turn_label()
+	is_white_turn = !is_white_turn
+	update_turn_label()
+	update_hover_preview()  # Update hover preview for new turn
 	
 	# Reset hover preview if visible
 	hover_preview.visible = false
+
+
+func _on_exit_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/GO/Go_Menu.tscn")
+
+
+func _on_main_menu_panel_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Main menu/Main menu.tscn")
+
+
+func _on_restart_panel_pressed() -> void:
+	_on_reset_button_pressed()
+
+
+func _on_go_menu_panel_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/GO/Go_Menu.tscn")
