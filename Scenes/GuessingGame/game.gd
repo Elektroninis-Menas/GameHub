@@ -24,7 +24,7 @@ func _ready():
 	target_word = word_list.pick_random()
 	print("Target word: ", target_word)
 
-## Loads a word list from [param fileName]
+## Loads a word list from [param folder_path]
 static func load_word_list_from_folder(folder_path: String) -> Array[String]:
 	var words: Array[String] = []
 	var dir = DirAccess.open(folder_path)
@@ -44,6 +44,7 @@ static func load_word_list_from_folder(folder_path: String) -> Array[String]:
 	print("Loaded ", words.size(), " words from folder ", folder_path)
 	return words
 
+## Loads a word list from [param file_path]
 static func load_word_list(file_path: String) -> Array[String]:
 	var valid: Array[String] = []
 	var file = FileAccess.open(file_path, FileAccess.READ)
